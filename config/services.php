@@ -40,4 +40,15 @@ return [
     'public_key' => env('MERCADO_PAGO_PUBLIC_KEY'),
     ],
 
+    'evolution' => [
+        'url' => env('EVOLUTION_API_URL'),
+        'api_key' => env('EVOLUTION_API_KEY'),
+        'instance_name' => env('EVOLUTION_INSTANCE_NAME'),
+        'webhook_url' => env('EVOLUTION_WEBHOOK_URL'),
+    ],
+
+    'n8n' => [
+        'webhook_url' => env('N8N_WEBHOOK_URL'),
+    ],
+
 ];

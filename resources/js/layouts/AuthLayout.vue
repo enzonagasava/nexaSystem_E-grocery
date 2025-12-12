@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import { LogOut, House } from 'lucide-vue-next';
 import DropdownButtonAdmin from '@/components/ui/dropdown-button/DropdownButtonAdmin.vue';
+import { Link, router } from '@inertiajs/vue3';
+import { House, LogOut } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 defineProps<{
     title?: string;
@@ -25,7 +25,6 @@ const handleLogout = () => {
 
 <template>
     <div class="flex min-h-screen">
-
         <header class="fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gray-800 px-4 py-4 text-white lg:hidden">
             <h2 class="text-lg font-bold">Painel Admin</h2>
 
@@ -37,10 +36,7 @@ const handleLogout = () => {
         </header>
 
         <transition name="slide">
-            <aside
-                v-if="isMenuOpen"
-                class="fixed inset-y-0 left-0 z-40 w-64 space-y-4 bg-gray-800 p-4 text-white lg:hidden"
-            >
+            <aside v-if="isMenuOpen" class="fixed inset-y-0 left-0 z-40 w-64 space-y-4 bg-gray-800 p-4 text-white lg:hidden">
                 <nav class="mt-10 space-y-2">
                     <Link :href="route('admin.dashboard')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Dashboard</Link>
                     <Link :href="route('anuncio.config')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Anúncios</Link>
@@ -48,26 +44,50 @@ const handleLogout = () => {
                     <Link :href="route('produtos.config')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Produtos</Link>
 
                     <DropdownButtonAdmin label="Clientes" class="relative">
-                        <Link :href="route('adicionar.clientes')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Adicionar Cliente</Link>
+                        <Link :href="route('adicionar.clientes')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700"
+                            >Adicionar Cliente</Link
+                        >
                         <Link :href="route('clientes.index')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Clientes</Link>
                     </DropdownButtonAdmin>
 
                     <DropdownButtonAdmin label="Pedidos" class="relative">
-                        <Link :href="route('admin.pedidos.create')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Adicionar Pedido</Link>
+                        <Link :href="route('admin.pedidos.create')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700"
+                            >Adicionar Pedido</Link
+                        >
                         <Link :href="route('admin.pedidos.index')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Pedidos</Link>
+                    </DropdownButtonAdmin>
+
+                    <DropdownButtonAdmin label="Atendimento" class="relative">
+                        <Link :href="route('admin.chat')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Chat</Link>
+                        <Link :href="route('admin.chat.settings')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700"
+                            >Configurações Gerais</Link
+                        >
                     </DropdownButtonAdmin>
 
                     <DropdownButtonAdmin label="Configurações" class="relative">
                         <Link :href="route('config.geral')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Acesso</Link>
-                        <Link :href="route('empresa.config.geral')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Informações da Empresa</Link>
-                        <Link :href="route('config.pagamento')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700">Métodos de Pagamento</Link>
+                        <Link :href="route('empresa.config.geral')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700"
+                            >Informações da Empresa</Link
+                        >
+                        <Link :href="route('config.pagamento')" @click="closeMenu" class="block rounded px-4 py-2 hover:bg-gray-700"
+                            >Métodos de Pagamento</Link
+                        >
                     </DropdownButtonAdmin>
 
                     <Link :href="route('home')" @click="closeMenu" class="flex w-full rounded px-2 py-2 hover:bg-gray-700">
                         <House class="mr-[0.5rem]" /> Ir para o site
                     </Link>
 
-                    <Link class="flex w-full rounded px-2 py-2 hover:bg-gray-700" method="post" :href="route('logout')" @click="handleLogout; closeMenu()" as="button">
+                    <Link
+                        class="flex w-full rounded px-2 py-2 hover:bg-gray-700"
+                        method="post"
+                        :href="route('logout')"
+                        @click="
+                            handleLogout;
+                            closeMenu();
+                        "
+                        as="button"
+                    >
                         <LogOut class="mr-[0.5rem]" />
                         Log out
                     </Link>
@@ -76,7 +96,7 @@ const handleLogout = () => {
         </transition>
 
         <!-- DESKTOP SIDEBAR -->
-        <aside class="fixed inset-y-0 left-0 w-64 space-y-4 bg-gray-800 p-4 text-white hidden lg:block">
+        <aside class="fixed inset-y-0 left-0 hidden w-64 space-y-4 bg-gray-800 p-4 text-white lg:block">
             <h2 class="mb-6 text-xl font-bold">Painel Admin</h2>
 
             <nav class="space-y-2">
@@ -93,6 +113,11 @@ const handleLogout = () => {
                 <DropdownButtonAdmin label="Pedidos" class="relative">
                     <Link :href="route('admin.pedidos.create')" class="block rounded px-4 py-2 hover:bg-gray-700">Adicionar Pedido</Link>
                     <Link :href="route('admin.pedidos.index')" class="block rounded px-4 py-2 hover:bg-gray-700">Pedidos</Link>
+                </DropdownButtonAdmin>
+
+                <DropdownButtonAdmin label="Atendimento" class="relative">
+                    <Link :href="route('admin.chat')" class="block rounded px-4 py-2 hover:bg-gray-700">Chat</Link>
+                    <Link :href="route('admin.chat.settings')" class="block rounded px-4 py-2 hover:bg-gray-700">Configurações Gerais</Link>
                 </DropdownButtonAdmin>
 
                 <DropdownButtonAdmin label="Configurações" class="relative">
@@ -112,7 +137,7 @@ const handleLogout = () => {
         </aside>
 
         <!-- MAIN -->
-        <main class="flex-1 bg-gray-100 p-6 mt-16 lg:ml-64 lg:mt-0">
+        <main class="mt-16 flex-1 bg-gray-100 p-6 lg:mt-0 lg:ml-64">
             <h1 class="mb-4 text-2xl font-semibold">{{ title }}</h1>
             <slot />
         </main>

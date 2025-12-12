@@ -1,40 +1,41 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { usePage, Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
+import { computed, ref } from 'vue';
 
 interface CartProps {
-    cart: Record<string, any>; 
+    cart: Record<string, any>;
 }
 
 const page = usePage<CartProps>();
 
 // Converte o objeto do carrinho em um array para o `v-for`
 const cartItems = ref(
-Object.entries(page.props.cart).map(([key, item]) => ({
-    key,
-    ...item,
-}))
+    Object.entries(page.props.cart).map(([key, item]) => ({
+        key,
+        ...item,
+    })),
 );
 
 const cepInput = ref('');
 
 function removeItem(key: string) {
-axios.delete(route('carrinho.remover', { cartItemId: key }))
-    .then(response => {
-    if (response.data.success) {
-        // Atualiza o estado local cartItems
-        cartItems.value = Object.entries(response.data.cart).map(([key, item]) => ({
-        key,
-        ...item,
-        }));
-    }
-    })
-    .catch(error => {
-    console.error('Erro ao remover item:', error);
-    });
+    axios
+        .delete(route('carrinho.remover', { cartItemId: key }))
+        .then((response) => {
+            if (response.data.success) {
+                // Atualiza o estado local cartItems
+                cartItems.value = Object.entries(response.data.cart).map(([key, item]) => ({
+                    key,
+                    ...item,
+                }));
+            }
+        })
+        .catch((error) => {
+            console.error('Erro ao remover item:', error);
+        });
 }
-    
+
 const calculateShipping = () => {
     if (cepInput.value.length === 8) {
         // Exemplo de validação simples para CEP
@@ -144,7 +145,10 @@ function decrementQuantity(item: any) {
                 </div>
             </div>
             <div class="mt-8 flex h-64 items-center justify-center rounded-lg bg-white p-6 text-center text-black">[Localização ou Mapa aqui]</div>
-            <Link :href="route('payment.index')" class="w-full rounded-md bg-green-600 px-6 py-2 font-semibold text-black transition duration-300 hover:bg-green-700 sm:w-auto">
+            <Link
+                :href="route('payment.index')"
+                class="w-full rounded-md bg-green-600 px-6 py-2 font-semibold text-black transition duration-300 hover:bg-green-700 sm:w-auto"
+            >
                 Próximo
             </Link>
         </div>

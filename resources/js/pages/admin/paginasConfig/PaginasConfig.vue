@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthLayout from '@/layouts/AuthLayout.vue';
-import { Head, Link, usePage } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const page = usePage();
@@ -18,11 +18,11 @@ const deleteProduct = (productId: number) => {
             },
             onError: () => {
                 alert(`Erro ao excluir o produto ID: ${productId}.`);
-            }
+            },
         });
         products.value = products.value.filter((p) => p.id !== productId);
     }
-}; 
+};
 </script>
 
 <template>
@@ -71,7 +71,7 @@ const deleteProduct = (productId: number) => {
                                             </div>
                                             <div class="text-sm font-medium text-gray-900">
                                                 <span class="font-extrabold">Data de criação: </span>{{ product.created_at }}
-                                            </div>                                            
+                                            </div>
                                         </td>
                                         <td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
                                             <Link

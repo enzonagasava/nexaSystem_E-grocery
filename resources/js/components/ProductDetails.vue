@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
-import ButtonAddCart from './ui/button/ButtonAddCart.vue';
-import { Navigation, Pagination, Thumbs } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { Navigation, Pagination, Thumbs } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { computed, ref } from 'vue';
+import ButtonAddCart from './ui/button/ButtonAddCart.vue';
 
 const activeModules = [Navigation, Thumbs, Pagination];
-
 
 const page = usePage();
 
@@ -17,19 +16,15 @@ const produto = ref(page.props.produto || {});
 
 const imagens = produto.value.imagens;
 
-const selectedWeight = ref(
-    produto.value.tamanhos && produto.value.tamanhos.length > 0
-        ? produto.value.tamanhos[0].nome
-        : ''
-);
+const selectedWeight = ref(produto.value.tamanhos && produto.value.tamanhos.length > 0 ? produto.value.tamanhos[0].nome : '');
 
-const imagem_paths = imagens.map(element => element.imagem_path);
+const imagem_paths = imagens.map((element) => element.imagem_path);
 const productStock = produto.value.estoque || 0;
 const quantidadeSelecionada = ref(1);
 
 const precoSelecionado = computed(() => {
     if (!produto.value || !Array.isArray(produto.value.tamanhos)) return 0;
-    const tamanho = produto.value.tamanhos.find(t => t.nome === selectedWeight.value);
+    const tamanho = produto.value.tamanhos.find((t) => t.nome === selectedWeight.value);
     return tamanho && tamanho.pivot ? parseFloat(tamanho.pivot.preco) : 0;
 });
 
@@ -50,8 +45,8 @@ const toggleShare = () => {
 </script>
 
 <template>
-    <div class="flex justify-center bg-gray-100 ">
-        <div class="flex min-h-screen justify-center px-4 py-12 sm:px-6 lg:px-8 flex-col">
+    <div class="flex justify-center bg-gray-100">
+        <div class="flex min-h-screen flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
             <div class="flex w-full max-w-7xl flex-col overflow-hidden rounded-lg bg-white shadow-xl md:flex-row">
                 <div class="flex w-full flex-col items-center p-6 md:w-1/2">
                     <div class="flex h-full w-full">
@@ -66,21 +61,22 @@ const toggleShare = () => {
                                 <img :src="thumb" alt="Miniatura" class="h-full w-full object-cover" />
                             </button>
                         </div>
-                        <Swiper :modules="activeModules"
-                                :slides-per-view="1"
-                                :navigation="{
+                        <Swiper
+                            :modules="activeModules"
+                            :slides-per-view="1"
+                            :navigation="{
                                 prevEl: '.custom-swiper-prev',
-                                nextEl: '.custom-swiper-next'
-                                }"
-                                :loop="true"
-                                :space-between="20"
-                                class="my-custom-swiper"
-    >
-                        <SwiperSlide v-for="(img, index) in imagem_paths" :key="index">
-                            <div class="flex h-full items-center justify-center overflow-hidden rounded-lg border border-gray-200">
-                            <img :src="`/storage/${img}`" :alt="productName" class="max-h-[500px] max-w-full object-contain" />
-                            </div>
-                        </SwiperSlide>
+                                nextEl: '.custom-swiper-next',
+                            }"
+                            :loop="true"
+                            :space-between="20"
+                            class="my-custom-swiper"
+                        >
+                            <SwiperSlide v-for="(img, index) in imagem_paths" :key="index">
+                                <div class="flex h-full items-center justify-center overflow-hidden rounded-lg border border-gray-200">
+                                    <img :src="`/storage/${img}`" :alt="productName" class="max-h-[500px] max-w-full object-contain" />
+                                </div>
+                            </SwiperSlide>
                             <template #container-end>
                                 <button class="custom-swiper-prev nav-btn" aria-label="Anterior"><i class="fa-solid fa-angle-left"></i></button>
                                 <button class="custom-swiper-next nav-btn" aria-label="Próximo"><i class="fa-solid fa-angle-right"></i></button>
@@ -116,17 +112,17 @@ const toggleShare = () => {
                         <label class="mb-2 block text-sm font-bold text-gray-700">Selecione a porção</label>
                         <div class="flex space-x-2">
                             <button
-                                    v-for="tamanho in produto.tamanhos"
-                                    :key="tamanho.nome"
-                                    @click="selectedWeight = tamanho.nome"
-                                    :class="{
+                                v-for="tamanho in produto.tamanhos"
+                                :key="tamanho.nome"
+                                @click="selectedWeight = tamanho.nome"
+                                :class="{
                                     'bg-[#6aab9c] text-white': selectedWeight === tamanho.nome,
                                     'border-gray-300 bg-white text-gray-700 hover:bg-gray-50': selectedWeight !== tamanho.nome,
-                                    }"
-                                    class="cursor-pointer rounded-md border-2 px-4 py-2 text-sm font-medium"
-                                >
-                                    {{ tamanho.nome }}
-                                </button>
+                                }"
+                                class="cursor-pointer rounded-md border-2 px-4 py-2 text-sm font-medium"
+                            >
+                                {{ tamanho.nome }}
+                            </button>
                         </div>
                     </div>
 
@@ -134,29 +130,29 @@ const toggleShare = () => {
                         <p class="mb-2 text-sm font-bold text-gray-700">Estoque disponível</p>
                         <div class="flex items-center">
                             <label class="mr-2 text-gray-900">Quantidade: </label>
-                            <select v-model="quantidadeSelecionada"  name="quantidade" id="quantidade">
+                            <select v-model="quantidadeSelecionada" name="quantidade" id="quantidade">
                                 <option v-for="n in Math.min(productStock)" :key="n" :value="n">{{ n }}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="mb-6 flex flex-col space-y-3">
-                        <ButtonAddCart 
-                            :produto="produto" 
-                            :portion="selectedWeight" 
+                        <ButtonAddCart
+                            :produto="produto"
+                            :portion="selectedWeight"
                             :quantidade="quantidadeSelecionada"
                             title="Comprar Agora"
                             :redirectToCart="true"
                             @add-to-cart="cartItemCount++"
-                        />  
+                        />
 
-                        <ButtonAddCart 
-                            :produto="produto" 
-                            :portion="selectedWeight" 
+                        <ButtonAddCart
+                            :produto="produto"
+                            :portion="selectedWeight"
                             :quantidade="quantidadeSelecionada"
                             title="Adicionar no Carrinho"
                             @add-to-cart="cartItemCount++"
-                        />  
+                        />
                     </div>
 
                     <div class="mb-6">
@@ -177,10 +173,10 @@ const toggleShare = () => {
                     </div>
                 </div>
             </div>
-                <div class="mt-8 max-w-7xl rounded-lg bg-white px-4 py-8 shadow-xl sm:px-6 lg:px-8">
+            <div class="mt-8 max-w-7xl rounded-lg bg-white px-4 py-8 shadow-xl sm:px-6 lg:px-8">
                 <h2 class="mb-4 text-2xl font-bold text-gray-900">Descrição:</h2>
                 <div class="prose max-w-none text-gray-700" v-html="produto.descricao"></div>
-                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -194,7 +190,6 @@ const toggleShare = () => {
 .prose li {
     margin-bottom: 0.5em;
 }
-
 
 /* Botões de navegação customizados */
 .nav-btn {
@@ -216,40 +211,40 @@ const toggleShare = () => {
     z-index: 10;
     font-size: 1.5rem;
     color: #48bb78;
-  }
+}
 
-  .nav-btn > i {
+.nav-btn > i {
     font-size: 2rem;
-  }
+}
 
-  .nav-btn:hover {
+.nav-btn:hover {
     background: #48bb78;
     color: white;
-  }
+}
 
-  .custom-swiper-prev {
+.custom-swiper-prev {
     left: 0.5rem;
-  }
+}
 
-  .custom-swiper-next {
+.custom-swiper-next {
     right: 0.5rem;
-  }
+}
 
 @media (max-width: 768px) {
-  .my-custom-swiper {
-    height: auto;
-    padding: 0 1rem !important;
-  }
-  .nav-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.2rem;
-  }
-  .custom-swiper-prev {
-    left: 0.25rem;
-  }
-  .custom-swiper-next {
-    right: 0.25rem;
-  }
+    .my-custom-swiper {
+        height: auto;
+        padding: 0 1rem !important;
+    }
+    .nav-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+    }
+    .custom-swiper-prev {
+        left: 0.25rem;
+    }
+    .custom-swiper-next {
+        right: 0.25rem;
+    }
 }
 </style>

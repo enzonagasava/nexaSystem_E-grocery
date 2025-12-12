@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
 import LoginDetails from '@/components/LoginDetails.vue';
+import { Head } from '@inertiajs/vue3';
 
 defineProps<{
     status?: string;
@@ -16,6 +16,6 @@ defineProps<{
             {{ status }}
         </div>
 
-        <LoginDetails :canResetPassword="true" /> 
+        <LoginDetails :canResetPassword="true" />
     </div>
 </template>

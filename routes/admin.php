@@ -5,6 +5,8 @@ use App\Http\Controllers\App\DashboardController as ClienteDashboardController;
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\PedidoController;
 use App\Http\Controllers\Admin\ClienteController;
+use App\Http\Controllers\Admin\ChatController;
+use App\Http\Controllers\Admin\ChatSettingsController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +54,20 @@ use Inertia\Inertia;
 
     Route::middleware(['jwt.cookie', 'auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        //Rota Chat
+        Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+        Route::get('/chat/conversations', [ChatController::class, 'getConversations'])->name('chat.conversations');
+        Route::get('/chat/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
+        Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+        Route::post('/chat/mark-read', [ChatController::class, 'markAsRead'])->name('chat.markRead');
+
+        //Rota Chat Settings
+        Route::get('/chat/settings', [ChatSettingsController::class, 'index'])->name('chat.settings');
+        Route::put('/chat/settings/config', [ChatSettingsController::class, 'updateConfig'])->name('chat.settings.config');
+        Route::post('/chat/settings/respostas-rapidas', [ChatSettingsController::class, 'storeRespostaRapida'])->name('chat.settings.respostas.store');
+        Route::put('/chat/settings/respostas-rapidas/{respostaRapida}', [ChatSettingsController::class, 'updateRespostaRapida'])->name('chat.settings.respostas.update');
+        Route::delete('/chat/settings/respostas-rapidas/{respostaRapida}', [ChatSettingsController::class, 'destroyRespostaRapida'])->name('chat.settings.respostas.destroy');
 
         //Rotas Pedidos
         Route::put('/pedidos/avancarStatus/{id}', [PedidoController::class, 'avancarStatus'])

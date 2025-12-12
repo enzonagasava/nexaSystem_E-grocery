@@ -20,23 +20,22 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(route('loginStore'), {
-onSuccess: (page) => {
-  const role = page.props.role;
-    if (role === 'admin') {
-    window.location.href = route('admin.dashboard');
-    } else if (role === 'cliente') {
-    window.location.href = route('cliente.dashboard');
-    } else {
-    window.location.href = route('login'); // fallback válido
-    }
-},
-    onError: (errors) => {
-      console.log(errors);
-    }
-  });
+    form.post(route('loginStore'), {
+        onSuccess: (page) => {
+            const role = page.props.role;
+            if (role === 'admin') {
+                window.location.href = route('admin.dashboard');
+            } else if (role === 'cliente') {
+                window.location.href = route('cliente.dashboard');
+            } else {
+                window.location.href = route('login'); // fallback válido
+            }
+        },
+        onError: (errors) => {
+            console.log(errors);
+        },
+    });
 };
-
 </script>
 
 <template>

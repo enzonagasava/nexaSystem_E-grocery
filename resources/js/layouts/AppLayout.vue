@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Head, Link, usePage, useForm } from '@inertiajs/vue3';
-import { onMounted, ref, computed, watch, onUnmounted } from 'vue';
 import { useCartStore } from '@/stores/cart';
 import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 
 // --- INICIALIZAÇÃO DE STORES E ESTADO ---
 
@@ -10,9 +10,13 @@ const page = usePage();
 const cartStore = useCartStore();
 
 // Watch e Inicialização do Carrinho
-watch(() => page.props.cartItems, (newItems) => {
-    cartStore.setCart(newItems || []);
-}, { immediate: true }); // Usando 'immediate: true' para inicializar na montagem
+watch(
+    () => page.props.cartItems,
+    (newItems) => {
+        cartStore.setCart(newItems || []);
+    },
+    { immediate: true },
+); // Usando 'immediate: true' para inicializar na montagem
 
 // Refs e Estado
 const currentYear = ref(0);
@@ -85,7 +89,6 @@ onUnmounted(() => {
         <link rel="stylesheet" href="/css/app.css" />
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-        
     </Head>
     <header class="fixed top-0 right-0 left-0 z-50 bg-white shadow-md">
         <div class="flex h-[70px] w-screen justify-center px-4 sm:px-6 lg:px-8">
@@ -107,49 +110,71 @@ onUnmounted(() => {
                             <Link href="/contact" @click="closeMenu" class="rounded px-4 py-2 hover:bg-gray-100">Contato</Link>
                             <Link href="#" @click="closeMenu" class="rounded px-4 py-2 hover:bg-gray-100">Área do Produtor</Link>
                         </nav>
-                        <div class="items-center flex">
-                            <div v-if="userLogado" class="relative inline-block" ref="dropdownRef"  >
-                                <button @click="toggleDropdown"
-                                        class="flex items-center rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:bg-[#77bdad] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6aab9c] hover:cursor-pointer">
+                        <div class="flex items-center">
+                            <div v-if="userLogado" class="relative inline-block" ref="dropdownRef">
+                                <button
+                                    @click="toggleDropdown"
+                                    class="flex items-center rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:cursor-pointer hover:bg-[#77bdad] focus:ring-2 focus:ring-[#6aab9c] focus:ring-offset-2 focus:outline-none"
+                                >
                                     <span>{{ page.props.auth.user.name || 'Usuário' }}</span>
-                                    <svg :class="{'rotate-180': dropdownOpen}"
-                                         class="ml-2 h-4 w-4 fill-current transition-transform duration-200"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M5.516 7.548a.75.75 0 011.06 0L10 10.97l3.424-3.423a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 010-1.06z" />
+                                    <svg
+                                        :class="{ 'rotate-180': dropdownOpen }"
+                                        class="ml-2 h-4 w-4 fill-current transition-transform duration-200"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            d="M5.516 7.548a.75.75 0 011.06 0L10 10.97l3.424-3.423a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 010-1.06z"
+                                        />
                                     </svg>
                                 </button>
 
-                                <div :class="{ 'opacity-100 visible': dropdownOpen, 'opacity-0 invisible': !dropdownOpen }"
-                                     class="absolute right-0 w-36 origin-top-right rounded-md bg-white shadow-lg transition-opacity duration-200">
-
-                                    <Link :href="page.props.auth.user.cargo_id === 1 ? '/admin/dashboard' : '/cliente/dashboard'" @click="closeMenuAndDropdown"
-                                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-t-md">
+                                <div
+                                    :class="{ 'visible opacity-100': dropdownOpen, 'invisible opacity-0': !dropdownOpen }"
+                                    class="absolute right-0 w-36 origin-top-right rounded-md bg-white shadow-lg transition-opacity duration-200"
+                                >
+                                    <Link
+                                        :href="page.props.auth.user.cargo_id === 1 ? '/admin/dashboard' : '/cliente/dashboard'"
+                                        @click="closeMenuAndDropdown"
+                                        class="block rounded-t-md px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                    >
                                         Dashboard
                                     </Link>
-                                    <button @click="logoutAndCloseMenu" class="text-left w-full px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-b-md">
+                                    <button
+                                        @click="logoutAndCloseMenu"
+                                        class="w-full rounded-b-md px-4 py-2 text-left text-gray-800 hover:bg-gray-100"
+                                    >
                                         Logout
                                     </button>
                                 </div>
                             </div>
 
-                            <Link v-else href="/login" @click="closeMenu" class="rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:bg-[#77bdad]">
+                            <Link
+                                v-else
+                                href="/login"
+                                @click="closeMenu"
+                                class="rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:bg-[#77bdad]"
+                            >
                                 Login
                             </Link>
-                            <Link href="/carrinho" @click="closeMenu" class="rounded bg-[#6aab9c] ml-2 px-4 py-2 text-white transition hover:bg-[#77bdad]">
+                            <Link
+                                href="/carrinho"
+                                @click="closeMenu"
+                                class="ml-2 rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:bg-[#77bdad]"
+                            >
                                 Carrinho ({{ cartStore.cartQuantity }})
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                <button @click="toggleMenu" class="md:hidden p-2 focus:outline-none hover:cursor-pointer">
+                <button @click="toggleMenu" class="p-2 hover:cursor-pointer focus:outline-none md:hidden">
                     <div :class="['hamburger', { active: isMenuOpen }]">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
                 </button>
-
             </div>
         </div>
     </header>

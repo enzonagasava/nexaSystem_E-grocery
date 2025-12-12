@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthLayout from '@/layouts/AuthLayout.vue';
-import { Head, Link, usePage } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const page = usePage();
@@ -10,12 +10,10 @@ const products = ref(Array.isArray(page.props.products) ? page.props.products : 
 const deleteProduct = (productId: number) => {
     if (confirm(`Tem certeza de que deseja excluir o produto ID: ${productId}?`)) {
         alert(`Excluindo o produto ID: ${productId}`);
-        Inertia.delete(`/produtos/delete-produto/${productId}`, {
-
-        });
+        Inertia.delete(`/produtos/delete-produto/${productId}`, {});
         products.value = products.value.filter((p) => p.id !== productId);
     }
-}; 
+};
 </script>
 
 <template>
@@ -30,7 +28,8 @@ const deleteProduct = (productId: number) => {
                     <div class="border-b border-gray-200 bg-white p-6">
                         <div class="mb-6 flex items-center justify-between">
                             <h1 class="text-2xl font-bold text-gray-800">Gerenciar Produtos</h1>
-                            <Link :href="route('produtos.create')"
+                            <Link
+                                :href="route('produtos.create')"
                                 class="focus:ring-opacity-50 rounded-md bg-green-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none"
                             >
                                 + Adicionar Novo Produto
@@ -69,7 +68,7 @@ const deleteProduct = (productId: number) => {
                                             </div>
                                             <div class="text-sm font-medium text-gray-900">
                                                 <span class="font-extrabold">Data de criação: </span>{{ product.created_at }}
-                                            </div>                                            
+                                            </div>
                                         </td>
                                         <td class="px-6 py-4 text-right text-sm font-medium whitespace-nowrap">
                                             <Link
