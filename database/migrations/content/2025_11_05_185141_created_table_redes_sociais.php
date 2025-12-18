@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('integracoes_pagamento', function (Blueprint $table) {
+        Schema::connection('content')->create('redes_sociais', function (Blueprint $table) {
             $table->id();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('x')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('empresa_id')
                   ->references('id')
                   ->on('empresas')
                   ->nullOnDelete();
-            $table->string('public_key')->nullable();
-            $table->string('access_key')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('integracoes_pagamento');
+        Schema::connection('content')->dropIfExists('redes_sociais');
     }
 };

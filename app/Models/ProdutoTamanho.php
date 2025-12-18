@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProdutoTamanho extends Model
 {
+    protected $connection = 'content';
+
     protected $table = 'produto_tamanho';
+
     protected $fillable = [
         'produto_id',
         'tamanho_id',

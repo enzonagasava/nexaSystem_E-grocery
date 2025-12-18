@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class HistoricoMensagem extends Model
 {
+    protected $connection = 'content';
+
     protected $table = 'historico_mensagens';
 
     protected $fillable = [
