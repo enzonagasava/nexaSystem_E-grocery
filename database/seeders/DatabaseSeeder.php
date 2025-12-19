@@ -13,6 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Garantir que cargos existam antes de criar usuários que dependem deles
+        $this->call([
+            CargoSeeder::class,
+            EmpresaSeeder::class,
+            PlataformaSeeder::class,
+        ]);
+
         $adminExists = User::where('email', 'admin@teste.com')->exists();
 
         if (!$adminExists) {
@@ -23,11 +30,5 @@ class DatabaseSeeder extends Seeder
                 'cargo_id' => 1,
             ]);
         }
-        
-        $this->call([
-            EmpresaSeeder::class,
-            CargoSeeder::class,
-            PlataformaSeeder::class,
-        ]);
     }
 }

@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "google/apiclient": "^2.18",
         "guzzlehttp/guzzle": "^7.8",
         "illuminate/support": "*",
         "inertiajs/inertia-laravel": "^2.0",

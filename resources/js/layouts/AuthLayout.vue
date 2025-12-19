@@ -39,6 +39,7 @@ const handleLogout = () => {
             <aside v-if="isMenuOpen" class="fixed inset-y-0 left-0 z-40 w-64 space-y-4 bg-gray-800 p-4 text-white lg:hidden">
                 <nav class="mt-10 space-y-2">
                     <Link :href="route('admin.dashboard')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Dashboard</Link>
+                    <Link :href="route('admin.calendar.index')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Calendário</Link>
                     <Link :href="route('anuncio.config')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Anúncios</Link>
                     <Link :href="route('paginas.config')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Páginas</Link>
                     <Link :href="route('produtos.config')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Produtos</Link>
@@ -101,6 +102,7 @@ const handleLogout = () => {
 
             <nav class="space-y-2">
                 <Link :href="route('admin.dashboard')" class="block rounded px-2 py-2 hover:bg-gray-700">Dashboard</Link>
+                <Link :href="route('admin.calendar.index')" class="block rounded px-2 py-2 hover:bg-gray-700">Calendário</Link>
                 <Link :href="route('anuncio.config')" class="block rounded px-2 py-2 hover:bg-gray-700">Anúncios</Link>
                 <Link :href="route('paginas.config')" class="block rounded px-2 py-2 hover:bg-gray-700">Páginas</Link>
                 <Link :href="route('produtos.config')" class="block rounded px-2 py-2 hover:bg-gray-700">Produtos</Link>

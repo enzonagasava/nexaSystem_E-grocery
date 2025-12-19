@@ -6,6 +6,15 @@ import money from 'v-money3';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import '../css/app.css';
+// FullCalendar styles: removed direct imports because some FullCalendar packages do not
+// expose CSS via package exports in this environment. If you want styles, either
+// install the correct FullCalendar packages that include CSS or add the CSS via CDN
+// in your Blade layout (example below).
+
+/* Example CDN include (add to Blade head for dev):
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@6/main.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6/main.min.css" rel="stylesheet" />
+*/
 import Toast from './components/ui/toast/Toast.vue';
 import api from './lib/axios';
 

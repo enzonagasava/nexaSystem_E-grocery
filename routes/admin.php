@@ -55,6 +55,21 @@ use Inertia\Inertia;
     Route::middleware(['jwt.cookie', 'auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+        //Rota Canlender
+        Route::get('calendar', [\App\Http\Controllers\Admin\CalendarController::class, 'index'])->name('calendar.index');
+        Route::get('calendar/events', [\App\Http\Controllers\Admin\CalendarController::class, 'events'])->name('calendar.events');
+        Route::post('calendar/events', [\App\Http\Controllers\Admin\CalendarController::class, 'store'])->name('calendar.store');
+        Route::put('calendar/events/{id}', [\App\Http\Controllers\Admin\CalendarController::class, 'update'])->name('calendar.update');
+        Route::delete('calendar/events/{id}', [\App\Http\Controllers\Admin\CalendarController::class, 'destroy'])->name('calendar.destroy');
+        // Calendar settings
+        Route::get('calendar/settings', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'index'])->name('calendar.settings');
+        Route::get('calendar/settings/data', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'data'])->name('calendar.settings.data');
+        Route::put('calendar/settings', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'update'])->name('calendar.settings.update');
+        // Google Calendar OAuth (optional)
+        Route::get('calendar/auth', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'redirect'])->name('calendar.auth');
+        Route::get('calendar/callback', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'callback'])->name('calendar.callback');
+        Route::post('calendar/disconnect', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'disconnect'])->name('calendar.disconnect');
+
         //Rota Chat
         Route::get('/chat', [ChatController::class, 'index'])->name('chat');
         Route::get('/chat/conversations', [ChatController::class, 'getConversations'])->name('chat.conversations');
