@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\TipoEmpresa;
 use App\Models\Empresa;
 use App\Models\RedeSocial;
 use App\Models\IntegracaoPagamento;
@@ -15,6 +16,7 @@ class EmpresaSeeder extends Seeder
      */
     public function run(): void
     {
+        // Empresa principal - E-commerce (padrão do sistema original)
         Empresa::firstOrCreate(
             ['id' => 1], // garante que só uma empresa seja criada
             [
@@ -28,6 +30,25 @@ class EmpresaSeeder extends Seeder
                 'numero_endereco' => '123',
                 'municipio' => 'São Paulo',
                 'estado' => 'SP',
+                'tipo' => TipoEmpresa::Ecommerce,
+            ]
+        );
+
+        // Empresa de exemplo - Clínica Médica
+        Empresa::firstOrCreate(
+            ['id' => 2],
+            [
+                'nome' => 'Clínica Saúde Total',
+                'email' => 'contato@clinicasaudetotal.com.br',
+                'numero_wpp' => '(11) 98888-8888',
+                'telefone' => '(11) 4444-4444',
+                'cnpj' => '11.111.111/0001-11',
+                'endereco' => 'Av. Saúde, 456 - Centro',
+                'cep' => '11111-111',
+                'numero_endereco' => '456',
+                'municipio' => 'São Paulo',
+                'estado' => 'SP',
+                'tipo' => TipoEmpresa::Clinica,
             ]
         );
 

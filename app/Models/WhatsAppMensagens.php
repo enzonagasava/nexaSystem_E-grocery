@@ -25,7 +25,7 @@ class WhatsAppMessage extends Model
         'sent_by_human' => 'boolean',
         'created_at'    => 'datetime',
         'updated_at'    => 'datetime',
-    ];;
+    ];
 
     public function chat()
     {

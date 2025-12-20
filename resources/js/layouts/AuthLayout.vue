@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import DropdownButtonAdmin from '@/components/ui/dropdown-button/DropdownButtonAdmin.vue';
-import { Link, router } from '@inertiajs/vue3';
+import ClinicaNavigation from '@/components/layouts/navigation/ClinicaNavigation.vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import { House, LogOut } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 defineProps<{
     title?: string;
 }>();
 
+const page = usePage();
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {
@@ -21,12 +23,19 @@ const closeMenu = () => {
 const handleLogout = () => {
     router.flushAll();
 };
+
+// Verifica se o usuário é de uma clínica
+const isClinica = computed(() => page.props.auth?.user?.tipo_empresa === 'clinica');
+
+const painelTitle = computed(() => {
+    return isClinica.value ? 'Painel Clínica' : 'Painel Admin';
+});
 </script>
 
 <template>
     <div class="flex min-h-screen">
         <header class="fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gray-800 px-4 py-4 text-white lg:hidden">
-            <h2 class="text-lg font-bold">Painel Admin</h2>
+            <h2 class="text-lg font-bold">{{ painelTitle }}</h2>
 
             <button @click="toggleMenu" class="hamburger hover:cursor-pointer" :class="{ active: isMenuOpen }">
                 <span></span>
@@ -37,7 +46,11 @@ const handleLogout = () => {
 
         <transition name="slide">
             <aside v-if="isMenuOpen" class="fixed inset-y-0 left-0 z-40 w-64 space-y-4 bg-gray-800 p-4 text-white lg:hidden">
-                <nav class="mt-10 space-y-2">
+                <!-- Navegação Clínica -->
+                <ClinicaNavigation v-if="isClinica" @close="closeMenu" />
+
+                <!-- Navegação Padrão (E-commerce/Admin) -->
+                <nav v-else class="mt-10 space-y-2">
                     <Link :href="route('admin.dashboard')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Dashboard</Link>
                     <Link :href="route('admin.calendar.index')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Calendário</Link>
                     <Link :href="route('anuncio.config')" @click="closeMenu" class="block rounded px-2 py-2 hover:bg-gray-700">Anúncios</Link>
@@ -98,9 +111,13 @@ const handleLogout = () => {
 
         <!-- DESKTOP SIDEBAR -->
         <aside class="fixed inset-y-0 left-0 hidden w-64 space-y-4 bg-gray-800 p-4 text-white lg:block">
-            <h2 class="mb-6 text-xl font-bold">Painel Admin</h2>
+            <h2 class="mb-6 text-xl font-bold">{{ painelTitle }}</h2>
 
-            <nav class="space-y-2">
+            <!-- Navegação Clínica -->
+            <ClinicaNavigation v-if="isClinica" @close="closeMenu" />
+
+            <!-- Navegação Padrão (E-commerce/Admin) -->
+            <nav v-else class="space-y-2">
                 <Link :href="route('admin.dashboard')" class="block rounded px-2 py-2 hover:bg-gray-700">Dashboard</Link>
                 <Link :href="route('admin.calendar.index')" class="block rounded px-2 py-2 hover:bg-gray-700">Calendário</Link>
                 <Link :href="route('anuncio.config')" class="block rounded px-2 py-2 hover:bg-gray-700">Anúncios</Link>
