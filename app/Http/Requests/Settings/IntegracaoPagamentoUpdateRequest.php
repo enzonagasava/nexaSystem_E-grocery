@@ -17,8 +17,8 @@ class IntegracaoPagamentoUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'public_key' => ['nullable', 'string'],
-            'access_key' => ['nullable', 'string'],
+            'public_key_encrypted' => ['nullable', 'string'],
+            'access_key_encrypted' => ['nullable', 'string'],
         ];
     }
 }

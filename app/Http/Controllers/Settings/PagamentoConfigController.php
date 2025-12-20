@@ -1,16 +1,25 @@
 <?php
 
 namespace App\Http\Controllers\Settings;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\IntegracaoPagamento;
 use App\Http\Requests\Settings\IntegracaoPagamentoUpdateRequest;
-
-
+use Illuminate\Support\Facades\Crypt;
 
 class PagamentoConfigController extends Controller
 {
-    public function index(){
+
+    public function rules()
+    {
+        return [
+            'public_key' => ['nullable', 'string'],
+            'access_key' => ['nullable', 'string'],
+        ];
+    }
+
+    public function index()
+    {
         $MetodoPagamento = IntegracaoPagamento::firstOrFail();
 
         return inertia('admin/configuracoes/PagamentoConfig', [
@@ -18,11 +27,26 @@ class PagamentoConfigController extends Controller
         ]);
     }
 
-    public function update(IntegracaoPagamentoUpdateRequest $request){
-        $MetodoPagamento = IntegracaoPagamento::firstOrFail();
+    public function update(IntegracaoPagamentoUpdateRequest $request)
+    {
+        $metodo = IntegracaoPagamento::firstOrFail();
 
-        $MetodoPagamento->update($request->validated());
+        $data = [];
 
-        return back()->with('success', 'Informações das credenciais atualizadas com sucesso!');
+        if ($request->filled('public_key')) {
+            $data['public_key_encrypted'] =
+                Crypt::encryptString($request->public_key);
+        }
+
+        if ($request->filled('access_key')) {
+            $data['access_key_encrypted'] =
+                Crypt::encryptString($request->access_key);
+        }
+
+        if ($data) {
+            $metodo->update($data);
+        }
+
+        return back()->with('success', 'Credenciais atualizadas com sucesso.');
     }
 }

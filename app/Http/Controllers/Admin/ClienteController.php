@@ -32,8 +32,8 @@ class ClienteController extends Controller
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'nullable|string|email|max:255|unique:clientes',
-            'numero' => 'required|string|max:20|unique:clientes',
+            'email' => 'nullable|string|email|max:255|unique:content.clientes',
+            'numero' => 'required|string|max:20|unique:content.clientes',
             'cep' => 'nullable|string|max:10',
             'endereco' => 'nullable|string|max:255',
             'numero_endereco' => 'nullable|string|max:10',
@@ -60,8 +60,8 @@ class ClienteController extends Controller
 
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'nullable|string|email|max:255|unique:clientes,email,' . $id,
-            'numero' => 'required|string|max:20|unique:clientes,numero,' . $id,
+            'email' => 'nullable|string|email|max:255|unique:content.clientes,email,' . $id,
+            'numero' => 'required|string|max:20|unique:content.clientes,numero,' . $id,
             'cep' => 'nullable|string|max:10',
             'endereco' => 'nullable|string|max:255',
             'numero_endereco' => 'nullable|string|max:10',

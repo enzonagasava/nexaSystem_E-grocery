@@ -9,6 +9,8 @@ class WhatsAppChat extends Model
 {
     use HasFactory;
 
+    protected $connection = 'content';
+
     protected $table = 'whatsapp_conversas';
 
     protected $fillable = [

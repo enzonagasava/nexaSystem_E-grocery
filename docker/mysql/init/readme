@@ -1,0 +1,11 @@
+Como rodar o banco novo:
+
+Rodar Docker compose down & up -d
+
+- Rodar : php artisan migrate --path=database/migrations/credentials --database=credentials
+Para rodar a migration do familiaMogi_credentials
+
+- Rodar : php artisan migrate --path=database/migrations/content --database=content
+Para rodar a migration do familiaMogi_content
+
+- Rodar : php artisan db:seed

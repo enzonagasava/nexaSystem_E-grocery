@@ -12,6 +12,8 @@ use App\Models\Plataforma;
 
 class GerenciarPedido extends BaseModel
 {
+    protected $connection = 'content';
+
     protected $table = 'gerenciar_pedidos';
 
     protected $fillable = [

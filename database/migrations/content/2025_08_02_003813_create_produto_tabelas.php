@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
 {
-        Schema::create('anuncios', function (Blueprint $table) {
+        Schema::connection('content')->create('produtos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('nome');
             $table->text('descricao')->nullable();
             $table->integer('estoque')->default(0);
-            $table->json('tamanhos')->nullable(); // array json dos tamanhos
             $table->timestamps();
+
+            // Adiciona índice para performance (opcional mas recomendado)
+            $table->index('user_id', 'produtos_user_id_index');
+
+            // Índice composto se for comum buscar por usuário + data
+            $table->index(['user_id', 'created_at'], 'user_produtos_chrono_index');
+
         });
     }
     /**
@@ -25,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anuncios');
+        Schema::connection('content')->dropIfExists('produtos');
     }
 };
