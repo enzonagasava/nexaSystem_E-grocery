@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'admin',
                 'email' => 'admin@teste.com',
                 'password' => bcrypt('123456789'),
+                'email_verified_at' => '2025-12-18 14:09:36',
                 'cargo_id' => 1, // ID do cargo 'admin' que acabou de ser criado
             ]);
             $this->command->info('Admin user created successfully.');

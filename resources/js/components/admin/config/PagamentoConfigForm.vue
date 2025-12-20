@@ -14,10 +14,10 @@ const props = defineProps<{
 const showAccess = ref(false);
 
 const form = useForm({
-    empresa_id: props.MetodoPagamento.empresa_id,
-    public_key_encrypted: props.MetodoPagamento.public_key_encrypted,
-    access_key_encrypted: props.MetodoPagamento.access_key_encrypted,
+    public_key: props.MetodoPagamento.public_key ?? '',
+    access_key: '',
 });
+
 
 const submit = () => {
     form.patch(route('config.pagamento.update'), {
@@ -34,7 +34,7 @@ const submit = () => {
     <form @submit.prevent="submit" class="space-y-6">
         <div class="grid gap-2">
             <Label for="public_key">Public_Key</Label>
-            <Input id="public_key" type="text" v-model="form.public_key_encrypted" required />
+            <Input id="public_key" type="text" v-model="form.public_key" required />
             <InputError class="mt-2" :message="form.errors.public_key" />
         </div>
 
@@ -42,7 +42,7 @@ const submit = () => {
             <Label for="access_key">Access_Key</Label>
 
             <div class="relative">
-                <Input id="access_key" :type="showAccess ? 'text' : 'password'" v-model="form.access_key_encrypted" required class="pr-10" />
+                <Input id="access_key" :type="showAccess ? 'text' : 'password'" v-model="form.access_key" required class="pr-10" />
 
                 <!-- botão dentro do input -->
                 <ButtonPasswordToggle v-model="showAccess" class="absolute inset-y-0 right-2 flex items-center" />

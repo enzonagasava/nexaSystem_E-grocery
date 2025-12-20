@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\BaseModel;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class IntegracaoPagamento extends BaseModel
 {
@@ -14,18 +14,32 @@ class IntegracaoPagamento extends BaseModel
 
     protected $fillable = [
         'public_key_encrypted',
-        'access_key_encrypted'
+        'access_key_encrypted',
     ];
 
-
-    public function getClientSecretAttribute($value)
+    public function getPublicKeyAttribute(): ?string
     {
-        return $value ? Crypt::decryptString($value) : null;
+        if (!$this->public_key_encrypted) {
+            return null;
+        }
+
+        try {
+            return Crypt::decryptString($this->public_key_encrypted);
+        } catch (DecryptException $e) {
+            return null;
+        }
     }
 
-    public function getWebhookSecretAttribute($value)
+    public function getAccessTokenAttribute(): ?string
     {
-        return $value ? Crypt::decryptString($value) : null;
-    }
+        if (!$this->access_key_encrypted) {
+            return null;
+        }
 
+        try {
+            return Crypt::decryptString($this->access_key_encrypted);
+        } catch (DecryptException $e) {
+            return null;
+        }
+    }
 }
