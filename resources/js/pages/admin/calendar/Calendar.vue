@@ -68,6 +68,7 @@ async function disconnectGoogle() {
   try {
     await router.post(route('admin.calendar.disconnect'))
   } catch (e) {
+    console.error(e)
     alert('Erro ao desconectar')
   }
 }
@@ -93,7 +94,7 @@ async function loadEvents() {
       // remove existing event sources to avoid duplicates
       const sources = calendarInstance.getEventSources ? calendarInstance.getEventSources() : [];
       if (Array.isArray(sources)) {
-        sources.forEach((s: any) => { try { s.remove(); } catch (e) { /* ignore */ } })
+        sources.forEach((s: any) => { try { s.remove(); } catch (e) { void e } })
       }
       // add new source
       calendarInstance.addEventSource(events.value)
@@ -101,9 +102,9 @@ async function loadEvents() {
     } catch (err) {
       // fallback: add events one-by-one
       console.warn('addEventSource failed, falling back to addEvent per item', err)
-      try { calendarInstance.removeAllEvents() } catch(e){}
+      try { calendarInstance.removeAllEvents() } catch(e){ void e }
       events.value.forEach(ev => {
-        try { calendarInstance.addEvent(ev) } catch(e) { console.warn('addEvent fallback failed', e, ev) }
+        try { calendarInstance.addEvent(ev) } catch(e) { console.warn('addEvent fallback failed', e, ev); }
       })
       try { calendarInstance.render() } catch (err) { console.error('Calendar render error', err) }
     }
@@ -165,9 +166,9 @@ onMounted(async () => {
                 badge.style.marginLeft = '6px'
                 badge.innerText = String(cal).split('/').pop()
                 const titleEl = info.el.querySelector('.fc-event-title') || info.el
-                try { titleEl.appendChild(badge) } catch(e){}
+                try { titleEl.appendChild(badge) } catch(e){ void e }
               }
-            } catch(e){}
+            } catch(e){ void e }
           }
         })
         console.log('FullCalendar initialized', calendarInstance)
@@ -198,7 +199,7 @@ onMounted(async () => {
 
   function stopAutoRefresh() {
     if (!refreshInterval) return
-    try { clearInterval(refreshInterval) } catch (e) {}
+    try { clearInterval(refreshInterval) } catch (e) { void e }
     refreshInterval = null
   }
 
@@ -220,6 +221,11 @@ onMounted(async () => {
     }
     document.addEventListener('visibilitychange', visibilityHandler)
   }
+
+  // expose debug helper on window for dev (avoids unused local variable)
+  if (typeof window !== 'undefined') {
+    ;(window as any).calendarDebug = () => ({ instance: calendarInstance, events: events.value })
+  }
 })
 
 onUnmounted(() => {
@@ -232,10 +238,6 @@ onUnmounted(() => {
     visibilityHandler = null
   }
 })
-
-// debug: expose calendarInstance for console inspection
-// @ts-ignore
-window.__fc_calendar = () => ({ instance: calendarInstance, events: events.value })
 
 // Modal state + handlers for create/update/delete
 const modalVisible = ref(false)
@@ -260,7 +262,7 @@ function openModal(mode: 'create' | 'edit', payload: any) {
         const diff = (ed.getTime() - sd.getTime()) / (1000 * 60 * 60 * 24)
         if (diff === 1) e = s
       }
-    } catch (err) {}
+    } catch (err) { void err }
     form.start = s
     form.end = e
   } else {
