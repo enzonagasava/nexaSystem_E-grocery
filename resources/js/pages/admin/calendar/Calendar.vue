@@ -18,22 +18,11 @@ interface CalendarEvent {
 interface ApiCalendarEvent {
   id: string
   summary: string
-  start: string
-  end: string
-  description?: string
-  allDay?: boolean
-  calendar?: string
 }
 
 interface GoogleCalendar {
   id: string
   summary: string
-}
-
-interface CalendarSettings {
-  calendar_id: string
-  timezone: string
-  locale: string
 }
 
 const calendarEl = ref<HTMLElement | null>(null)
