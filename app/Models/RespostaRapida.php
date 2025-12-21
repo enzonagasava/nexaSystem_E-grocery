@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class RespostaRapida extends Model
 {
+    protected $connection = 'content';
+
     protected $table = 'respostas_rapidas';
 
     protected $fillable = [

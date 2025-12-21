@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cargos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome')->unique();
-            $table->string('descricao')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tamanhos')) {
+            Schema::connection('content')->create('tamanhos', function (Blueprint $table) {
+                $table->id();
+                $table->string('nome');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cargos');
+        Schema::connection('content')->dropIfExists('tamanhos');
     }
 };

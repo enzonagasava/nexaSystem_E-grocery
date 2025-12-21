@@ -10,7 +10,7 @@ class PlataformaSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('plataforma_pedido')->insert([
+         DB::connection('content')->table('plataforma_pedido')->insert([
             ['nome' => 'Shopee'],
             ['nome' => 'Mercado Livre'],
             ['nome' => 'Amazon'],

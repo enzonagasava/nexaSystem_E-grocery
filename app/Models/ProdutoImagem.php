@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProdutoImagem extends Model
 {
+    protected $connection = 'content';
+
     protected $table = 'produto_imagens';
+
     protected $fillable = [
         'produto_id',
         'user_id',

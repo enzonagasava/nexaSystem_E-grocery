@@ -8,6 +8,8 @@ use App\Models\BaseModel;
 
 class Plataforma extends BaseModel
 {
+    protected $connection = 'content';
+
     protected $table = 'plataforma_pedido';
 
     protected $fillable = [

@@ -35,22 +35,22 @@ Route::get('/checkout/sucesso', function () {
         'paymentId' => request('payment_id'),
         'status' => request('status'),
     ]);
-});
+})->name('checkout.sucesso');
 
 Route::get('/checkout/falha', function () {
     return Inertia::render('App/Checkout/Failure', [
         'status' => request('status'),
         'message' => request('message'),
     ]);
-});
+})->name('checkout.falha');
 
 Route::get('/checkout/pendente', function () {
     return Inertia::render('App/Checkout/Pending', [
         'paymentId' => request('payment_id'),
         'status' => request('status'),
     ]);
-});
-Route::get('/pagamento/keys', [CheckoutController::class, 'getKeys']);
+})->name('checkout.pendentes');
+
 
 Route::get('/api/pedido/status/{id}', function ($id) {
     return \App\Models\GerenciarPedido::findOrFail($id);

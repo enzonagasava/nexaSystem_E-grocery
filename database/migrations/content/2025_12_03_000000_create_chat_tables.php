@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         // Tabela de respostas rápidas
-        Schema::create('respostas_rapidas', function (Blueprint $table) {
+        Schema::connection('content')->create('respostas_rapidas', function (Blueprint $table) {
             $table->id();
             $table->string('atalho', 50); // Ex: /bomdia
             $table->text('mensagem');
@@ -18,7 +18,7 @@ return new class extends Migration
         });
 
         // Tabela de configurações da IA
-        Schema::create('configuracoes_ia', function (Blueprint $table) {
+        Schema::connection('content')->create('configuracoes_ia', function (Blueprint $table) {
             $table->id();
             $table->boolean('bot_ativo')->default(false);
             $table->enum('tom_voz', ['amigavel', 'profissional'])->default('amigavel');
@@ -31,7 +31,7 @@ return new class extends Migration
         });
 
         // Tabela de histórico de mensagens
-        Schema::create('historico_mensagens', function (Blueprint $table) {
+        Schema::connection('content')->create('historico_mensagens', function (Blueprint $table) {
             $table->id();
             $table->string('remote_jid');
             $table->string('message_id');
@@ -59,8 +59,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('historico_mensagens');
-        Schema::dropIfExists('configuracoes_ia');
-        Schema::dropIfExists('respostas_rapidas');
+        Schema::connection('content')->dropIfExists('historico_mensagens');
+        Schema::connection('content')->dropIfExists('configuracoes_ia');
+        Schema::connection('content')->dropIfExists('respostas_rapidas');
     }
 };
