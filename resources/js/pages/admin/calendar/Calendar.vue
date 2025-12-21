@@ -36,34 +36,6 @@ interface CalendarSettings {
   locale: string
 }
 
-interface SettingsData {
-  google?: {
-    calendars?: GoogleCalendar[]
-    connected?: boolean
-  }
-  settings?: CalendarSettings
-}
-
-interface EventPayload {
-  id?: string | null
-  summary?: string
-  description?: string
-  start?: string
-  end?: string
-  allDay?: boolean
-  calendar?: string
-}
-
-interface EventForm {
-  id: string | null
-  summary: string
-  description: string
-  start: string
-  end: string
-  allDay: boolean
-  calendar: string
-}
-
 const calendarEl = ref<HTMLElement | null>(null)
 let calendarInstance: any = null
 const events = ref<CalendarEvent[]>([])
