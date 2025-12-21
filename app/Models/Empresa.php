@@ -9,6 +9,8 @@ use App\Models\RedeSocial;
 
 class Empresa extends BaseModel
 {
+        protected $connection = 'content';
+
         protected $fillable = [
         'nome',
         'email',

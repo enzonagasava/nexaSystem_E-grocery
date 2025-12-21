@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cargo extends Model
 {
+    protected $connection = 'credentials';
+
+    protected $table = 'cargos';
+
     protected $fillable = [
         'nome',
         'descricao',

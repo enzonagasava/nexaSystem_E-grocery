@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConfiguracaoIa extends Model
 {
+    protected $connection = 'content';
+
     protected $table = 'configuracoes_ia';
 
     protected $fillable = [

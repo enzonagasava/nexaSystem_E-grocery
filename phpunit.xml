@@ -23,7 +23,15 @@
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_STORE" value="array"/>
         <env name="DB_CONNECTION" value="sqlite"/>
-        <env name="DB_DATABASE" value=":memory:"/>
+        <env name="DB_DATABASE" value="database/testing.sqlite"/>
+
+        <!-- Conexão específica para credentials -->
+        <env name="DB_CONNECTION_CREDENTIALS" value="sqlite"/>
+        <env name="DB_DATABASE_CREDENTIALS" value="database/credentials.sqlite"/>
+
+        <!-- Conexão específica para content -->
+        <env name="DB_CONNECTION_CONTENT" value="sqlite"/>
+        <env name="DB_DATABASE_CONTENT" value="database/content.sqlite"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="PULSE_ENABLED" value="false"/>
         <env name="QUEUE_CONNECTION" value="sync"/>

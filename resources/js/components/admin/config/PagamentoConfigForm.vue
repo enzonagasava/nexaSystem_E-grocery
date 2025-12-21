@@ -14,10 +14,10 @@ const props = defineProps<{
 const showAccess = ref(false);
 
 const form = useForm({
-    empresa_id: props.MetodoPagamento.empresa_id,
-    public_key: props.MetodoPagamento.public_key,
-    access_key: props.MetodoPagamento.access_key,
+    public_key: props.MetodoPagamento.public_key ?? '',
+    access_key: '',
 });
+
 
 const submit = () => {
     form.patch(route('config.pagamento.update'), {
