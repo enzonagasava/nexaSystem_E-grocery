@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('anuncio_imagens', function (Blueprint $table) {
+        Schema::connection('content')->create('produto_imagens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('anuncio_id')->constrained('anuncios')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('produto_id')->constrained('produtos')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->string('imagem_path'); // caminho da imagem
             $table->integer('ordem')->default(0); // ordem da imagem no anúncio
             $table->timestamps();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anuncio_imagens');
+        Schema::connection('content')->dropIfExists('produto_imagens');
     }
 };

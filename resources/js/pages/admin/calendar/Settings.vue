@@ -5,12 +5,15 @@ import { usePage } from '@inertiajs/vue3'
 import axios from 'axios'
 
 const page = usePage()
-const settings = ref(page.props.settings || {})
-const calendars = ref(page.props.google?.calendars || [])
+const pp = page.props as any
 
-const timezone = ref(settings.value.timezone || 'America/Sao_Paulo')
-const calendarId = ref(settings.value.calendar_id || '')
-const locale = ref(settings.value.locale || 'pt_BR')
+// use explicit any/typed refs so TS/volar won't complain about page.props shape
+const settings = ref<any>(pp.settings || {})
+const calendars = ref<any[]>(pp.google?.calendars || [])
+
+const timezone = ref<string>(settings.value.timezone || 'America/Sao_Paulo')
+const calendarId = ref<string>(settings.value.calendar_id || '')
+const locale = ref<string>(settings.value.locale || 'pt_BR')
 
 const saving = ref(false)
 
@@ -41,7 +44,7 @@ async function save() {
           <option value="">(Nenhuma selecionada)</option>
           <option v-for="c in calendars" :key="c.id" :value="c.id">{{ c.summary }} — {{ c.id }}</option>
         </select>
-        <div v-if="!page.props.google?.connected" class="text-sm text-yellow-600 mt-1">Google não conectado — conecte para listar agendas.</div>
+        <div v-if="!pp.google?.connected" class="text-sm text-yellow-600 mt-1">Google não conectado — conecte para listar agendas.</div>
       </div>
 
       <div class="mb-4">

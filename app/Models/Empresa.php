@@ -7,7 +7,9 @@ use App\Enums\TipoEmpresa;
 
 class Empresa extends BaseModel
 {
-    protected $fillable = [
+        protected $connection = 'content';
+
+        protected $fillable = [
         'nome',
         'email',
         'numero_wpp',

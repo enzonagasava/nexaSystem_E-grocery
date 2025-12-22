@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { CheckoutForm } from '@/types/forms/checkout-form';
 import { onMounted, reactive, watch } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+
+const page = usePage();
 
 const props = defineProps<{
     form: useForm<CheckoutForm>;
@@ -8,7 +11,20 @@ const props = defineProps<{
     cartTotal: any;
 }>();
 
+const mpPublicKey = page.props.mpPublicKey as string;
+
 const emit = defineEmits(['update:form', 'whatsapp']);
+
+async function carregarMPSDK() {
+    if (window.MercadoPago) return;
+    
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://sdk.mercadopago.com/js/v2';
+        script.onload = () => resolve(true);
+        document.head.appendChild(script);
+    });
+}
 
 const localForm = reactive({ ...props.form });
 
@@ -27,9 +43,6 @@ watch(
     { deep: true },
 );
 
-function onSubmit() {
-    emit('submit');
-}
 
 function onWhatsapp() {
     emit('whatsapp');
@@ -84,20 +97,20 @@ async function checarLogin() {
 onMounted(() => {
     registrarListenerCheckout();
     carregarSecurityScript();
+ carregarMPSDK(); 
     checarLogin();
 });
 
-const getPublicKey = async () => {
-    const r = await fetch('pagamento/keys');
-    const json = await r.json();
-    return json.public_key;
-};
+declare global {
+    interface Window {
+        MercadoPago: any;
+    }
+}
 
 const iniciarPagamento = async () => {
     try {
-        const publicKey = await getPublicKey();
 
-        const mp = new window.MercadoPago(publicKey, {
+        const mp = new window.MercadoPago(mpPublicKey, {
             locale: 'pt-BR',
         });
 
@@ -108,52 +121,46 @@ const iniciarPagamento = async () => {
             return;
         }
 
-        const items = props.cartItems.map((item) => ({
-            title: item.nome || item.key || 'Produto',
-            quantity: item.quantidade ?? item.qtd ?? 1,
-            unit_price: Number(item.preco),
-        }));
-
-        const res = await fetch('api/checkout/process', {
+        const res = await fetch('/api/checkout/process', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: localForm.name,
                 email: localForm.email,
                 phone: localForm.telefone,
-                price: props.cartTotal,
-                items,
                 street_name: localForm.endereco,
+                price: props.cartTotal,
+                items: props.cartItems.map(item => ({
+                    id: item.id,
+                    title: item.nome,
+                    quantity: item.quantidade ?? 1,
+                    unit_price: Number(item.preco),
+                })),
             }),
         });
 
         const data = await res.json();
-        console.log('DADOS DO BACKEND:', data);
 
         if (!data.preference_id) {
-            console.error('❌ preference_id não retornado');
-            return;
+            throw new Error('Preference ID não retornado');
         }
-
-        window.pedidoId = data.pedido_id;
 
         mp.checkout({
             preference: { id: data.preference_id },
             autoOpen: true,
-            onReady: () => console.log('Checkout pronto!'),
         });
+
     } catch (error) {
         console.error('Erro ao iniciar pagamento:', error);
     }
 };
+
 </script>
 
 <template>
     <section class="form-section">
         <h2>Informações do Comprador</h2>
-        <form @submit.prevent="onSubmit">
+        <form @submit.prevent="iniciarPagamento">
             <label for="name">Nome Completo</label>
             <input id="name" v-model="localForm.name" type="text" placeholder="Seu nome completo" required />
 
@@ -179,7 +186,7 @@ const iniciarPagamento = async () => {
             <input id="Estado" v-model="localForm.Estado" type="text" required />
 
             <div class="flex h-auto gap-4">
-                <button type="submit" @click="iniciarPagamento">Finalizar Pagamento</button>
+                <button type="submit">Finalizar Pagamento</button>
                 <button type="button" @click="onWhatsapp">Pedir no WhatsApp</button>
             </div>
         </form>

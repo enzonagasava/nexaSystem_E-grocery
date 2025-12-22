@@ -7,6 +7,11 @@ use App\Models\BaseModel;
 
 class Cliente extends BaseModel
 {
+    protected $connection = 'content';
+
+    protected $table = 'clientes';
+
+
     protected $fillable = [
         'nome',
         'email',
@@ -18,7 +23,6 @@ class Cliente extends BaseModel
         'estado',
     ];
 
-    protected $table = 'clientes';
 
     protected $appends = ['created_at_formatted'];
 

@@ -4,17 +4,40 @@ import { onMounted, onUnmounted, ref, nextTick, reactive } from 'vue'
 import { usePage, router } from '@inertiajs/vue3'
 import axios from 'axios'
 
+interface CalendarEvent {
+  id: string
+  title: string
+  start: string
+  end: string
+  description: string
+  allDay: boolean
+  calendar: string
+}
+
+// API shape for events returned by backend / Google
+interface ApiCalendarEvent {
+  id: string
+  summary: string
+}
+
+interface GoogleCalendar {
+  id: string
+  summary: string
+}
+
 const calendarEl = ref<HTMLElement | null>(null)
 let calendarInstance: any = null
-const events = ref([])
-let refreshInterval: any = null
-let visibilityHandler: any = null
+const events = ref<CalendarEvent[]>([])
+// In browser environment setInterval returns a number, avoid NodeJS namespace
+let refreshInterval: number | null = null
+let visibilityHandler: (() => void) | null = null
 const page = usePage()
+const pp = page.props as any
 
 // Settings modal state
 const settingsModalVisible = ref(false)
 const settingsSaving = ref(false)
-const settingsCalendars = ref([])
+const settingsCalendars = ref<GoogleCalendar[]>([])
 const settingsConnected = ref(false)
 const settings = reactive({ calendar_id: '', timezone: 'America/Sao_Paulo', locale: 'pt_BR' })
 
@@ -68,6 +91,7 @@ async function disconnectGoogle() {
   try {
     await router.post(route('admin.calendar.disconnect'))
   } catch (e) {
+    console.error(e)
     alert('Erro ao desconectar')
   }
 }
@@ -77,8 +101,8 @@ function connectGoogle() {
 }
 
 async function loadEvents() {
-  const res = await axios.get(route('admin.calendar.events'))
-  events.value = res.data.map(e => ({
+  const res = await axios.get<ApiCalendarEvent[]>(route('admin.calendar.events'))
+  events.value = res.data.map((e: ApiCalendarEvent) => ({
     id: e.id,
     title: e.summary,
     start: e.start,
@@ -93,7 +117,7 @@ async function loadEvents() {
       // remove existing event sources to avoid duplicates
       const sources = calendarInstance.getEventSources ? calendarInstance.getEventSources() : [];
       if (Array.isArray(sources)) {
-        sources.forEach((s: any) => { try { s.remove(); } catch (e) { /* ignore */ } })
+        sources.forEach((s: any) => { try { s.remove(); } catch (e) { void e } })
       }
       // add new source
       calendarInstance.addEventSource(events.value)
@@ -101,9 +125,9 @@ async function loadEvents() {
     } catch (err) {
       // fallback: add events one-by-one
       console.warn('addEventSource failed, falling back to addEvent per item', err)
-      try { calendarInstance.removeAllEvents() } catch(e){}
+      try { calendarInstance.removeAllEvents() } catch(e){ void e }
       events.value.forEach(ev => {
-        try { calendarInstance.addEvent(ev) } catch(e) { console.warn('addEvent fallback failed', e, ev) }
+        try { calendarInstance.addEvent(ev) } catch(e) { console.warn('addEvent fallback failed', e, ev); }
       })
       try { calendarInstance.render() } catch (err) { console.error('Calendar render error', err) }
     }
@@ -133,41 +157,47 @@ onMounted(async () => {
           },
           initialView: 'dayGridMonth',
           selectable: true,
-          select: function(selectInfo) {
+          select: function(selectInfo: any) {
             openModal('create', {
               id: null,
               summary: '',
               description: '',
-              start: selectInfo.startStr,
-              end: selectInfo.endStr || selectInfo.startStr,
+              start: String(selectInfo.startStr ?? ''),
+
+              end: String(selectInfo.endStr ?? selectInfo.startStr ?? ''),
+
               allDay: !!selectInfo.allDay,
               calendar: ''
             })
           },
-          eventClick: function(info) {
+          eventClick: function(info: any) {
             const ev = info.event
             openModal('edit', {
               id: ev.id,
               summary: ev.title,
-              description: ev.extendedProps?.description || '',
-              start: ev.startStr || ev.start,
-              end: ev.endStr || ev.end,
+              description: ev.extendedProps?.description ?? '',
+              start: String(ev.startStr ?? ev.start ?? ''),
+
+              end: String(ev.endStr ?? ev.end ?? ''),
+
               allDay: !!ev.allDay,
-              calendar: ev.extendedProps?.calendar || ''
+              calendar: ev.extendedProps?.calendar ?? ''
             })
           },
-          eventDidMount: function(info:any) {
+          eventDidMount: function(info: any) {
             try {
               const cal = info.event.extendedProps?.calendar
               if (cal && info.el) {
                 const badge = document.createElement('span')
                 badge.className = 'ml-2 text-xs px-1 rounded bg-gray-100 text-gray-700'
                 badge.style.marginLeft = '6px'
-                badge.innerText = String(cal).split('/').pop()
+                // pop() can return undefined, ensure we always set a string
+                const _parts = String(cal).split('/')
+                badge.innerText = String(_parts.pop() ?? '')
                 const titleEl = info.el.querySelector('.fc-event-title') || info.el
-                try { titleEl.appendChild(badge) } catch(e){}
+                try { titleEl.appendChild(badge) } catch(e){ void e }
               }
-            } catch(e){}
+            } catch(e){ void e }
           }
         })
         console.log('FullCalendar initialized', calendarInstance)
@@ -198,7 +228,7 @@ onMounted(async () => {
 
   function stopAutoRefresh() {
     if (!refreshInterval) return
-    try { clearInterval(refreshInterval) } catch (e) {}
+    try { clearInterval(refreshInterval) } catch (e) { void e }
     refreshInterval = null
   }
 
@@ -220,6 +250,11 @@ onMounted(async () => {
     }
     document.addEventListener('visibilitychange', visibilityHandler)
   }
+
+  // expose debug helper on window for dev (avoids unused local variable)
+  if (typeof window !== 'undefined') {
+    ;(window as any).calendarDebug = () => ({ instance: calendarInstance, events: events.value })
+  }
 })
 
 onUnmounted(() => {
@@ -232,10 +267,6 @@ onUnmounted(() => {
     visibilityHandler = null
   }
 })
-
-// debug: expose calendarInstance for console inspection
-// @ts-ignore
-window.__fc_calendar = () => ({ instance: calendarInstance, events: events.value })
 
 // Modal state + handlers for create/update/delete
 const modalVisible = ref(false)
@@ -260,7 +291,7 @@ function openModal(mode: 'create' | 'edit', payload: any) {
         const diff = (ed.getTime() - sd.getTime()) / (1000 * 60 * 60 * 24)
         if (diff === 1) e = s
       }
-    } catch (err) {}
+    } catch (err) { void err }
     form.start = s
     form.end = e
   } else {
@@ -343,17 +374,18 @@ async function deleteEventFromModal() {
 <template>
   <AuthLayout>
     <div class="flex flex-col">
+      <!-- template changes: use `pp` instead of `page.props` to satisfy TypeScript -->
       <div class="flex items-center gap-2 justify-end gap-2 mb-4">
-          <button @click="openSettingsModal" class="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700">Configurações</button>
-          <button v-if="page.props.google?.connected" @click="disconnectGoogle" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Desconectar</button>
-          <button v-else @click="connectGoogle" class="rounded bg-green-600 px-3 py-1 text-white hover:bg-green-700">Conectar Google</button>
-        </div>
-
-      <div v-if="page.props.flash?.success" class="mb-4 rounded border-l-4 border-green-500 bg-green-50 p-3 text-green-800">
-        {{ page.props.flash.success }}
+        <button @click="openSettingsModal" class="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700">Configurações</button>
+        <button v-if="pp.google?.connected" @click="disconnectGoogle" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Desconectar</button>
+        <button v-else @click="connectGoogle" class="rounded bg-green-600 px-3 py-1 text-white hover:bg-green-700">Conectar Google</button>
       </div>
-      <div v-if="page.props.flash?.error" class="mb-4 rounded border-l-4 border-red-500 bg-red-50 p-3 text-red-800">
-        {{ page.props.flash.error }}
+
+      <div v-if="pp.flash?.success" class="mb-4 rounded border-l-4 border-green-500 bg-green-50 p-3 text-green-800">
+        {{ pp.flash.success }}
+      </div>
+      <div v-if="pp.flash?.error" class="mb-4 rounded border-l-4 border-red-500 bg-red-50 p-3 text-red-800">
+        {{ pp.flash.error }}
       </div>
 
       <div id="fc-calendar" ref="calendarEl" class="bg-white shadow rounded p-2 flex-1 overflow-hidden min-h-0" style="max-height:800px"></div>

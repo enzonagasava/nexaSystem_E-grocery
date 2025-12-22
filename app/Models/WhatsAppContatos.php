@@ -9,6 +9,8 @@ class WhatsAppContatos extends Model
 {
     use HasFactory;
 
+    protected $connection = 'content';
+
     protected $table = 'whatsapp_contatos';
 
     protected $fillable = [
