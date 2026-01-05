@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('agendamentos', function (Blueprint $table) {
+        Schema::connection('content')->table('agendamentos', function (Blueprint $table) {
             $table->foreignId('consulta_id')
                 ->nullable()
                 ->after('paciente_id')
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('agendamentos', function (Blueprint $table) {
+        Schema::connection('content')->table('agendamentos', function (Blueprint $table) {
             $table->dropForeign(['consulta_id']);
             $table->dropColumn('consulta_id');
         });

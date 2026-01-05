@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('empresa_id')->nullable()->after('cargo_id')->constrained('empresas')->nullOnDelete();
+        Schema::connection('content')->table('empresas', function (Blueprint $table) {
+            $table->string('tipo')->default('ecommerce')->after('logo');
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['empresa_id']);
-            $table->dropColumn('empresa_id');
+        Schema::connection('content')->table('empresas', function (Blueprint $table) {
+            $table->dropColumn('tipo');
         });
     }
 };

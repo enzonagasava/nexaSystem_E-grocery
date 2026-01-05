@@ -6,6 +6,8 @@ use App\Models\BaseModel;
 
 class Agendamento extends BaseModel
 {
+    protected $connection = 'content';
+
     protected $table = 'agendamentos';
 
     protected $fillable = [

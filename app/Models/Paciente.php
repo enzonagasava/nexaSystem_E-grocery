@@ -6,6 +6,8 @@ use App\Models\BaseModel;
 
 class Paciente extends BaseModel
 {
+    protected $connection = 'content';
+
     protected $table = 'pacientes';
 
     protected $fillable = [

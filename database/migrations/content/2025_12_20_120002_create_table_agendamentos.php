@@ -8,23 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('consultas', function (Blueprint $table) {
+        Schema::connection('content')->create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('empresa_id')->constrained('empresas')->cascadeOnDelete();
             $table->foreignId('paciente_id')->constrained('pacientes')->cascadeOnDelete();
-            $table->date('data_consulta');
-            $table->time('hora_inicio');
-            $table->time('hora_fim')->nullable();
+            $table->date('data');
+            $table->time('hora');
+            $table->integer('duracao_minutos')->default(30);
             $table->string('tipo', 100)->default('consulta');
-            $table->enum('status', ['agendada', 'em-andamento', 'realizada', 'cancelada'])->default('agendada');
-            $table->decimal('valor', 10, 2)->nullable();
-            $table->text('motivo')->nullable();
+            $table->enum('status', ['pendente', 'confirmado', 'cancelado', 'realizado'])->default('pendente');
             $table->text('observacoes')->nullable();
-            $table->text('diagnostico')->nullable();
-            $table->text('prescricao')->nullable();
             $table->timestamps();
 
-            $table->index(['empresa_id', 'data_consulta']);
+            $table->index(['empresa_id', 'data']);
             $table->index(['empresa_id', 'paciente_id']);
             $table->index(['empresa_id', 'status']);
         });
@@ -32,6 +28,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('consultas');
+        Schema::connection('content')->dropIfExists('agendamentos');
     }
 };

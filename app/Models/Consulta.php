@@ -6,6 +6,8 @@ use App\Models\BaseModel;
 
 class Consulta extends BaseModel
 {
+    protected $connection = 'content';
+
     protected $table = 'consultas';
 
     protected $fillable = [
