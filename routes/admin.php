@@ -105,7 +105,7 @@ use Inertia\Inertia;
 
     });
 
-    Route::middleware(['jwt.cookie','auth', 'cliente'])->prefix('cliente')->name('cliente.')->group(function () {
+    Route::middleware(['jwt.cookie','auth'])->prefix('cliente')->name('cliente.')->group(function () {
         Route::get('/dashboard', [ClienteDashboardController::class, 'index'])->name('dashboard');
         // rotas cliente...
     });
@@ -121,13 +121,13 @@ use Inertia\Inertia;
     */
 
     // Rotas do módulo E-commerce
-    Route::middleware(['jwt.cookie', 'auth', 'tipo:ecommerce'])
+    Route::middleware(['jwt.cookie', 'auth'])
         ->prefix('admin/ecommerce')
         ->name('admin.ecommerce.')
         ->group(base_path('routes/modulos/ecommerce.php'));
 
     // Rotas do módulo Clínica Médica
-    Route::middleware(['jwt.cookie', 'auth', 'tipo:clinica'])
+    Route::middleware(['jwt.cookie', 'auth'])
         ->prefix('admin/clinica')
         ->name('admin.clinica.')
         ->group(base_path('routes/modulos/clinica.php'));
