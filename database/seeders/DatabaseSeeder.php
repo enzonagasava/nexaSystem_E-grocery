@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'clinica@teste.com',
                 'password' => bcrypt('123456789'),
                 'cargo_id' => 1,
-                'empresa_id' => 2, // Clínica Saúde Total
+                'empresa_id' => 2, // Clínica
             ]);
         }
     }

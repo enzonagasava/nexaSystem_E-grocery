@@ -2,23 +2,31 @@
 
 namespace Database\Seeders;
 
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class PlataformaSeeder extends Seeder
 {
     public function run(): void
     {
-        $plataformas = [
-            ['nome' => 'Shopee'],
-            ['nome' => 'Mercado Livre'],
-            ['nome' => 'Amazon'],
-            ['nome' => 'Loja Integrada'],
-        ];
+        $conn = 'content';
 
-        foreach ($plataformas as $plataforma) {
-            DB::connection('content')->table('plataforma_pedido')->insertOrIgnore($plataforma);
+        if (! Schema::connection($conn)->hasTable('plataforma_pedido')) {
+            $this->command->info("Tabela 'plataforma_pedido' não existe na conexão '{$conn}', pulando seeder.");
+            return;
         }
+
+        $names = ['Shopee', 'Mercado Livre', 'Amazon', 'Loja Integrada'];
+        $now = now();
+
+        foreach ($names as $name) {
+            DB::connection($conn)->table('plataforma_pedido')->updateOrInsert(
+                ['nome' => $name],
+                ['nome' => $name, 'created_at' => $now, 'updated_at' => $now]
+            );
+        }
+
+        $this->command->info('Plataformas seedadas/atualizadas com sucesso.');
     }
 }

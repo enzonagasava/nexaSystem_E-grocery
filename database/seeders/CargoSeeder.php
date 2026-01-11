@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CargoSeeder extends Seeder
 {
@@ -12,17 +13,24 @@ class CargoSeeder extends Seeder
      */
     public function run(): void
     {
+        $conn = 'credentials';
+
+        if (! Schema::connection($conn)->hasTable('cargos')) {
+            $this->command->info("Tabela 'cargos' não existe na conexão '{$conn}', pulando seeder.");
+            return;
+        }
+
         // Desabilita FK temporariamente (para evitar erros de ordem)
-        DB::connection('credentials')->statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::connection($conn)->statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // Trunca a tabela
-        DB::connection('credentials')->table('cargos')->truncate();
+        DB::connection($conn)->table('cargos')->truncate();
 
         // Reabilita FK
-        DB::connection('credentials')->statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::connection($conn)->statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Insere cargos com IDs EXPLÍCITOS (importante!)
-        DB::connection('credentials')->table('cargos')->insert([
+        DB::connection($conn)->table('cargos')->insert([
             [
                 'id' => 1, // ← ID 1 para admin
                 'nome' => 'admin',

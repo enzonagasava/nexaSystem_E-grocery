@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Conexão desta migration.
+     */
+    protected $connection = 'credentials';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
