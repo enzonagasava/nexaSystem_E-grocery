@@ -58,6 +58,14 @@ class Empresa extends BaseModel
     }
 
     /**
+     * Verifica se a empresa é do tipo corretor de imóveis.
+     */
+    public function isCorretor(): bool
+    {
+        return $this->tipo === TipoEmpresa::Corretor;
+    }
+
+    /**
      * Verifica se a empresa é do tipo especificado.
      */
     public function isTipo(TipoEmpresa|string $tipo): bool

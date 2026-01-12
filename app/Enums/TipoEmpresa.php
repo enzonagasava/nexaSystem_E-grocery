@@ -6,6 +6,7 @@ enum TipoEmpresa: string
 {
     case Ecommerce = 'ecommerce';
     case Clinica = 'clinica';
+    case Corretor = 'corretor';
 
     /**
      * Retorna o label amigável para exibição.
@@ -15,6 +16,7 @@ enum TipoEmpresa: string
         return match ($this) {
             self::Ecommerce => 'E-commerce',
             self::Clinica => 'Clínica Médica',
+            self::Corretor => 'Corretor de Imóveis',
         };
     }
 
@@ -26,6 +28,7 @@ enum TipoEmpresa: string
         return match ($this) {
             self::Ecommerce => 'admin.ecommerce.dashboard',
             self::Clinica => 'admin.clinica.dashboard',
+            self::Corretor => 'admin.corretor.dashboard',
         };
     }
 
@@ -37,6 +40,7 @@ enum TipoEmpresa: string
         return match ($this) {
             self::Ecommerce => 'ecommerce',
             self::Clinica => 'clinica',
+            self::Corretor => 'corretor',
         };
     }
 

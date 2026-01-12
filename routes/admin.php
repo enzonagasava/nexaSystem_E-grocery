@@ -49,40 +49,43 @@ use Inertia\Inertia;
         Route::delete('clientes/deletar-cliente/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
         Route::get('/clientes/buscar', [SearchController::class, 'buscarCliente'])->name('clientes.buscar');
 
+        // Calendar (compartilhado entre módulos)
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::get('calendar', [\App\Http\Controllers\Admin\CalendarController::class, 'index'])->name('calendar.index');
+            Route::get('calendar/events', [\App\Http\Controllers\Admin\CalendarController::class, 'events'])->name('calendar.events');
+            Route::post('calendar/events', [\App\Http\Controllers\Admin\CalendarController::class, 'store'])->name('calendar.store');
+            Route::put('calendar/events/{id}', [\App\Http\Controllers\Admin\CalendarController::class, 'update'])->name('calendar.update');
+            Route::delete('calendar/events/{id}', [\App\Http\Controllers\Admin\CalendarController::class, 'destroy'])->name('calendar.destroy');
+            
+            // Calendar settings
+            Route::get('calendar/settings', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'index'])->name('calendar.settings');
+            Route::get('calendar/settings/data', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'data'])->name('calendar.settings.data');
+            Route::put('calendar/settings', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'update'])->name('calendar.settings.update');
+            
+            // Google Calendar OAuth (optional)
+            Route::get('calendar/auth', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'redirect'])->name('calendar.auth');
+            Route::get('calendar/callback', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'callback'])->name('calendar.callback');
+            Route::post('calendar/disconnect', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'disconnect'])->name('calendar.disconnect');
+
+            // Chat (compartilhado entre módulos)
+            Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+            Route::get('/chat/conversations', [ChatController::class, 'getConversations'])->name('chat.conversations');
+            Route::get('/chat/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
+            Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+            Route::post('/chat/mark-read', [ChatController::class, 'markAsRead'])->name('chat.markRead');
+
+            // Chat Settings (compartilhado entre módulos)
+            Route::get('/chat/settings', [ChatSettingsController::class, 'index'])->name('chat.settings');
+            Route::put('/chat/settings/config', [ChatSettingsController::class, 'updateConfig'])->name('chat.settings.config');
+            Route::post('/chat/settings/respostas-rapidas', [ChatSettingsController::class, 'storeRespostaRapida'])->name('chat.settings.respostas.store');
+            Route::put('/chat/settings/respostas-rapidas/{respostaRapida}', [ChatSettingsController::class, 'updateRespostaRapida'])->name('chat.settings.respostas.update');
+            Route::delete('/chat/settings/respostas-rapidas/{respostaRapida}', [ChatSettingsController::class, 'destroyRespostaRapida'])->name('chat.settings.respostas.destroy');
+        });
 
     });
 
     Route::middleware(['jwt.cookie', 'auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-        //Rota Canlender
-        Route::get('calendar', [\App\Http\Controllers\Admin\CalendarController::class, 'index'])->name('calendar.index');
-        Route::get('calendar/events', [\App\Http\Controllers\Admin\CalendarController::class, 'events'])->name('calendar.events');
-        Route::post('calendar/events', [\App\Http\Controllers\Admin\CalendarController::class, 'store'])->name('calendar.store');
-        Route::put('calendar/events/{id}', [\App\Http\Controllers\Admin\CalendarController::class, 'update'])->name('calendar.update');
-        Route::delete('calendar/events/{id}', [\App\Http\Controllers\Admin\CalendarController::class, 'destroy'])->name('calendar.destroy');
-        // Calendar settings
-        Route::get('calendar/settings', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'index'])->name('calendar.settings');
-        Route::get('calendar/settings/data', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'data'])->name('calendar.settings.data');
-        Route::put('calendar/settings', [\App\Http\Controllers\Admin\CalendarSettingsController::class, 'update'])->name('calendar.settings.update');
-        // Google Calendar OAuth (optional)
-        Route::get('calendar/auth', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'redirect'])->name('calendar.auth');
-        Route::get('calendar/callback', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'callback'])->name('calendar.callback');
-        Route::post('calendar/disconnect', [\App\Http\Controllers\Admin\GoogleCalendarAuthController::class, 'disconnect'])->name('calendar.disconnect');
-
-        //Rota Chat
-        Route::get('/chat', [ChatController::class, 'index'])->name('chat');
-        Route::get('/chat/conversations', [ChatController::class, 'getConversations'])->name('chat.conversations');
-        Route::get('/chat/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
-        Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
-        Route::post('/chat/mark-read', [ChatController::class, 'markAsRead'])->name('chat.markRead');
-
-        //Rota Chat Settings
-        Route::get('/chat/settings', [ChatSettingsController::class, 'index'])->name('chat.settings');
-        Route::put('/chat/settings/config', [ChatSettingsController::class, 'updateConfig'])->name('chat.settings.config');
-        Route::post('/chat/settings/respostas-rapidas', [ChatSettingsController::class, 'storeRespostaRapida'])->name('chat.settings.respostas.store');
-        Route::put('/chat/settings/respostas-rapidas/{respostaRapida}', [ChatSettingsController::class, 'updateRespostaRapida'])->name('chat.settings.respostas.update');
-        Route::delete('/chat/settings/respostas-rapidas/{respostaRapida}', [ChatSettingsController::class, 'destroyRespostaRapida'])->name('chat.settings.respostas.destroy');
 
         //Rotas Pedidos
         Route::put('/pedidos/avancarStatus/{id}', [PedidoController::class, 'avancarStatus'])
@@ -131,3 +134,9 @@ use Inertia\Inertia;
         ->prefix('admin/clinica')
         ->name('admin.clinica.')
         ->group(base_path('routes/modulos/clinica.php'));
+
+    // Rotas do módulo Corretor de Imóveis
+    Route::middleware(['jwt.cookie', 'auth'])
+        ->prefix('admin/corretor')
+        ->name('admin.corretor.')
+        ->group(base_path('routes/modulos/corretor.php'));

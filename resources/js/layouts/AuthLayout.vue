@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DropdownButtonAdmin from '@/components/ui/dropdown-button/DropdownButtonAdmin.vue';
 import ClinicaNavigation from '@/components/layouts/navigation/ClinicaNavigation.vue';
+import CorretorNavigation from '@/components/layouts/navigation/CorretorNavigation.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { House, LogOut } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
@@ -27,8 +28,13 @@ const handleLogout = () => {
 // Verifica se o usuário é de uma clínica
 const isClinica = computed(() => page.props.auth?.user?.tipo_empresa === 'clinica');
 
+// Verifica se o usuário é um corretor de imóveis
+const isCorretor = computed(() => page.props.auth?.user?.tipo_empresa === 'corretor');
+
 const painelTitle = computed(() => {
-    return isClinica.value ? 'Painel Clínica' : 'Painel Admin';
+    if (isClinica.value) return 'Painel Clínica';
+    if (isCorretor.value) return 'Painel Corretor';
+    return 'Painel Admin';
 });
 </script>
 
@@ -48,6 +54,9 @@ const painelTitle = computed(() => {
             <aside v-if="isMenuOpen" class="fixed inset-y-0 left-0 z-40 w-64 space-y-4 bg-gray-800 p-4 text-white lg:hidden">
                 <!-- Navegação Clínica -->
                 <ClinicaNavigation v-if="isClinica" @close="closeMenu" />
+
+                <!-- Navegação Corretor -->
+                <CorretorNavigation v-else-if="isCorretor" @close="closeMenu" />
 
                 <!-- Navegação Padrão (E-commerce/Admin) -->
                 <nav v-else class="mt-10 space-y-2">
@@ -115,6 +124,9 @@ const painelTitle = computed(() => {
 
             <!-- Navegação Clínica -->
             <ClinicaNavigation v-if="isClinica" @close="closeMenu" />
+
+            <!-- Navegação Corretor -->
+            <CorretorNavigation v-else-if="isCorretor" @close="closeMenu" />
 
             <!-- Navegação Padrão (E-commerce/Admin) -->
             <nav v-else class="space-y-2">

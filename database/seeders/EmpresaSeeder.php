@@ -52,6 +52,24 @@ class EmpresaSeeder extends Seeder
             ]
         );
 
+        // Empresa de exemplo - Corretor de Imóveis
+        Empresa::firstOrCreate(
+            ['id' => 3],
+            [
+                'nome' => 'Imobiliária Prime',
+                'email' => 'contato@imobiliariaprime.com.br',
+                'numero_wpp' => '(11) 97777-7777',
+                'telefone' => '(11) 5555-5555',
+                'cnpj' => '22.222.222/0001-22',
+                'endereco' => 'Rua dos Imóveis, 789 - Centro',
+                'cep' => '22222-222',
+                'numero_endereco' => '789',
+                'municipio' => 'São Paulo',
+                'estado' => 'SP',
+                'tipo' => TipoEmpresa::Corretor,
+            ]
+        );
+
         RedeSocial::firstOrCreate(
           ['id' => 1],
         );

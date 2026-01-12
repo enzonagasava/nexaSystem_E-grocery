@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-vue-next';
 import type { Config } from 'ziggy-js';
 
 // Tipos de empresa disponíveis no sistema
-export type TipoEmpresa = 'ecommerce' | 'clinica';
+export type TipoEmpresa = 'ecommerce' | 'clinica' | 'corretor';
 
 export interface Empresa {
     id: number;

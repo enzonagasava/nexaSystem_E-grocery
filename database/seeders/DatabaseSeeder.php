@@ -58,5 +58,17 @@ class DatabaseSeeder extends Seeder
                 'empresa_id' => 2, // Clínica
             ]);
         }
+        // Admin do Corretor (vinculado à empresa 3)
+        $corretorAdminExists = User::where('email', 'contato@imobiliariaprime.com.br')->exists();
+
+        if (! $corretorAdminExists) {
+            User::factory()->create([
+                'name' => 'Admin Corretor',
+                'email' => 'contato@imobiliariaprime.com.br',
+                'password' => bcrypt('123456789'),
+                'cargo_id' => 1,
+                'empresa_id' => 3, // Imobiliária Prime
+            ]);
+        }
     }
 }
