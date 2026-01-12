@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('calendar_settings', function (Blueprint $table) {
+        Schema::connection('content')->create('calendar_settings', function (Blueprint $table) {
             $table->id();
             $table->string('calendar_id')->nullable();
             $table->string('timezone')->nullable();
@@ -19,6 +19,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('calendar_settings');
+        Schema::connection('content')->dropIfExists('calendar_settings');
     }
 };

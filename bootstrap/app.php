@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'jwt.cookie' => \App\Http\Middleware\JwtCookieMiddleware::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'cliente' => \App\Http\Middleware\ClienteMiddleware::class,
+            'tipo' => \App\Http\Middleware\CheckTipoEmpresa::class,
         ]);       
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 

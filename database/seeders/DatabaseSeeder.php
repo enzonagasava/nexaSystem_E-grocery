@@ -20,31 +20,43 @@ class DatabaseSeeder extends Seeder
             PlataformaSeeder::class,
         ]);
 
-        // 1. PRIMEIRO: Seed cargos (credentials)
-        $this->call(CargoSeeder::class);
-
-        // 2. DEPOIS: Criar usuário admin (que referencia cargo)
-        $adminExists = User::on('credentials')
-            ->where('email', 'admin@teste.com')
-            ->exists();
+        // Admin master (sem empresa - acesso total)
+        $adminExists = User::where('email', 'admin@teste.com')->exists();
 
         if (!$adminExists) {
-            User::on('credentials')->create([
-                'name' => 'admin',
+            User::factory()->create([
+                'name' => 'Admin Master',
                 'email' => 'admin@teste.com',
                 'password' => bcrypt('123456789'),
-                'email_verified_at' => '2025-12-18 14:09:36',
-                'cargo_id' => 1, // ID do cargo 'admin' que acabou de ser criado
+                'cargo_id' => 1,
+                'empresa_id' => null, // Admin master sem empresa
             ]);
-            $this->command->info('Admin user created successfully.');
         }
 
-        // 3. POR FIM: Seeders do banco content
-        $this->call([
-            EmpresaSeeder::class,
-            PlataformaSeeder::class,
-            CargoSeeder::class,
-            // Outros seeders do content
-        ]);
+        // Admin do E-commerce (vinculado à empresa 1)
+        $ecommerceAdminExists = User::where('email', 'ecommerce@teste.com')->exists();
+
+        if (!$ecommerceAdminExists) {
+            User::factory()->create([
+                'name' => 'Admin E-commerce',
+                'email' => 'ecommerce@teste.com',
+                'password' => bcrypt('123456789'),
+                'cargo_id' => 1,
+                'empresa_id' => 1, // Familia Mogi (e-commerce)
+            ]);
+        }
+
+        // Admin da Clínica (vinculado à empresa 2)
+        $clinicaAdminExists = User::where('email', 'clinica@teste.com')->exists();
+
+        if (!$clinicaAdminExists) {
+            User::factory()->create([
+                'name' => 'Admin Clínica',
+                'email' => 'clinica@teste.com',
+                'password' => bcrypt('123456789'),
+                'cargo_id' => 1,
+                'empresa_id' => 2, // Clínica Saúde Total
+            ]);
+        }
     }
 }

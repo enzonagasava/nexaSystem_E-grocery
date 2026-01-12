@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function(Blueprint $table){
-            $table->string('numero', 20)->nullable()->after('email');
+        Schema::connection('content')->table('empresas', function (Blueprint $table) {
+            $table->string('tipo')->default('ecommerce')->after('logo');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function(Blueprint $table){
-            $table->dropColumn('numero');
+        Schema::connection('content')->table('empresas', function (Blueprint $table) {
+            $table->dropColumn('tipo');
         });
     }
 };

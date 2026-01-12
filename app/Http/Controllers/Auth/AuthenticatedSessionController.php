@@ -41,6 +41,9 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        // Carregar relacionamento empresa para determinar o tipo
+        $user->load('empresa');
+
         // Criar cookie HTTP-only com o token JWT
         $cookie = cookie(
             'jwt_token',      // nome do cookie
@@ -54,14 +57,9 @@ class AuthenticatedSessionController extends Controller
             'Strict'          // SameSite
         );
 
-        if ($user->cargo_id === 1) {
-            $redirectUrl = route('admin.dashboard');
-        } elseif ($user->cargo_id === 2) {
-            $redirectUrl = route('cliente.dashboard');
-        } else {
-            $redirectUrl = route('home'); // fallback válido
-        }
-
+        // Usa o método getDashboardRoute() do User para determinar o redirecionamento
+        // baseado no tipo da empresa (ecommerce, clinica) ou cargo (admin, cliente)
+        $redirectUrl = route($user->getDashboardRoute());
 
         // Retornar redirecionamento Inertia com cookie
         return Inertia::location($redirectUrl)->withCookie($cookie);
