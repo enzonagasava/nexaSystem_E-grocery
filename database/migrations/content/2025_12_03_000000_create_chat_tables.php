@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
 
 return new class extends Migration
 {
@@ -44,17 +46,6 @@ return new class extends Migration
             $table->index(['remote_jid', 'enviado_em']);
         });
 
-        // Inserir configuração padrão
-        DB::table('configuracoes_ia')->insert([
-            'bot_ativo' => false,
-            'tom_voz' => 'amigavel',
-            'mensagem_boas_vindas' => 'Olá! Seja bem-vindo(a)! Como posso ajudar?',
-            'mensagem_fora_horario' => 'Obrigado por entrar em contato! No momento estamos fora do horário de atendimento. Retornaremos em breve.',
-            'timer_ausencia' => 300,
-            'bloquear_bot' => false,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
     }
 
     public function down(): void

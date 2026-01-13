@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\ConfiguracaoIa;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +20,17 @@ class DatabaseSeeder extends Seeder
             PlataformaSeeder::class,
         ]);
 
+        ConfiguracaoIa::create([
+            'bot_ativo' => false,
+            'tom_voz' => 'amigavel',
+            'mensagem_boas_vindas' => 'Olá! Seja bem-vindo(a)! Como posso ajudar?',
+            'mensagem_fora_horario' => 'Obrigado por entrar em contato! No momento estamos fora do horário de atendimento. Retornaremos em breve.',
+            'timer_ausencia' => 300,
+            'bloquear_bot' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         // Admin master (sem empresa - acesso total)
         $adminExists = User::where('email', 'admin@teste.com')->exists();
 
@@ -29,7 +40,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@teste.com',
                 'password' => bcrypt('123456789'),
                 'cargo_id' => 1,
-                'empresa_id' => null, // Admin master sem empresa
             ]);
         }
 
@@ -42,7 +52,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ecommerce@teste.com',
                 'password' => bcrypt('123456789'),
                 'cargo_id' => 1,
-                'empresa_id' => 1, // Familia Mogi (e-commerce)
             ]);
         }
 
@@ -55,7 +64,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'clinica@teste.com',
                 'password' => bcrypt('123456789'),
                 'cargo_id' => 1,
-                'empresa_id' => 2, // Clínica Saúde Total
             ]);
         }
     }
