@@ -120,7 +120,7 @@ const supportLinks = [
                 class="mt-8 border-t pt-8 text-center text-sm"
                 style="border-color: var(--border); color: var(--landing-muted);"
             >
-                © {{ currentYear }} {{ brandName ?? 'NexaSystem E-Grocery' }}. Todos os direitos reservados.
+                © {{ currentYear }} {{ brandName ?? 'NexaSystem' }}. Todos os direitos reservados.
             </div>
         </div>
     </footer>

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\TipoEmpresa;
 use App\Models\Empresa;
 use App\Models\RedeSocial;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +11,6 @@ class EmpresaSeeder extends Seeder
 {
     public function run(): void
     {
-<<<<<<< HEAD
         // Busca os tipos do outro banco
         $tipoEcommerce = DB::connection('nexa_admin')
             ->table('tipo_painel')
@@ -30,9 +28,6 @@ class EmpresaSeeder extends Seeder
             ->first();
         
         // Empresa principal - E-commerce
-=======
-        // Empresa principal - E-commerce (padrão do sistema original)
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         Empresa::firstOrCreate(
             ['id' => 1],
             [
@@ -46,29 +41,7 @@ class EmpresaSeeder extends Seeder
                 'numero_endereco' => '123',
                 'municipio' => 'São Paulo',
                 'estado' => 'SP',
-<<<<<<< HEAD
                 'tipo_painel_id' => $tipoEcommerce->id ?? null,
-=======
-                'tipo' => TipoEmpresa::Ecommerce,
-            ]
-        );
-
-        // Empresa de exemplo - Clínica Médica
-        Empresa::firstOrCreate(
-            ['id' => 2],
-            [
-                'nome' => 'Clínica Saúde Total',
-                'email' => 'contato@clinicasaudetotal.com.br',
-                'numero_wpp' => '(11) 98888-8888',
-                'telefone' => '(11) 4444-4444',
-                'cnpj' => '11.111.111/0001-11',
-                'endereco' => 'Av. Saúde, 456 - Centro',
-                'cep' => '11111-111',
-                'numero_endereco' => '456',
-                'municipio' => 'São Paulo',
-                'estado' => 'SP',
-                'tipo' => TipoEmpresa::Clinica,
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             ]
         );
 

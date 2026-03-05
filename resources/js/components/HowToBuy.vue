@@ -4,11 +4,7 @@
             <h2 class="mb-12 text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">Como Comprar</h2>
             <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <!-- Card 1 -->
-<<<<<<< HEAD
                 <div class="flex flex-col items-center justify-between rounded-2xl  p-8 shadow-lg">
-=======
-                <div class="flex flex-col items-center justify-between rounded-2xl bg-white p-8 shadow-lg">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     <div class="flex-1 text-center md:text-left">
                         <span class="mb-2 block text-lg font-semibold text-gray-900">Escolha a sua mercadoria.</span>
                         <p class="leading-relaxed text-gray-700">
@@ -20,11 +16,7 @@
                 </div>
 
                 <!-- Card 2 -->
-<<<<<<< HEAD
                 <div class="flex flex-col items-center justify-between rounded-2xl  p-8 shadow-lg">
-=======
-                <div class="flex flex-col items-center justify-between rounded-2xl bg-white p-8 shadow-lg">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     <img
                         src="/images/como-comprar-2.png"
                         alt="Pagamento"
@@ -40,11 +32,7 @@
                 </div>
 
                 <!-- Card 3 -->
-<<<<<<< HEAD
                 <div class="flex flex-col items-center justify-between rounded-2xl  p-8 shadow-lg">
-=======
-                <div class="flex flex-col items-center justify-between rounded-2xl bg-white p-8 shadow-lg">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     <div class="flex-1 text-center md:text-left">
                         <span class="mb-2 block text-lg font-semibold text-gray-900">Defina o ponto de entrega.</span>
                         <p class="leading-relaxed text-gray-700">
@@ -55,11 +43,7 @@
                 </div>
 
                 <!-- Card 4 -->
-<<<<<<< HEAD
                 <div class="flex flex-col items-center justify-between rounded-2xl  p-8 shadow-lg">
-=======
-                <div class="flex flex-col items-center justify-between rounded-2xl bg-white p-8 shadow-lg">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     <img
                         src="/images/como-comprar-4.png"
                         alt="Entrega"

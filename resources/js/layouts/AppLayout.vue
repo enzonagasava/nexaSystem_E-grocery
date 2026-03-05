@@ -1,8 +1,5 @@
 <script setup lang="ts">
-<<<<<<< HEAD
 import NexaLoadingOverlay from '@/components/NexaLoadingOverlay.vue';
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 import { useCartStore } from '@/stores/cart';
 import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
@@ -24,7 +21,6 @@ const cartStore = useCartStore();
 // Watch e Inicialização do Carrinho
 watch(
     () => page.props.cartItems,
-<<<<<<< HEAD
     (newItems: any) => {
         // Normalize potential payload (array or object) to a form compatible with setCart
         let payload: any = [];
@@ -32,10 +28,6 @@ watch(
         else if (newItems && typeof newItems === 'object') payload = Object.values(newItems);
         else payload = [];
         cartStore.setCart(payload);
-=======
-    (newItems) => {
-        cartStore.setCart(newItems || []);
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     },
     { immediate: true },
 ); // Usando 'immediate: true' para inicializar na montagem
@@ -141,19 +133,11 @@ onUnmounted(() => {
                         </nav>
                         <div class="flex items-center">
                             <div v-if="userLogado" class="relative inline-block" ref="dropdownRef">
-<<<<<<< HEAD
                                 <Button
                                     @click="toggleDropdown"
                                     class="flex items-center rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:cursor-pointer hover:bg-[#77bdad] focus:ring-2 focus:ring-[#6aab9c] focus:ring-offset-2 focus:outline-none"
                                 >
                                     <span>{{ userName }}</span>
-=======
-                                <button
-                                    @click="toggleDropdown"
-                                    class="flex items-center rounded bg-[#6aab9c] px-4 py-2 text-white transition hover:cursor-pointer hover:bg-[#77bdad] focus:ring-2 focus:ring-[#6aab9c] focus:ring-offset-2 focus:outline-none"
-                                >
-                                    <span>{{ page.props.auth.user.name || 'Usuário' }}</span>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     <svg
                                         :class="{ 'rotate-180': dropdownOpen }"
                                         class="ml-2 h-4 w-4 fill-current transition-transform duration-200"
@@ -168,31 +152,17 @@ onUnmounted(() => {
 
                                 <div
                                     :class="{ 'visible opacity-100': dropdownOpen, 'invisible opacity-0': !dropdownOpen }"
-<<<<<<< HEAD
                                     class="absolute right-0 w-36 origin-top-right rounded-md  shadow-lg transition-opacity duration-200"
                                 >   
                                     <Link
                                         @click="dashboardRoute"
-=======
-                                    class="absolute right-0 w-36 origin-top-right rounded-md bg-white shadow-lg transition-opacity duration-200"
-                                >
-                                    <Link
-                                        :href="page.props.auth.user.cargo_id === 1 ? '/admin/dashboard' : '/cliente/dashboard'"
-                                        @click="closeMenuAndDropdown"
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                         class="block rounded-t-md px-4 py-2 text-gray-800 hover:bg-gray-100"
                                     >
                                         Dashboard
                                     </Link>
-<<<<<<< HEAD
                                     <Button
                                         @click="logoutAndCloseMenu"
                                         class="w-full rounded-b-md px-4 py-2 text-left text-gray-800 hover:"
-=======
-                                    <button
-                                        @click="logoutAndCloseMenu"
-                                        class="w-full rounded-b-md px-4 py-2 text-left text-gray-800 hover:bg-gray-100"
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     >
                                         Logout
                                     </button>
@@ -218,11 +188,7 @@ onUnmounted(() => {
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <Button @click="toggleMenu" class="p-2 hover:cursor-pointer focus:outline-none md:hidden">
-=======
-                <button @click="toggleMenu" class="p-2 hover:cursor-pointer focus:outline-none md:hidden">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     <div :class="['hamburger', { active: isMenuOpen }]">
                         <span></span>
                         <span></span>

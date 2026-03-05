@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('content')->create('gerenciar_pedidos', function (Blueprint $table) {
+        Schema::create('gerenciar_pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes');
             $table->string('cod_pedido')->unique();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('content')->dropIfExists('gerenciar_pedidos');
+        Schema::dropIfExists('gerenciar_pedidos');
     }
 };

@@ -50,9 +50,9 @@ Diagrama original do board:
 
 ---
 
-## 3. Módulos e permissões (Seeder)
+## 3. Módulos e permissões (Config, Seeder e Sync)
 
-Os módulos e permissões são criados pelo **RolePermissaoSeeder** (`database/seeders/RolePermissaoSeeder.php`), no contexto do tenant (credentials).
+A **fonte única** de definição de módulos e permissões é o arquivo **`config/modulos.php`**. O **RolePermissaoSeeder** e o comando **`permissoes:sync`** leem esse config para criar/atualizar os dados no banco de cada tenant.
 
 ### 3.1 Módulos cadastrados
 
@@ -91,6 +91,25 @@ A tabela `painel_modulo` (tenant_credentials) associa `painel_id` (tipo_painel) 
 ### 3.4 Cargo × permissões por painel
 
 O cargo admin (id 1) pode ser associado a **todas** as permissões em cada painel via `cargo_permissao` (com `painel_id`). Outros cargos podem ter conjuntos restritos de permissões por painel.
+
+### 3.5 Config (`config/modulos.php`)
+
+O config contém três chaves:
+
+- **`modulos`**: array de módulos (`nome`, `display_name`, `descricao`).
+- **`acoes`**: array de ações padrão (`nome`, `display_suffix`) aplicadas a cada módulo (visualizar, criar, editar, excluir).
+- **`painel_modulos`**: array associativo `nome_do_tipo_painel => [nomes dos módulos]` (ex.: `'CRM Clínica' => ['chat', 'agenda', 'pacientes', 'financeiro']`).
+
+Ao **adicionar um novo módulo ou permissão**: edite `config/modulos.php` (inclua o módulo em `modulos` e, se aplicável, em `painel_modulos` para o(s) tipo(s) de painel). Em seguida, rode o sync ou o seeder para aplicar nos tenants.
+
+### 3.6 Comando `permissoes:sync`
+
+O comando **`php artisan permissoes:sync`** aplica o conteúdo de `config/modulos.php` no banco do(s) tenant(s), sem duplicar dados (usa `firstOrCreate` / `insertOrIgnore`).
+
+- **Um tenant**: `php artisan permissoes:sync --tenant=13`
+- **Todos os tenants**: `php artisan permissoes:sync` (lista os tenants em `nexa_admin.clientes` e processa cada um)
+
+Use o sync após alterar o config para que **tenants já existentes** recebam os novos módulos e permissões. Novos tenants continuam recebendo tudo ao rodar o seeder de credentials (que também usa o config).
 
 ---
 
@@ -230,7 +249,7 @@ O **painel ativo** vem de `session('painel_ativo_id')` ou, na prática, do tipo 
 ## 8. Resumo prático
 
 1. **Adicionar nova área protegida por permissão**
-   - Garantir que exista o módulo e a permissão no seeder (ex.: `produtos.visualizar`).
+   - Garantir que exista o módulo e a permissão em `config/modulos.php` (ex.: adicionar módulo `produtos` em `modulos` e em `painel_modulos` para o tipo de painel desejado). Rodar `php artisan permissoes:sync` (ou `--tenant=ID`) para aplicar em tenants existentes.
    - Agrupar as rotas em `Route::middleware(['permissao:produtos.visualizar'])->group(...)`.
    - No sidebar, usar `v-if="podeVer('produtos.visualizar', auth)"` no link correspondente.
 

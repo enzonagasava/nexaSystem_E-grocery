@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-<<<<<<< HEAD
 use App\Models\TipoPainel;
 use App\Models\Produto;
 use App\Enums\TipoEmpresa;
@@ -15,9 +14,6 @@ use App\Models\Cargo;
 use App\Models\Empresa;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-=======
-use App\Enums\TipoEmpresa;
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
@@ -31,14 +27,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      * @var list<string>
      */
 
-<<<<<<< HEAD
     protected $connection = 'tenant_credentials';
 
     protected $table = 'users';
-=======
-    protected $connection = 'credentials';
-
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
     protected $fillable = [
         'name',
@@ -87,7 +78,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return $this->belongsTo(Empresa::class, 'empresa_id');
     }
 
-<<<<<<< HEAD
         public function paineis()
     {
         return $this->belongsToMany(TipoPainel::class, 'painel_user')
@@ -179,20 +169,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             ]);
         }
         return $tipoPainel;
-=======
-    /**
-     * Retorna o tipo da empresa do usuário.
-     */
-    public function getTipoEmpresa(): ?TipoEmpresa
-    {
-        return $this->empresa?->tipo;
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 
     /**
      * Verifica se o usuário pertence a uma empresa do tipo especificado.
      */
-<<<<<<< HEAD
         public function isEmpresaTipo(TipoPainel|string $tipo): bool
         {
             // Obtém o tipo da empresa do usuário
@@ -207,15 +188,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             
             // Ou compare pelos valores se preferir:
             // return $tipoUsuario->nome->value === $tipo->value;
-=======
-    public function isEmpresaTipo(TipoEmpresa|string $tipo): bool
-    {
-        if (is_string($tipo)) {
-            $tipo = TipoEmpresa::tryFrom($tipo);
-        }
-
-        return $this->getTipoEmpresa() === $tipo;
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 
     /**
@@ -223,7 +195,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     public function getDashboardRoute(): string
     {
-<<<<<<< HEAD
 
     // Admin master sem empresa vai para dashboard admin geral
         if ($this->cargo_id === 1 && !$this->empresa_id) {
@@ -269,20 +240,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             'empresa_id' => $this->empresa_id,
             'empresa_loaded' => $this->relationLoaded('empresa'),
         ]);
-=======
-        // Admin master sem empresa vai para dashboard admin geral
-        if ($this->cargo_id === 1 && !$this->empresa_id) {
-            return 'admin.dashboard';
-        }
-
-        // Usuário com empresa vai para dashboard do tipo
-        $tipoEmpresa = $this->getTipoEmpresa();
-        if ($tipoEmpresa) {
-            return $tipoEmpresa->dashboardRoute();
-        }
-
-        // Fallback para cliente sem empresa
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         return 'cliente.dashboard';
     }
 

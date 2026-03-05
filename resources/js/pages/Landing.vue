@@ -65,10 +65,10 @@ const plans = [
 
 <template>
     <Head>
-        <title>NexaSystem E-Grocery</title>
-        <meta name="description" content="E-grocery para automatizar vendas e conquistar mais clientes. Gestão de leads, automações e assistente inteligente." />
+        <title>NexaSystem - CRM com IA</title>
+        <meta name="description" content="CRM com IA para automatizar vendas e conquistar mais clientes. Gestão de leads, automações e assistente inteligente." />
     </Head>
-    <LandingLayout title="NexaSystem - E-grocery">
+    <LandingLayout title="NexaSystem - CRM com IA">
         <LandingHero
             :title-line1="hero.titleLine1"
             :title-line2="hero.titleLine2"

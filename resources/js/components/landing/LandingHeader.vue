@@ -38,7 +38,7 @@ const closeMenu = () => {
                 class="flex items-center gap-2 font-bold"
                 style="color: var(--landing-foreground);"
             >
-                {{ brandName ?? 'NexaSystem E-Grocery' }}
+                {{ brandName ?? 'NexaSystem' }}
                 <span
                     v-if="showCorretorSubtitle"
                     class="text-sm font-normal opacity-80"

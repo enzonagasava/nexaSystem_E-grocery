@@ -28,11 +28,7 @@ function verPaciente(paciente: Paciente) {
     </div>
 
     <div class="overflow-x-auto">
-<<<<<<< HEAD
         <table class="min-w-full ">
-=======
-        <table class="min-w-full bg-white">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-center text-xs font-medium tracking-wider text-gray-500 uppercase">Id</th>

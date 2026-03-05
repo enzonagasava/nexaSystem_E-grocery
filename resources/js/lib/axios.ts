@@ -1,8 +1,5 @@
 import axios from 'axios';
-<<<<<<< HEAD
 import { useLoadingStore } from '@/stores/loading';
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 const api = axios.create({
     baseURL: '/api',
@@ -13,7 +10,6 @@ const api = axios.create({
     withCredentials: true,
 });
 
-<<<<<<< HEAD
 // Ensure CSRF token is sent for web (non-API) AJAX requests
 try {
     const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -63,6 +59,4 @@ api.interceptors.response.use(
     },
 );
 
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 export default api;

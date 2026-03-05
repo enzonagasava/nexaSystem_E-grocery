@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChatSettingsController;
 use App\Http\Controllers\Admin\Ecommerce\DashboardController;
@@ -13,10 +12,6 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Admin\PedidoController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-=======
-use App\Http\Controllers\Admin\Ecommerce\DashboardController;
-use Illuminate\Support\Facades\Route;
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +27,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-<<<<<<< HEAD
 // Menu (lista de itens do sidebar)
 Route::get('menu', function () {
     return Inertia::render('admin/ecommerce/MenuIndex');
@@ -136,9 +130,3 @@ Route::prefix('empresa/config')->middleware(['auth'])->group(function () {
 // Configuração Métodos de Pagamento
 Route::get('config/pagamento', [PagamentoConfigController::class, 'index'])->name('config.pagamento');
 Route::patch('config/pagamento', [PagamentoConfigController::class, 'update'])->name('config.pagamento.update');
-=======
-// Futuras rotas específicas de e-commerce:
-// Route::resource('pedidos', PedidoController::class);
-// Route::resource('produtos', ProdutoController::class);
-// Route::resource('carrinho', CarrinhoController::class);
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f

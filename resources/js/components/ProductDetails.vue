@@ -7,11 +7,8 @@ import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { computed, ref } from 'vue';
 import ButtonAddCart from './ui/button/ButtonAddCart.vue';
-<<<<<<< HEAD
 import { Button } from '@/components/ui/button';
 import Select from '@/components/ui/select/Select.vue';
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 const activeModules = [Navigation, Thumbs, Pagination];
 
@@ -50,15 +47,9 @@ const toggleShare = () => {
 </script>
 
 <template>
-<<<<<<< HEAD
     <div class="flex justify-center ">
         <div class="flex min-h-screen flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
             <div class="flex w-full max-w-7xl flex-col overflow-hidden rounded-lg  shadow-xl md:flex-row">
-=======
-    <div class="flex justify-center bg-gray-100">
-        <div class="flex min-h-screen flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
-            <div class="flex w-full max-w-7xl flex-col overflow-hidden rounded-lg bg-white shadow-xl md:flex-row">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 <div class="flex w-full flex-col items-center p-6 md:w-1/2">
                     <div class="flex h-full w-full">
                         <div class="mr-4 flex flex-col space-y-2">
@@ -122,30 +113,18 @@ const toggleShare = () => {
                     <div class="mb-4">
                         <label class="mb-2 block text-sm font-bold text-gray-700">Selecione a porção</label>
                         <div class="flex space-x-2">
-<<<<<<< HEAD
                             <Button
-=======
-                            <button
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                 v-for="tamanho in produto.tamanhos"
                                 :key="tamanho.nome"
                                 @click="selectedWeight = tamanho.nome"
                                 :class="{
                                     'bg-[#6aab9c] text-white': selectedWeight === tamanho.nome,
-<<<<<<< HEAD
                                     'border-gray-300  text-gray-700 hover:bg-gray-50': selectedWeight !== tamanho.nome,
-=======
-                                    'border-gray-300 bg-white text-gray-700 hover:bg-gray-50': selectedWeight !== tamanho.nome,
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                 }"
                                 class="cursor-pointer rounded-md border-2 px-4 py-2 text-sm font-medium"
                             >
                                 {{ tamanho.nome }}
-<<<<<<< HEAD
                             </Button>
-=======
-                            </button>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                         </div>
                     </div>
 
@@ -153,11 +132,7 @@ const toggleShare = () => {
                         <p class="mb-2 text-sm font-bold text-gray-700">Estoque disponível</p>
                         <div class="flex items-center">
                             <label class="mr-2 text-gray-900">Quantidade: </label>
-<<<<<<< HEAD
                             <Select v-model="quantidadeSelecionada" name="quantidade" id="quantidade">
-=======
-                            <select v-model="quantidadeSelecionada" name="quantidade" id="quantidade">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                 <option v-for="n in Math.min(productStock)" :key="n" :value="n">{{ n }}</option>
                             </Select>
                         </div>
@@ -200,11 +175,7 @@ const toggleShare = () => {
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             <div class="mt-8 max-w-7xl rounded-lg  px-4 py-8 shadow-xl sm:px-6 lg:px-8">
-=======
-            <div class="mt-8 max-w-7xl rounded-lg bg-white px-4 py-8 shadow-xl sm:px-6 lg:px-8">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 <h2 class="mb-4 text-2xl font-bold text-gray-900">Descrição:</h2>
                 <div class="prose max-w-none text-gray-700" v-html="produto.descricao"></div>
             </div>

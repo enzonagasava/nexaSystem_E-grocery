@@ -3,10 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\App\CheckoutController;
 use App\Http\Controllers\Admin\ChatController;
-<<<<<<< HEAD
 use App\Http\Controllers\Api\AuthController;
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\SubdomainProvisionController;
@@ -22,22 +19,14 @@ Route::post('/webhook/evolution', [ChatController::class, 'webhook'])
     ->name('webhook.evolution');
 
 // Chat API routes (com autenticação)
-<<<<<<< HEAD
 Route::middleware(['api', 'jwt.cookie'])->prefix('chat')->name('api.chat.')->group(function () {
-=======
-Route::middleware(['web', 'jwt.cookie', 'auth', 'admin'])->prefix('chat')->name('api.chat.')->group(function () {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     Route::get('/conversations', [ChatController::class, 'getConversations'])->name('conversations');
     Route::get('/messages', [ChatController::class, 'getMessages'])->name('messages');
     Route::post('/send', [ChatController::class, 'sendMessage'])->name('send');
     Route::post('/mark-read', [ChatController::class, 'markAsRead'])->name('markRead');
 });
 
-<<<<<<< HEAD
 Route::middleware('jwt.cookie')->get('/auth/check', function () {
-=======
-Route::middleware('web')->get('/auth/check', function () {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     return response()->json([
         'authenticated' => auth('api')->check(),
         'user' => auth('api')->user(),

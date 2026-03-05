@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import axios from '@/lib/axios';
-<<<<<<< HEAD
 import { Head, usePage } from '@inertiajs/vue3';
 import { AlertCircle, MessageSquare, RefreshCw, Send, User } from 'lucide-vue-next';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
@@ -17,12 +16,6 @@ const chatRouteBase = computed(() => {
   return 'admin.ecommerce.chat'
 })
 
-=======
-import { Head } from '@inertiajs/vue3';
-import { AlertCircle, MessageSquare, RefreshCw, Send, User } from 'lucide-vue-next';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 interface Message {
     id: string;
     sender: string;
@@ -102,11 +95,7 @@ const markConversationAsRead = async (conversationId: string) => {
 
         const lastMessage = unreadMessages[unreadMessages.length - 1];
 
-<<<<<<< HEAD
         await axios.post(route(`${chatRouteBase.value}.markRead`), {
-=======
-        await axios.post('/chat/mark-read', {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             remoteJid: conversation.remoteJid,
             messageId: lastMessage.id,
         });
@@ -120,11 +109,7 @@ const markConversationAsRead = async (conversationId: string) => {
 const loadConversations = async (silent = false) => {
     if (!silent) loadingConversations.value = true;
     try {
-<<<<<<< HEAD
         const response = await axios.get(route(`${chatRouteBase.value}.conversations`));
-=======
-        const response = await axios.get('/chat/conversations');
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         conversations.value = response.data;
     } catch (error: any) {
         console.error('Erro ao carregar conversas:', error);
@@ -138,11 +123,7 @@ const loadMessages = async (conversationId: string, silent = false) => {
     if (!conversation) return;
 
     try {
-<<<<<<< HEAD
         const response = await axios.get(route(`${chatRouteBase.value}.messages`), {
-=======
-        const response = await axios.get('/chat/messages', {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             params: { remoteJid: conversation.remoteJid },
         });
 
@@ -193,11 +174,7 @@ const sendMessage = async () => {
         messages.value.push(optimisticMessage);
         scrollToBottom();
 
-<<<<<<< HEAD
         const response = await axios.post(route(`${chatRouteBase.value}.send`), {
-=======
-        const response = await axios.post('/chat/send', {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             number: number,
             message: messageText,
         });
@@ -324,11 +301,7 @@ onUnmounted(() => {
                                 :key="conversation.id"
                                 @click="selectConversation(conversation.id)"
                                 :class="[
-<<<<<<< HEAD
                                     'cursor-pointer rounded-lg p-3 transition-colors hover:',
-=======
-                                    'cursor-pointer rounded-lg p-3 transition-colors hover:bg-gray-100',
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     selectedConversation === conversation.id ? 'border-l-4 border-green-600 bg-green-50' : '',
                                 ]"
                             >
@@ -392,11 +365,7 @@ onUnmounted(() => {
                                             ? 'bg-green-600 text-white'
                                             : message.isBot
                                               ? 'bg-blue-100 text-gray-900'
-<<<<<<< HEAD
                                               : ' text-gray-900',
-=======
-                                              : 'bg-gray-100 text-gray-900',
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     ]"
                                 >
                                     <p class="mb-1 text-sm font-medium" v-if="message.isBot">🤖 IA Assistant</p>
