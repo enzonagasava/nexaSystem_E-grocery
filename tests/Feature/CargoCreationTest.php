@@ -24,10 +24,6 @@ public function it_can_create_a_cargo()
         $this->assertDatabaseHas('cargos', [
             'id' => $cargo->id,
             'nome' => $nomeUnico,
-<<<<<<< HEAD
         ], 'tenant_credentials');
-=======
-        ], 'credentials');
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 }

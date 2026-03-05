@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AuthLayout from '@/layouts/AuthLayout.vue';
-<<<<<<< HEAD
 import { Head, usePage } from '@inertiajs/vue3';
 import { Calendar, Users, FileText, Clock, Proportions } from 'lucide-vue-next';
 
@@ -9,14 +8,6 @@ const props = defineProps<{
 }>();
 const page = usePage();
 const pp = page.props as any;
-=======
-import { Head } from '@inertiajs/vue3';
-import { Calendar, Users, FileText, Clock } from 'lucide-vue-next';
-
-defineProps<{
-    modulo: string;
-}>();
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 const quickLinks = [
     {
@@ -56,11 +47,7 @@ const quickLinks = [
         <meta name="description" content="Dashboard do módulo Clínica Médica" />
     </Head>
 
-<<<<<<< HEAD
     <AuthLayout :modulo="pp.modulo">
-=======
-    <AuthLayout>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         <div class="flex min-h-screen justify-center px-4 py-12 sm:px-6 lg:px-8">
             <div class="w-full">
                 <div class="mb-6">
@@ -77,11 +64,7 @@ const quickLinks = [
                     <div
                         v-for="link in quickLinks"
                         :key="link.title"
-<<<<<<< HEAD
                         class="rounded-lg  p-6 shadow transition-shadow hover:shadow-lg dark:"
-=======
-                        class="rounded-lg bg-white p-6 shadow transition-shadow hover:shadow-lg dark:bg-gray-800"
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     >
                         <div class="flex items-center">
                             <div :class="[link.color, 'rounded-lg p-3']">
@@ -100,11 +83,7 @@ const quickLinks = [
                 </div>
 
                 <!-- Placeholder Content -->
-<<<<<<< HEAD
                 <div class="rounded-lg  p-6 shadow dark:">
-=======
-                <div class="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
                         Bem-vindo ao Painel da Clínica
                     </h2>

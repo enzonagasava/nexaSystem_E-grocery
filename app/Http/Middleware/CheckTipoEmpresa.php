@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Enums\TipoEmpresa;
-<<<<<<< HEAD
 use App\Models\TipoPainel;
 use Closure;
 use Illuminate\Http\Request;
@@ -11,12 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Inertia\Inertia;
-=======
-use Closure;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 class CheckTipoEmpresa
 {
@@ -31,11 +24,7 @@ class CheckTipoEmpresa
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next, string $tipo): Response
-<<<<<<< HEAD
     {    
-=======
-    {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         $user = Auth::user();
 
         if (!$user) {
@@ -49,7 +38,6 @@ class CheckTipoEmpresa
 
         // Verifica se usuário tem empresa
         if (!$user->empresa_id) {
-<<<<<<< HEAD
             Log::warning('CheckTipoEmpresa: usuário sem empresa tentando acessar painel por tipo.', [
                 'user_id' => $user->id ?? null,
                 'cargo_id' => $user->cargo_id ?? null,
@@ -86,24 +74,6 @@ class CheckTipoEmpresa
             'modulo' => $tipoPainel->routePrefix(),
         ]);
 
-=======
-            abort(403, 'Usuário não está vinculado a nenhuma empresa.');
-        }
-
-        // Converte string para enum
-        $tipoRequerido = TipoEmpresa::tryFrom($tipo);
-
-        if (!$tipoRequerido) {
-            abort(500, "Tipo de empresa inválido: {$tipo}");
-        }
-
-        // Verifica se a empresa do usuário é do tipo requerido
-        if (!$user->isEmpresaTipo($tipoRequerido)) {
-            $tipoUsuario = $user->getTipoEmpresa()?->label() ?? 'Desconhecido';
-            abort(403, "Acesso negado. Este painel é exclusivo para {$tipoRequerido->label()}. Sua empresa é do tipo: {$tipoUsuario}.");
-        }
-
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         return $next($request);
     }
 }

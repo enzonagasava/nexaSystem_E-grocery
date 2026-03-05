@@ -14,13 +14,10 @@ export interface Empresa {
 export interface Auth {
     user: User | null;
     empresa: Empresa | null;
-<<<<<<< HEAD
     /** Admin master (cargo 1 sem empresa) vê tudo; frontend usa para exibir todos os itens do menu. */
     canAll?: boolean;
     /** Lista de permissões do usuário no painel ativo (formato "recurso.acao", ex.: chat.visualizar). */
     permissoes?: string[];
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 }
 
 export interface BreadcrumbItem {

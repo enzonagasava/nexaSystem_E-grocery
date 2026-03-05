@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Ecommerce;
 
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
 use App\Models\Cliente;
 use App\Models\GerenciarPedido;
 use App\Models\Pedido;
@@ -12,15 +11,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 use Inertia\Inertia;
 use Inertia\Response;
 
 class DashboardController extends Controller
 {
     /**
-<<<<<<< HEAD
      * Exibe o dashboard do módulo e-commerce com dados e gráficos.
      */
     public function index(Request $request): Response
@@ -160,14 +156,6 @@ class DashboardController extends Controller
             'periodoEntregas' => (string) $periodoEntregas,
             'periodoProdutos' => (string) $periodoProdutos,
             'periodoClientes' => (string) $periodoClientes,
-=======
-     * Exibe o dashboard do módulo e-commerce.
-     */
-    public function index(): Response
-    {
-        return Inertia::render('admin/ecommerce/Dashboard', [
-            'modulo' => 'ecommerce',
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         ]);
     }
 }

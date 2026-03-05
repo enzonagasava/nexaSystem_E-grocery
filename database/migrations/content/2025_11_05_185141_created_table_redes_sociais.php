@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('content')->create('redes_sociais', function (Blueprint $table) {
+        Schema::create('redes_sociais', function (Blueprint $table) {
             $table->id();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('content')->dropIfExists('redes_sociais');
+        Schema::dropIfExists('redes_sociais');
     }
 };

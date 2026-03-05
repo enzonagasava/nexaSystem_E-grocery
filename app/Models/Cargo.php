@@ -8,11 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cargo extends Model
 {
-<<<<<<< HEAD
     protected $connection = 'tenant_credentials';
-=======
-    protected $connection = 'credentials';
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
     protected $table = 'cargos';
 

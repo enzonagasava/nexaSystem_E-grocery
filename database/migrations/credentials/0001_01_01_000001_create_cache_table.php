@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('credentials')->create('cache', function (Blueprint $table) {
+        Schema::create('cache', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->integer('expiration');
         });
 
-        Schema::connection('credentials')->create('cache_locks', function (Blueprint $table) {
+        Schema::create('cache_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');
             $table->integer('expiration');
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('credentials')->dropIfExists('cache');
-        Schema::connection('credentials')->dropIfExists('cache_locks');
+        Schema::dropIfExists('cache');
+        Schema::dropIfExists('cache_locks');
     }
 };

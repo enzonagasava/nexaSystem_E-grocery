@@ -2,10 +2,7 @@
 import { Inertia } from '@inertiajs/inertia';
 import { usePage } from '@inertiajs/vue3';
 import { computed, reactive, ref } from 'vue';
-<<<<<<< HEAD
 import { Button } from '@/components/ui/button';
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 const page = usePage();
 
@@ -63,60 +60,33 @@ function salvar() {
     <div class="mx-auto flex max-w-6xl gap-8 p-6">
         <!-- Barra vertical de abas -->
         <nav class="flex w-48 flex-col border-r border-gray-300 pr-4">
-<<<<<<< HEAD
             <Button
                 :class="[
                     'rounded px-4 py-3 text-left',
                     activeTab === 'info' ? 'bg-blue-600 font-semibold text-white' : 'text-gray-700 hover:',
-=======
-            <button
-                :class="[
-                    'rounded px-4 py-3 text-left',
-                    activeTab === 'info' ? 'bg-blue-600 font-semibold text-white' : 'text-gray-700 hover:bg-gray-100',
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 ]"
                 @click="activeTab = 'info'"
             >
                 Informações Gerais
-<<<<<<< HEAD
             </Button>
             <Button
                 :class="[
                     'mt-2 rounded px-4 py-3 text-left',
                     activeTab === 'endereco' ? 'bg-blue-600 font-semibold text-white' : 'text-gray-700 hover:',
-=======
-            </button>
-            <button
-                :class="[
-                    'mt-2 rounded px-4 py-3 text-left',
-                    activeTab === 'endereco' ? 'bg-blue-600 font-semibold text-white' : 'text-gray-700 hover:bg-gray-100',
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 ]"
                 @click="activeTab = 'endereco'"
             >
                 Endereço
-<<<<<<< HEAD
             </Button>
             <Button
                 :class="[
                     'mt-2 rounded px-4 py-3 text-left',
                     activeTab === 'historico' ? 'bg-blue-600 font-semibold text-white' : 'text-gray-700 hover:',
-=======
-            </button>
-            <button
-                :class="[
-                    'mt-2 rounded px-4 py-3 text-left',
-                    activeTab === 'historico' ? 'bg-blue-600 font-semibold text-white' : 'text-gray-700 hover:bg-gray-100',
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 ]"
                 @click="activeTab = 'historico'"
             >
                 Histórico de Compras
-<<<<<<< HEAD
             </Button>
-=======
-            </button>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         </nav>
 
         <!-- Conteúdo das abas -->
@@ -197,7 +167,6 @@ function salvar() {
                     </div>
 
                     <div class="flex space-x-4">
-<<<<<<< HEAD
                         <Button v-if="!editando" type="button" class="rounded bg-blue-600 px-4 py-2 text-white" @click="editando = true">
                             Editar
                         </Button>
@@ -205,15 +174,6 @@ function salvar() {
                         <Button v-else type="submit" class="rounded bg-green-600 px-4 py-2 text-white">Salvar</Button>
 
                         <Button
-=======
-                        <button v-if="!editando" type="button" class="rounded bg-blue-600 px-4 py-2 text-white" @click="editando = true">
-                            Editar
-                        </button>
-
-                        <button v-else type="submit" class="rounded bg-green-600 px-4 py-2 text-white">Salvar</button>
-
-                        <button
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                             v-if="editando"
                             type="button"
                             class="rounded bg-gray-400 px-4 py-2 text-black"
@@ -224,11 +184,7 @@ function salvar() {
                             "
                         >
                             Cancelar
-<<<<<<< HEAD
                         </Button>
-=======
-                        </button>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     </div>
                 </form>
             </div>
@@ -246,11 +202,7 @@ function salvar() {
                 <h2 class="mb-4 text-xl font-semibold">Histórico de Compras</h2>
                 <table class="w-full border-collapse border border-gray-300">
                     <thead>
-<<<<<<< HEAD
                         <tr class="">
-=======
-                        <tr class="bg-gray-100">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                             <th class="border border-gray-300 p-2 text-left">ID</th>
                             <th class="border border-gray-300 p-2 text-left">Produto</th>
                             <th class="border border-gray-300 p-2 text-left">Data</th>

@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cargo;
 use App\Models\Cliente;
-use App\Models\Modulo;
-use App\Models\Permissao;
+use App\Services\PermissaoSyncService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +20,8 @@ class RolePermissaoSeeder extends Seeder
 
     /**
      * Cria módulos, permissões, associa módulos aos tipo_painel e cargos às permissões por painel.
-     * Executar no contexto do tenant (credentials). Use --tenant=ID ou responda à pergunta interativa.
+     * Usa config/modulos.php como fonte. Executar no contexto do tenant (credentials).
+     * Use --tenant=ID ou responda à pergunta interativa.
      */
     public function run(): void
     {
@@ -46,115 +45,10 @@ class RolePermissaoSeeder extends Seeder
             return;
         }
 
-        $this->seedModulos();
-        $this->seedPermissoes();
-        $this->seedPainelModulo();
-        $this->seedCargoPermissao();
+        app(PermissaoSyncService::class)->sync();
 
+        $this->command?->info('Módulos e permissões sincronizados.');
         $this->command?->info("✨ RolePermissaoSeeder finalizado para tenant {$tenantId}!");
-    }
-
-    protected function seedModulos(): void
-    {
-        $modulos = [
-            ['nome' => 'chat', 'display_name' => 'Chat', 'descricao' => 'Módulo de chat'],
-            ['nome' => 'agenda', 'display_name' => 'Agenda', 'descricao' => 'Agenda e calendário'],
-            ['nome' => 'imoveis', 'display_name' => 'Imóveis', 'descricao' => 'Gestão de imóveis'],
-            ['nome' => 'pacientes', 'display_name' => 'Pacientes', 'descricao' => 'Cadastro de pacientes'],
-            ['nome' => 'financeiro', 'display_name' => 'Financeiro', 'descricao' => 'Módulo financeiro'],
-            ['nome' => 'leads', 'display_name' => 'Leads', 'descricao' => 'Gestão de leads'],
-        ];
-
-        foreach ($modulos as $m) {
-            Modulo::firstOrCreate(
-                ['nome' => $m['nome']],
-                ['display_name' => $m['display_name'], 
-                'descricao' => $m['descricao'] ?? null]
-            );
-        }
-
-        $this->command?->info('Módulos criados/verificados.');
-    }
-
-    protected function seedPermissoes(): void
-    {
-        $acoes = [
-            ['nome' => 'visualizar', 'display_suffix' => 'Visualizar'],
-            ['nome' => 'criar', 'display_suffix' => 'Criar'],
-            ['nome' => 'editar', 'display_suffix' => 'Editar'],
-            ['nome' => 'excluir', 'display_suffix' => 'Excluir'],
-        ];
-
-        foreach (Modulo::all() as $modulo) {
-            foreach ($acoes as $acao) {
-                Permissao::firstOrCreate(
-                    [
-                        'nome' => $acao['nome'],
-                        'recurso' => $modulo->nome,
-                        'modulo_id' => $modulo->id,
-                    ],
-                    ['display_name' => $acao['display_suffix'] . ' ' . $modulo->display_name]
-                );
-            }
-        }
-
-        $this->command?->info('Permissões criadas/verificadas.');
-    }
-
-    protected function seedPainelModulo(): void
-    {
-        $tipos = DB::connection('nexa_admin')->table('tipo_painel')->get();
-        $modulos = Modulo::all()->keyBy('nome');
-
-        $regras = [
-            'CRM Ecommerce' => ['chat', 'agenda', 'financeiro'],
-            'CRM Clínica' => ['chat', 'agenda', 'pacientes', 'financeiro'],
-            'CRM Imobiliário' => ['chat', 'agenda', 'imoveis', 'leads', 'financeiro'],
-        ];
-
-        foreach ($tipos as $tipo) {
-            $nomesModulos = $regras[$tipo->nome] ?? ['chat'];
-            foreach ($nomesModulos as $nomeModulo) {
-                $modulo = $modulos->get($nomeModulo);
-                if (!$modulo) {
-                    continue;
-                }
-                DB::connection('tenant_credentials')->table('painel_modulo')->insertOrIgnore([
-                    'painel_id' => $tipo->id,
-                    'modulo_id' => $modulo->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        }
-
-        $this->command?->info('Painel-Módulo associados.');
-    }
-
-    protected function seedCargoPermissao(): void
-    {
-        $tipos = DB::connection('nexa_admin')->table('tipo_painel')->get();
-        $permissoes = Permissao::all();
-        $adminCargo = Cargo::find(1);
-
-        if (!$adminCargo) {
-            $this->command?->warn('Cargo admin (id 1) não encontrado. Pulando cargo_permissao.');
-            return;
-        }
-
-        foreach ($tipos as $tipo) {
-            foreach ($permissoes as $permissao) {
-                DB::connection('tenant_credentials')->table('cargo_permissao')->insertOrIgnore([
-                    'cargo_id' => $adminCargo->id,
-                    'permissao_id' => $permissao->id,
-                    'painel_id' => $tipo->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        }
-
-        $this->command?->info('Cargo admin com todas as permissões por painel.');
     }
 
     private function getTenantId(): ?int

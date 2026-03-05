@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import AuthLayout from '@/layouts/AuthLayout.vue'
-<<<<<<< HEAD
 import { ref, computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import axios from 'axios'
 import Select from '@/components/ui/select/Select.vue';
-=======
-import { ref } from 'vue'
-import { usePage } from '@inertiajs/vue3'
-import axios from 'axios'
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 const page = usePage()
 const pp = page.props as any
 
-<<<<<<< HEAD
 const calendarRouteBase = computed(() => {
   const m = (page.props as { modulo?: string }).modulo
   if (m === 'clinica') return 'admin.clinica.calendar'
@@ -22,8 +15,6 @@ const calendarRouteBase = computed(() => {
   return 'admin.ecommerce.calendar'
 })
 
-=======
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 // use explicit any/typed refs so TS/volar won't complain about page.props shape
 const settings = ref<any>(pp.settings || {})
 const calendars = ref<any[]>(pp.google?.calendars || [])
@@ -37,11 +28,7 @@ const saving = ref(false)
 async function save() {
   saving.value = true
   try {
-<<<<<<< HEAD
     await axios.put(route(`${calendarRouteBase.value}.settings.update`), {
-=======
-    await axios.put(route('admin.calendar.settings.update'), {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
       calendar_id: calendarId.value,
       timezone: timezone.value,
       locale: locale.value,
@@ -61,41 +48,25 @@ async function save() {
 
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Agenda padrão</label>
-<<<<<<< HEAD
         <Select v-model="calendarId" class="mt-1 block w-full rounded border px-2 py-1">
           <option value="">(Nenhuma selecionada)</option>
           <option v-for="c in calendars" :key="c.id" :value="c.id">{{ c.summary }} — {{ c.id }}</option>
         </Select>
-=======
-        <select v-model="calendarId" class="mt-1 block w-full rounded border px-2 py-1">
-          <option value="">(Nenhuma selecionada)</option>
-          <option v-for="c in calendars" :key="c.id" :value="c.id">{{ c.summary }} — {{ c.id }}</option>
-        </select>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         <div v-if="!pp.google?.connected" class="text-sm text-yellow-600 mt-1">Google não conectado — conecte para listar agendas.</div>
       </div>
 
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Fuso horário</label>
-<<<<<<< HEAD
         <Select v-model="timezone" class="mt-1 block w-full rounded border px-2 py-1">
-=======
-        <select v-model="timezone" class="mt-1 block w-full rounded border px-2 py-1">
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
           <option value="America/Sao_Paulo">Brasil (America/Sao_Paulo)</option>
           <option value="UTC">UTC</option>
           <option value="Europe/Lisbon">Europe/Lisbon</option>
           <option value="America/New_York">America/New_York</option>
-<<<<<<< HEAD
         </Select>
-=======
-        </select>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
       </div>
 
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Locale</label>
-<<<<<<< HEAD
         <Select v-model="locale" class="mt-1 block w-full rounded border px-2 py-1">
           <option value="pt_BR">pt_BR</option>
           <option value="en_US">en_US</option>
@@ -104,16 +75,6 @@ async function save() {
 
       <div class="flex justify-end gap-2">
         <Button @click="save" :disabled="saving" class="rounded bg-blue-600 px-3 py-1 text-white">Salvar</button>
-=======
-        <select v-model="locale" class="mt-1 block w-full rounded border px-2 py-1">
-          <option value="pt_BR">pt_BR</option>
-          <option value="en_US">en_US</option>
-        </select>
-      </div>
-
-      <div class="flex justify-end gap-2">
-        <button @click="save" :disabled="saving" class="rounded bg-blue-600 px-3 py-1 text-white">Salvar</button>
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
       </div>
     </div>
   </AuthLayout>

@@ -11,7 +11,6 @@ type Imagem = {
 export function useProduto() {
     const page = usePage();
 
-<<<<<<< HEAD
     // Coerce incoming page props to safe local types to satisfy TS
     const products = (page.props.products ?? { id: null, nome: '', descricao: '', estoque: 0 }) as any;
     const productTamanhos = (page.props.productTamanhos ?? []) as any[];
@@ -19,14 +18,6 @@ export function useProduto() {
     const imagensFiles = ref<Imagem[]>([]);
     const urlMap = new Map<string, string>();
     const imagemModal = ref<string | undefined>(undefined);
-=======
-    const products = page.props.products || {};
-    const productTamanhos = page.props.productTamanhos || [];
-    const imagensExistentes = ref<Imagem[]>([]);
-    const imagensFiles = ref<Imagem[]>([]);
-    const urlMap = new Map<string, string>();
-    const imagemModal = ref<string | null>(null);
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
     function carregarImagensExistentes(urls: string[]) {
         imagensExistentes.value = urls.map((url, i) => ({
@@ -63,7 +54,6 @@ export function useProduto() {
 
     const imagensParaRenderizar = computed(() => {
         const imagensExistentesRaw = toRaw(imagensExistentes.value);
-<<<<<<< HEAD
         const existentes = imagensExistentesRaw.map((imagem) => {
             let url = '';
             if (typeof imagem.src === 'string') {
@@ -85,23 +75,6 @@ export function useProduto() {
         });
 
         return [...existentes, ...novos];
-=======
-        return [
-            ...imagensExistentesRaw.map((imagem) => ({
-                id: imagem.id,
-                url: typeof imagem.src.url === 'string' ? imagem.src.url : '',
-            })),
-            ...imagensFiles.value.map((imagem) => {
-                if (typeof imagem.src === 'string') {
-                    return { id: imagem.id, url: imagem.src };
-                } else {
-                    const objectUrl = URL.createObjectURL(imagem.src);
-                    urlMap.set(imagem.id, objectUrl);
-                    return { id: imagem.id, url: objectUrl };
-                }
-            }),
-        ];
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     });
 
     function removerImagem(id: string) {
@@ -131,11 +104,7 @@ export function useProduto() {
     }
 
     function fecharModal() {
-<<<<<<< HEAD
         imagemModal.value = undefined;
-=======
-        imagemModal.value = null;
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 
     function handleSubmit() {
@@ -157,11 +126,7 @@ export function useProduto() {
             formData.append('imagensNovas[]', imagemFile.src as File, `imagem${index}.png`);
         });
 
-<<<<<<< HEAD
         Inertia.post(route('admin.ecommerce.produtos.update', products.id), formData, {
-=======
-        Inertia.post(`/produtos/update-produto/${products.id}`, formData, {
->>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             forceFormData: true,
             onSuccess: () => {
                 alert('Produto salvo com sucesso!');
