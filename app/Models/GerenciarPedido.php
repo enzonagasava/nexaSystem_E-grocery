@@ -11,7 +11,9 @@ use App\Models\Plataforma;
 
 
 class GerenciarPedido extends BaseModel
-{
+{        
+    protected $connection = 'tenant_content';
+
     protected $table = 'gerenciar_pedidos';
 
     protected $fillable = [

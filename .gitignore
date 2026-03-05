@@ -7,8 +7,10 @@
 /public/storage
 /storage/*.key
 /storage/pail
-/storage/*
 /vendor
+# .github/workflows/AI_GUIDELINES.md
+# .github/workflows/copilot-instructions.md
+# .github/copilot-instructions.md
 .env
 .env.backup
 .env.production
@@ -25,7 +27,6 @@ yarn-error.log
 /.vscode
 /.zed
 index.html
-.htaccess
+#.htaccess
 .user.ini
 .well-known/
-.github/copilot-instructions.md

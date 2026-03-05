@@ -1,0 +1,17 @@
+export const IMOVEL_CATEGORIA = [
+  { value: 'apartamento', label: 'Apartamento' },
+  { value: 'casa', label: 'Casa' },
+  { value: 'terreno', label: 'Terreno' },
+  { value: 'comercial', label: 'Comercial' },
+  { value: 'rural', label: 'Rural' },
+  { value: 'industrial', label: 'Industrial' },
+  { value: 'galpao', label: 'Galpão' },
+  { value: 'sala', label: 'Sala' },
+  { value: 'loft', label: 'Loft' },
+  { value: 'cobertura', label: 'Cobertura' },
+  { value: 'flat', label: 'Flat' },
+  { value: 'kitnet', label: 'Kitnet' },
+  { value: 'chacara', label: 'Chácara' },
+  { value: 'fazenda', label: 'Fazenda' },
+  { value: 'sitio', label: 'Sítio' },
+];

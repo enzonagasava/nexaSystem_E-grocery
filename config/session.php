@@ -73,8 +73,7 @@ return [
     |
     */
 
-    'connection' => env('SESSION_CONNECTION'),
-
+    'connection' => env('SESSION_CONNECTION', 'nexa_admin'),
     /*
     |--------------------------------------------------------------------------
     | Session Database Table

@@ -16,7 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->cargo_id == 1) {
+        $user = Auth::user();
+
+        // Somente staff Nexa: cargo_id = 1 e sem empresa vinculada
+        if ($user && $user->cargo_id === 1 && $user->empresa_id === null) {
             return $next($request);
         }
 

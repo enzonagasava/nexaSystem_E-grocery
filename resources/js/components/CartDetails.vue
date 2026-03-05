@@ -1,40 +1,42 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { usePage, Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
+import { computed, ref } from 'vue';
+import { Button } from '@/components/ui/button';
 
 interface CartProps {
-    cart: Record<string, any>; 
+    cart: Record<string, any>;
 }
 
 const page = usePage<CartProps>();
 
 // Converte o objeto do carrinho em um array para o `v-for`
 const cartItems = ref(
-Object.entries(page.props.cart).map(([key, item]) => ({
-    key,
-    ...item,
-}))
+    Object.entries(page.props.cart).map(([key, item]) => ({
+        key,
+        ...item,
+    })),
 );
 
 const cepInput = ref('');
 
 function removeItem(key: string) {
-axios.delete(route('carrinho.remover', { cartItemId: key }))
-    .then(response => {
-    if (response.data.success) {
-        // Atualiza o estado local cartItems
-        cartItems.value = Object.entries(response.data.cart).map(([key, item]) => ({
-        key,
-        ...item,
-        }));
-    }
-    })
-    .catch(error => {
-    console.error('Erro ao remover item:', error);
-    });
+    axios
+        .delete(route('carrinho.remover', { cartItemId: key }))
+        .then((response) => {
+            if (response.data.success) {
+                // Atualiza o estado local cartItems
+                cartItems.value = Object.entries(response.data.cart).map(([key, item]) => ({
+                    key,
+                    ...item,
+                }));
+            }
+        })
+        .catch((error) => {
+            console.error('Erro ao remover item:', error);
+        });
 }
-    
+
 const calculateShipping = () => {
     if (cepInput.value.length === 8) {
         // Exemplo de validação simples para CEP
@@ -94,28 +96,28 @@ function decrementQuantity(item: any) {
 
                     <div class="col-span-6 mt-2 flex items-center justify-center md:col-span-3 md:mt-0 md:justify-start">
                         <div class="flex items-center rounded-md border border-gray-600">
-                            <button @click="decrementQuantity(item)" class="p-2 text-green-400 hover:text-green-500">
+                            <Button @click="decrementQuantity(item)" class="p-2 text-green-400 hover:text-green-500">
                                 <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M7 10H13V11H7V10Z" /></svg>
-                            </button>
+                            </Button>
                             <input
                                 type="text"
                                 v-model.number="item.quantidade"
-                                class="w-10 border-x border-gray-600 bg-white text-center text-black focus:outline-none"
+                                class="w-10 border-x border-gray-600  text-center text-black focus:outline-none"
                                 @change="item.quantidade = Math.max(1, Math.floor(item.quantidade))"
                             />
-                            <button @click="incrementQuantity(item)" class="p-2 text-green-400 hover:text-green-500">
+                            <Button @click="incrementQuantity(item)" class="p-2 text-green-400 hover:text-green-500">
                                 <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20"><path d="M13 9H11V7H10V9H8V10H10V12H11V10H13V9Z" /></svg>
-                            </button>
+                            </Button>
                         </div>
                     </div>
 
                     <div class="col-span-6 mt-2 flex items-center justify-end pr-2 md:col-span-3 md:mt-0 md:pr-0">
                         <span class="mr-4 text-lg font-bold text-black">R$ {{ (item.preco * item.quantidade).toFixed(2).replace('.', ',') }}</span>
-                        <button @click="removeItem(item.key)" class="text-red-500 transition-colors duration-200 hover:text-red-600">
+                        <Button @click="removeItem(item.key)" class="text-red-500 transition-colors duration-200 hover:text-red-600">
                             <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
                             </svg>
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -132,19 +134,22 @@ function decrementQuantity(item: any) {
                         type="text"
                         v-model="cepInput"
                         placeholder="Digite o seu CEP"
-                        class="w-full flex-grow rounded-md border border-gray-600 bg-white px-4 py-2 text-black placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-green-500 focus:outline-none sm:w-auto"
+                        class="w-full flex-grow rounded-md border border-gray-600  px-4 py-2 text-black placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-green-500 focus:outline-none sm:w-auto"
                         maxlength="8"
                     />
-                    <button
+                    <Button
                         @click="calculateShipping"
                         class="w-full rounded-md bg-green-600 px-6 py-2 font-semibold text-black transition duration-300 hover:bg-green-700 sm:w-auto"
                     >
                         Calcular
-                    </button>
+                    </Button>
                 </div>
             </div>
-            <div class="mt-8 flex h-64 items-center justify-center rounded-lg bg-white p-6 text-center text-black">[Localização ou Mapa aqui]</div>
-            <Link :href="route('payment.index')" class="w-full rounded-md bg-green-600 px-6 py-2 font-semibold text-black transition duration-300 hover:bg-green-700 sm:w-auto">
+            <div class="mt-8 flex h-64 items-center justify-center rounded-lg  p-6 text-center text-black">[Localização ou Mapa aqui]</div>
+            <Link
+                :href="route('payment.index')"
+                class="w-full rounded-md bg-green-600 px-6 py-2 font-semibold text-black transition duration-300 hover:bg-green-700 sm:w-auto"
+            >
                 Próximo
             </Link>
         </div>

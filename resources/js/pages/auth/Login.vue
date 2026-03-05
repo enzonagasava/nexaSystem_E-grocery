@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
 import LoginDetails from '@/components/LoginDetails.vue';
+import { Head } from '@inertiajs/vue3';
+import ThemeToggle from '@/components/ui/theme/ThemeToggle.vue'
 
 defineProps<{
     status?: string;
@@ -9,13 +10,17 @@ defineProps<{
 </script>
 
 <template>
-    <div class="flex min-h-screen items-center justify-center px-4 py-12 text-black sm:px-6 lg:px-8">
+    <div class="flex min-h-screen items-center justify-center px-4 py-12 text-primary sm:px-6 lg:px-8">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
             {{ status }}
         </div>
 
-        <LoginDetails :canResetPassword="true" /> 
+        <LoginDetails :canResetPassword="true" />
+        <div class="pt-2">
+      <ThemeToggle />
     </div>
+    </div>
+    
 </template>

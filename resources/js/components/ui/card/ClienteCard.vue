@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <div
-    class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-all duration-200"
+    class=" rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-all duration-200"
   >
     <!-- Cabeçalho -->
     <div class="flex items-center justify-between mb-3">

@@ -10,11 +10,15 @@ class PlataformaSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('plataforma_pedido')->insert([
+        $plataformas = [
             ['nome' => 'Shopee'],
             ['nome' => 'Mercado Livre'],
             ['nome' => 'Amazon'],
             ['nome' => 'Loja Integrada'],
-        ]);
+        ];
+
+        foreach ($plataformas as $plataforma) {
+            DB::table('plataforma_pedido')->insertOrIgnore($plataforma);
+        }
     }
 }

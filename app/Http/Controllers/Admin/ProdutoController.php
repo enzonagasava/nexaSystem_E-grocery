@@ -33,13 +33,13 @@ class ProdutoController extends Controller
             ];
         });
         
-        return Inertia::render('admin/produtosConfig/ProdutosConfig') ->with('products', $products);
+        return Inertia::render('admin/ecommerce/produtos/ProdutosConfig')->with('products', $products);
 
     }
 
     public function create()
     {
-        return Inertia::render('admin/produtosConfig/AdicionarProduto');
+        return Inertia::render('admin/ecommerce/produtos/AdicionarProduto');
     }
 
  public function store(Request $request)
@@ -88,7 +88,7 @@ class ProdutoController extends Controller
             }
         }
 
-        return Inertia::location(route('produtos.config'));
+        return Inertia::location(route('admin.ecommerce.produtos.config'));
     }
 
 
@@ -115,7 +115,7 @@ public function edit($id)
 
     $productArray['imagens'] = $imagensComId;
 
-    return Inertia::render('admin/produtosConfig/EditarProduto', [
+    return Inertia::render('admin/ecommerce/produtos/EditarProduto', [
         'products' => $productArray,
         'imagemPaths' => $imagensComId,
         'productTamanhos' => $productTamanhos,
@@ -184,7 +184,7 @@ public function edit($id)
             }
         }
 
-        return Inertia::location(route('produtos.config'));
+        return Inertia::location(route('admin.ecommerce.produtos.config'));
     }
 
     public function destroy($id)
@@ -192,7 +192,7 @@ public function edit($id)
         $produto = Produto::findOrFail($id);
         $produto->delete();
 
-        return redirect()->route('produtos.config');
+        return redirect()->route('admin.ecommerce.produtos.config');
     }
 
     public function anuncio($id)

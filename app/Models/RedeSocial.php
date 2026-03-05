@@ -9,6 +9,9 @@ use App\Models\Empresa;
 
 class RedeSocial extends BaseModel
 {
+    protected $connection = 'tenant_content';
+    
+
     protected $table = 'redes_sociais';
 
     protected $fillable = [

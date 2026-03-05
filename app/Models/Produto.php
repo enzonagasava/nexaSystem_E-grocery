@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;;
 
 class Produto extends Model
 {
-        protected $fillable = [
+    protected $connection = 'tenant_content';
+
+    protected $fillable = [
         'user_id',
         'nome',
         'descricao',

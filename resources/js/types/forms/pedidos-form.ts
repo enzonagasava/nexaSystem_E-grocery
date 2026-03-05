@@ -1,6 +1,6 @@
-export interface PedidosForm{
-  produto_id: number;
-  quantidade: string;
-  cod_pedido: string;
-  status: string;
+export interface PedidosForm {
+    produto_id: number;
+    quantidade: string;
+    cod_pedido: string;
+    status: string;
 }

@@ -3,45 +3,36 @@ version: '3.8'
 services:
   app:
     build: .
-    container_name: familiaMogi-app
+    container_name: nexaSystem_E-grocery
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
+      # Volume compartilhado para logs (no Swarm, o stack nexasystem monta este volume em /var/log/nexasystem-cliente para o Log Viewer)
+      - cliente_e-grocery_logs:/var/www/html/storage/logs
     depends_on:
       - db
     restart: "no"
     environment:
       COMPOSER_ALLOW_SUPERUSER: "1"
     ports:
-      - "8001:80"
-    command: bash -c "chown -R www-data:www-data storage bootstrap/cache && apache2-foreground"
-
-  node:
-    image: node:20
-    container_name: familiaMogi-node
-    working_dir: /app
-    volumes:
-      - ./:/app
-    ports:
-      - "5173:5173"
-    command: bash -c "npm install && chmod +x node_modules/.bin/vite && npm run dev"
-    depends_on:
-      - app
-    restart: "no"
+      - "8030:80"
+      - "5176:5176"
+    command: bash -c "chown -R www-data:www-data storage bootstrap/cache && apache2-foreground && npm run dev"
 
   db:
-    image: mysql:8.0
-    container_name: mysql-db
+    image: postgres:16-alpine
+    container_name: nexaSystem_E-grocery-db
     ports:
-      - "3307:3306"
+      - "5434:5432"
     restart: "no"
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword123
-      MYSQL_DATABASE: familiaMogi
-      MYSQL_USER: familiaMogi
-      MYSQL_PASSWORD: rootpassword123
+      POSTGRES_PASSWORD: rootpassword123
     volumes:
-      - dbdata:/var/lib/mysql
+      - dbdata:/var/lib/postgresql
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d
 
 volumes:
   dbdata:
+  # Para Docker Swarm: criar com 'docker volume create cliente_logs' e usar external: true em ambos os stacks (Cliente e nexasystem)
+  cliente_e-grocery_logs:
+      external: true

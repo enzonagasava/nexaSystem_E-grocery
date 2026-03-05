@@ -16,7 +16,7 @@ class PedidosStoreRequest extends FormRequest
     {
         return [
             // --- Cliente ---
-            'clienteSelecionado.id' => ['required', 'integer', 'exists:clientes,id'],
+            'clienteSelecionado.id' => ['required', 'integer', 'exists:tenant_content.clientes,id'],
             'clienteSelecionado.nome' => ['required', 'string', 'max:255'],
             'clienteSelecionado.email' => ['nullable', 'email', 'max:255'],
             'clienteSelecionado.numero' => ['nullable', 'string', 'max:20'],
@@ -33,7 +33,7 @@ class PedidosStoreRequest extends FormRequest
 
             // --- Produtos ---
             'produtos' => ['required', 'array', 'min:1'],
-            'produtos.*.id' => ['required', 'integer', 'exists:produtos,id'],
+            'produtos.*.id' => ['required', 'integer', 'exists:tenant_content.produtos,id'],
             'produtos.*.quantidade' => ['required', 'numeric', 'min:1'],
             'produtos.*.valor' => ['required', 'numeric', 'min:0'],
 

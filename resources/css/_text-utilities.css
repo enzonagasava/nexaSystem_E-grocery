@@ -1,0 +1,23 @@
+:root {
+  /* text utility helpers mapped to CSS variables */
+}
+
+.text-primary { color: var(--text-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-inverse { color: var(--text-inverse) !important; }
+.text-link { color: var(--text-link) !important; }
+
+.text-success { color: var(--text-success) !important; }
+.text-danger { color: var(--text-danger) !important; }
+.text-warning { color: var(--text-warning) !important; }
+
+.background-primary { background-color: var(--background) !important; }
+.background-secondary { background-color: var(--background-secondary) !important; }
+
+/* utilities for backgrounds if needed */
+.bg-inverse { background-color: var(--text-inverse) !important; }
+
+/* Hover utilities mapped to the hover token */
+.hover-bg-primary:hover { background-color: var(--hover-primary) !important; }
+.hover-text-primary:hover { color: var(--hover-primary) !important; }

@@ -42,7 +42,7 @@ class PedidoController extends Controller
             ];
         });
 
-        return Inertia::render('admin/pedidos/Pedidos', [
+        return Inertia::render('admin/ecommerce/pedidos/Pedidos', [
             'pedidos' => $pedidos,
             'statusFiltro' => $statusValido,
         ]);
@@ -53,7 +53,7 @@ class PedidoController extends Controller
   {
         $plataformas = Plataforma::orderBy('nome')->get(['id', 'nome']);
 
-        return Inertia::render('admin/pedidos/AdicionarPedido', [
+        return Inertia::render('admin/ecommerce/pedidos/AdicionarPedido', [
             'plataformas' => $plataformas,
         ]);
   }
@@ -94,7 +94,7 @@ class PedidoController extends Controller
       ]);
 
 
-      return Inertia::render('admin/pedidos/Pedidos', [
+      return Inertia::render('admin/ecommerce/pedidos/Pedidos', [
           'status' => $data['status'],
           'message' => 'Pedido adicionado com sucesso'
       ]);
@@ -110,7 +110,7 @@ class PedidoController extends Controller
       $plataformas = Plataforma::orderBy('nome')->get(['id', 'nome']);
 
 
-      return Inertia::render('admin/pedidos/EditarPedido', [
+      return Inertia::render('admin/ecommerce/pedidos/EditarPedido', [
           'pedidoEditavel' => $pedido,
           'plataformas' => $plataformas
       ]);
@@ -154,7 +154,7 @@ class PedidoController extends Controller
       ]);
 
 
-      return Inertia::render('admin/pedidos/Pedidos', [
+      return Inertia::render('admin/ecommerce/pedidos/Pedidos', [
             'message' => 'Pedido Atualizado com Sucesso'
         ]);
   }
@@ -168,7 +168,7 @@ class PedidoController extends Controller
     $plataformas = Plataforma::orderBy('nome')->get(['id', 'nome']);
 
 
-    return Inertia::render('admin/pedidos/VisualizarPedido', [
+    return Inertia::render('admin/ecommerce/pedidos/VisualizarPedido', [
         'pedido' => $pedido,
         'plataformas' => $plataformas
     ]);
@@ -187,7 +187,7 @@ class PedidoController extends Controller
           $pedido->save();
       }
 
-      return Inertia::render('admin/pedidos/Pedidos', [
+      return Inertia::render('admin/ecommerce/pedidos/Pedidos', [
             'message' => 'Pedido Atualizado com Sucesso'
       ]);
   }

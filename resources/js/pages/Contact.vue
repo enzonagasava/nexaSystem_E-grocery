@@ -23,7 +23,7 @@ const handleSubmit = () => {
         <meta name="description" content="Anúncio da Família Mogi" />
     </Head>
     <AppLayout>
-        <section class="bg-white py-12">
+        <section class=" py-12">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
                     <!-- Formulário -->
@@ -71,7 +71,7 @@ const handleSubmit = () => {
                             </div>
 
                             <div class="text-center">
-                                <button
+                                <Button
                                     type="submit"
                                     class="rounded-md bg-green-600 px-6 py-2 font-semibold text-white transition duration-200 hover:bg-green-700"
                                 >
@@ -83,7 +83,7 @@ const handleSubmit = () => {
 
                     <!-- Informações de Contato -->
                     <div class="flex flex-col space-y-6">
-                        <div class="rounded-xl border-l-4 border-green-600 bg-white p-6 shadow">
+                        <div class="rounded-xl border-l-4 border-green-600  p-6 shadow">
                             <h3 class="mb-4 text-xl font-bold">Informações de Contato</h3>
                             <p class="mb-2">
                                 <strong>Telefone:</strong><br />

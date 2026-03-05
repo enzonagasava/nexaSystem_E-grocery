@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tamanho extends Model
 {
+    protected $connection = 'tenant_content';
+
+
+    protected $table = 'tamanhos';
+
     protected $fillable = [
         'nome',
     ];

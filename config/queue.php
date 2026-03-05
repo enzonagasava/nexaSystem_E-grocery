@@ -43,6 +43,14 @@ return [
             'after_commit' => false,
         ],
 
+        'migrations' => [ 
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'migrations',
+            'retry_after' => 600,
+            'after_commit' => false,
+        ],
+
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => env('BEANSTALKD_QUEUE_HOST', 'localhost'),

@@ -8,6 +8,8 @@ use App\Models\BaseModel;
 
 class Pedido extends BaseModel
 {
+    protected $connection = 'tenant_content';
+
     protected $table = 'pedidos';
 
     protected $fillable = [

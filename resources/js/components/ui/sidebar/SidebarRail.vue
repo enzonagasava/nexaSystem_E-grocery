@@ -11,7 +11,7 @@ const { toggleSidebar } = useSidebar()
 </script>
 
 <template>
-  <button
+  <Button
     data-sidebar="rail"
     data-slot="sidebar-rail"
     aria-label="Toggle Sidebar"

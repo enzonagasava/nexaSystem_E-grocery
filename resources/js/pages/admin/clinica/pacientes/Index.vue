@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import PacientesTable from '@/components/admin/clinica/pacientes/PacientesTable.vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
+import { Head } from '@inertiajs/vue3';
+</script>
+
+<template>
+    <Head>
+        <title>Pacientes - Clínica</title>
+    </Head>
+
+    <AuthLayout>
+        <div class="py-12">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="overflow-hidden  shadow-sm sm:rounded-lg">
+                    <div class="border-b border-gray-200  p-6">
+                        <PacientesTable />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </AuthLayout>
+</template>

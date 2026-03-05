@@ -23,7 +23,7 @@ const submit = () => {
 
 <template>
     <div class="flex min-h-screen items-center justify-center px-4 py-12 text-black sm:px-6 lg:px-8">
-        <Head title="Register"/>
+        <Head title="Register" />
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">

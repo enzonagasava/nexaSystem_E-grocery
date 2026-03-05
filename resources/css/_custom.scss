@@ -1,0 +1,442 @@
+/* 
+========================================
+    Variáveis de cores Nexa
+========================================
+*/
+:root {
+    --background: hsl(0 0% 100%);
+    --background-secondary: #4601FA;
+    --foreground: hsl(0 0% 3.9%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 3.9%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 3.9%);
+    --primary: #512388;
+    --primary-foreground: #ffffff;
+    --secondary: #4601FA;
+    --secondary-foreground: #ffffff;
+    --muted: hsl(0 0% 96.1%);
+    --muted-foreground: hsl(0 0% 45.1%);
+    --accent: #433993;
+    --accent-foreground: #ffffff;
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(0 0% 92.8%);
+    --input: hsl(0 0% 89.8%);
+    --ring: #433993;
+    --color-chart-1: var(--primary);
+    --color-chart-2: #7769FA;
+    --color-chart-3: #433993;
+    --color-chart-4: hsl(43 74% 66%);
+    --color-chart-5: hsl(27 87% 67%);
+    
+    /* Cores específicas usadas por ChartProdutosVendidos */
+    --chart-prod-1: #512388;
+    --chart-prod-2: #512388;
+    --chart-prod-3: #512388;
+    --chart-prod-4: #512388;
+    --chart-prod-5: #512388;
+    --chart-prod-6: #512388;
+    --chart-prod-7: #512388;
+    --chart-prod-8: #512388;
+    --chart-prod-9: #512388;
+    --chart-border-1: #374151;
+    --chart-border-2: #6B7280;
+    --chart-border-3: #4B5563;
+    
+    --radius: 0.5rem;
+    
+    /* Sidebar colors */
+    --sidebar-background: #050016;
+    --sidebar-foreground: #F5F5F5;
+    --sidebar-primary: #050016;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #7769FA;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #433993;
+    --sidebar-ring: #433993;
+    --sidebar: #050016;
+    
+    /* Cores da marca Nexa para loading */
+    --nexa-white: #f5f5f5;
+    --nexa-purple: #6366f1;
+    --nexa-dark: #0a0a0f;
+    --text-primary: var(--foreground);
+    --text-secondary: hsl(0 0% 45%);
+    --text-muted: var(--muted-foreground);
+    --text-inverse: var(--nexa-white);
+    --text-sidebar: #000;
+    --text-link: var(--primary);
+    --text-success: hsl(142 46% 36%);
+    --text-danger: hsl(354 70% 54%);
+    --text-warning: hsl(38 95% 50%);
+    --hover-primary: #512388;
+    
+    /* List Row hover states */
+    --list-row-hover: hsl(270 20% 97%);
+
+    /* Landing pages (dark theme) */
+    --landing-bg: #0a0a1a;
+    --landing-foreground: #ffffff;
+    --landing-muted: #a0a0b0;
+    --landing-accent-cyan: #22d3ee;
+}
+
+.dark {
+    --background: hsl(0 0% 3.9%);
+    --background-secondary: #512388;
+    --foreground: hsl(0 0% 98%);
+    --card: hsl(0 0% 3.9%);
+    --card-foreground: hsl(0 0% 98%);
+    --popover: hsl(0 0% 3.9%);
+    --popover-foreground: hsl(0 0% 98%);
+    --primary: #4601FA;
+    --primary-foreground: #ffffff; 
+    --secondary: #7769FA;
+    --secondary-foreground: #ffffff;
+    --muted: hsl(0 0% 16.08%);
+    --muted-foreground: hsl(0 0% 63.9%);
+    --accent: #433993;
+    --accent-foreground: #ffffff;
+    --destructive: hsl(0 84% 60%);
+    --destructive-foreground: hsl(0 0% 98%);
+    --border: hsl(0 0% 14.9%);
+    --input: hsl(0 0% 14.9%);
+    --ring: #433993;
+    --color-chart-1: #4601FA;
+    --color-chart-2: #7769FA;
+    --color-chart-3: #433993;
+    --color-chart-4: hsl(280 65% 60%);
+    --color-chart-5: hsl(340 75% 55%);
+    
+    /* Cores específicas usadas por ChartProdutosVendidos (modo escuro) */
+    --chart-prod-1: #512388;
+    --chart-prod-2: #512388;
+    --chart-prod-3: #512388;
+    --chart-prod-4: #512388;
+    --chart-prod-5: #512388;
+    --chart-prod-6: #512388;
+    --chart-prod-7: #512388;
+    --chart-prod-8: #512388;
+    --chart-prod-9: #512388;
+    --chart-border-1: #374151;
+    --chart-border-2: #6B7280;
+    --chart-border-3: #4B5563;
+    
+    --sidebar-background: #050016;
+    --sidebar-foreground: #F5F5F5;
+    --sidebar-primary: #050016;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #7769FA;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #433993;
+    --sidebar-ring: #433993;
+    --sidebar: #050016;
+    --text-primary: var(--foreground);
+    --text-secondary: hsl(0 0% 60%);
+    --text-muted: var(--muted-foreground);
+    --text-inverse: var(--nexa-white);
+    --text-link: var(--primary);
+    --hover-primary: #512388;
+    
+    /* List Row hover states - dark mode */
+    --list-row-hover: hsl(270 15% 15%);
+    --list-row-hover-dark: hsl(270 15% 15%);
+
+    /* Landing pages (dark theme) - same as light for consistency */
+    --landing-bg: #0a0a1a;
+    --landing-foreground: #ffffff;
+    --landing-muted: #a0a0b0;
+    --landing-accent-cyan: #22d3ee;
+}
+
+/* 
+========================================
+   Swiper customizations
+======================================== 
+*/
+.swiper-button-prev,
+.swiper-button-next {
+    color: #000 !important;
+    
+    @media (max-width: 640px) {
+        display: none !important;
+    }
+}
+
+/* 
+========================================
+   Nexa Loading Animation
+======================================== 
+*/
+
+/* Keyframes para animação do X */
+@keyframes nexa-draw-stroke {
+    0% {
+        stroke-dashoffset: 120;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes nexa-undraw-stroke {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: -120;
+    }
+}
+
+@keyframes nexa-spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        transform: rotate(90deg) scale(1.1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1);
+    }
+    75% {
+        transform: rotate(270deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes nexa-text-pulse {
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
+
+/* ========================================
+   Global text selection (uses CSS variables)
+   Automatically adapts to light / .dark via variables
+   ======================================== */
+::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+::-moz-selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+/* Explicit dark-specific selectors for extra specificity if needed */
+.dark ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.dark ::-moz-selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+/* 
+========================================
+   SweetAlert2 Theming
+   Responsivo ao tema light/dark
+======================================== 
+*/
+
+.swal2-popup {
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+    border-radius: var(--radius) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05) !important;
+}
+
+.swal2-title {
+    color: var(--card-foreground) !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+}
+
+.swal2-html-container {
+    color: var(--card-foreground) !important;
+    font-size: 0.875rem !important;
+}
+
+.swal2-confirm {
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+    border-radius: 0.375rem !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+    border: none !important;
+
+    &:hover {
+        background-color: var(--primary) !important;
+        filter: brightness(0.9);
+    }
+
+    &:active {
+        filter: brightness(0.85);
+    }
+}
+
+.swal2-cancel {
+    background-color: transparent !important;
+    color: var(--muted-foreground) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 0.375rem !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+
+    &:hover {
+        background-color: var(--muted) !important;
+        color: var(--card-foreground) !important;
+    }
+
+    &:active {
+        background-color: var(--muted) !important;
+    }
+}
+
+.swal2-icon {
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+
+    &.swal2-warning {
+        border-color: var(--primary) !important;
+
+        [class*='swal2-icon-content'] {
+            color: var(--primary) !important;
+        }
+    }
+
+    &.swal2-error {
+        border-color: var(--destructive) !important;
+
+        [class*='swal2-icon-content'] {
+            color: var(--destructive) !important;
+        }
+    }
+
+    &.swal2-success {
+        border-color: var(--text-success) !important;
+
+        [class*='swal2-icon-content'] {
+            color: var(--text-success) !important;
+        }
+    }
+}
+
+.swal2-actions {
+    gap: 0.75rem !important;
+}
+
+.swal2-input,
+.swal2-textarea,
+.swal2-select {
+    background-color: var(--input) !important;
+    color: var(--card-foreground) !important;
+    border-color: var(--border) !important;
+    border-radius: 0.375rem !important;
+
+    &:focus {
+        border-color: var(--primary) !important;
+        outline: none !important;
+        box-shadow: 0 0 0 3px rgb(0 0 0 / 0.1) !important;
+    }
+
+    &::placeholder {
+        color: var(--muted-foreground) !important;
+    }
+}
+
+/* ECharts HTML tooltip styling (scoped via class returned in formatter) */
+.echarts-tooltip {
+    pointer-events: none;
+    display: inline-block;
+    background: var(--card);
+    color: var(--card-foreground);
+    border: 1px solid var(--primary);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    font-size: 0.875rem;
+    line-height: 1.2;
+    min-width: 140px;
+}
+
+/* Data/label do tooltip */
+.echarts-tooltip__date {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--card-foreground);
+  font-size: 0.95rem;
+}
+
+/* Container dos itens */
+.echarts-tooltip__items {
+  margin-bottom: 0.5rem;
+}
+
+/* Linha individual (label + valor) */
+.echarts-tooltip__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.echarts-tooltip__row:last-child {
+  margin-bottom: 0;
+}
+
+/* Label do item (ex: "Vendas", "Locações") */
+.echarts-tooltip__label {
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+/* Valor do item */
+.echarts-tooltip__item-value {
+  font-weight: 600;
+  color: var(--card-foreground);
+  text-align: right;
+}
+
+/* Separador entre itens e total */
+.echarts-tooltip__separator {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 0;
+}
+
+/* Container do total */
+.echarts-tooltip__total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Label do total (ex: "Faturamento Total") */
+.echarts-tooltip__total-label {
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+/* Valor total (em destaque) */
+.echarts-tooltip__total-value {
+  font-weight: 700;
+}
+
+/* Dark mode tweaks rely on CSS variables, but increase contrast if needed */
+.dark .echarts-tooltip {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}

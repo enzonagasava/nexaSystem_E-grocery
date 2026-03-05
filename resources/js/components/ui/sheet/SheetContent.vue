@@ -16,6 +16,7 @@ import SheetOverlay from './SheetOverlay.vue'
 interface SheetContentProps extends DialogContentProps {
   class?: HTMLAttributes['class']
   side?: 'top' | 'right' | 'bottom' | 'left'
+  closeVariant?: 'modern' | 'legacy'
 }
 
 defineOptions({
@@ -24,12 +25,22 @@ defineOptions({
 
 const props = withDefaults(defineProps<SheetContentProps>(), {
   side: 'right',
+  closeVariant: 'modern',
 })
 const emits = defineEmits<DialogContentEmits>()
 
 const delegatedProps = reactiveOmit(props, 'class', 'side')
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
+
+import { computed } from 'vue'
+
+const closeClasses = computed(() => {
+  if (props.closeVariant === 'legacy') {
+    return 'ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none'
+  }
+  return 'absolute top-4 right-4 w-8 h-8 p-1 flex items-center justify-center transition-all duration-200 rounded-lg bg-muted hover:bg-primary/80 hover:scale-90 cursor-pointer ring-offset-background focus:ring-ring focus:outline-none'
+})
 </script>
 
 <template>
@@ -38,7 +49,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     <DialogContent
       data-slot="sheet-content"
       :class="cn(
-        'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
+        'bg-background p-5 data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-2 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
         side === 'right'
           && 'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm',
         side === 'left'
@@ -53,9 +64,9 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       <slot />
 
       <DialogClose
-        class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
+        :class="closeClasses"
       >
-        <X class="size-4" />
+        <X class="w-4 h-4" />
         <span class="sr-only">Close</span>
       </DialogClose>
     </DialogContent>

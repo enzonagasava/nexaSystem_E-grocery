@@ -42,7 +42,14 @@ export default defineConfig(({ command }) => {
       ? {
           host: '0.0.0.0',
           strictPort: true,
+          port: 5176,
           cors: true,
+          // Explicit CORS headers to allow requests from the Laravel dev origin
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
+          },
           hmr: {
             host: 'localhost',
           },

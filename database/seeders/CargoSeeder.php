@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -11,33 +10,40 @@ class CargoSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
-        // Desabilita as restrições de chave estrangeira
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-        // Trunca a tabela cargos
-        DB::table('cargos')->truncate();
-
-        // Reabilita as restrições
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        // Insere os dados
+        // Insere cargos com IDs EXPLÍCITOS (importante!)
         DB::table('cargos')->insert([
             [
-                'id' => 1,
+                'id' => 1, // ← ID 1 para admin
                 'nome' => 'admin',
                 'descricao' => 'Administrador do sistema',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => 2,
+                'id' => 2, // ← ID 2 para cliente
                 'nome' => 'cliente',
                 'descricao' => 'Usuário cliente',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 3, // ← ID 3 para vendedor
+                'nome' => 'vendedor',
+                'descricao' => 'Vendedor/Atendente',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 4, // ← ID 4 para gerente
+                'nome' => 'gerente',
+                'descricao' => 'Gerente de vendas',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
+
+        $this->command->info('Cargos seedados com sucesso: admin(1), cliente(2), vendedor(3), gerente(4)');
     }
 }

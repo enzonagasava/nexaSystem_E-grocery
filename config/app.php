@@ -123,4 +123,38 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'providers' => [        
+        Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Routing\RoutingServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class, 
+        App\Providers\AppServiceProvider::class,
+        // App\Providers\TenantSessionServiceProvider::class, // Removido - causava race condition com tenant
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+    ],
+
+    'aliases' => [
+        'Auth' => Illuminate\Support\Facades\Auth::class,
+        'Cookie' => Illuminate\Support\Facades\Cookie::class,
+        'DB' => Illuminate\Support\Facades\DB::class,
+        'Log' => Illuminate\Support\Facades\Log::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+        'File' => Illuminate\Support\Facades\File::class,
+    ],
+
 ];

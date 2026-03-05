@@ -13,9 +13,9 @@ const isOpen = ref(!!props.openByDefault)
 
 <template>
     <div class="w-full">
-    <button
+    <Button
       @click="isOpen = !isOpen"
-      class="flex w-full items-center justify-between rounded px-2 py-2 text-white hover:bg-gray-700 transition"
+      class="flex w-full items-center justify-between rounded px-2 py-2 hover:bg-purple-900 transition"
     >
       <span class="flex items-center gap-2">
         <component :is="icon" class="w-4 h-4" />

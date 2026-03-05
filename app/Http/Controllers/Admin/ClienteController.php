@@ -18,22 +18,22 @@ class ClienteController extends Controller
             return $cliente;
         });
 
-        return Inertia::render('admin/clientes/Clientes', [
+        return Inertia::render('admin/ecommerce/clientes/Clientes', [
             'clientes' => $clientes
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('admin/clientes/AdicionarClientes');
+        return Inertia::render('admin/ecommerce/clientes/AdicionarClientes');
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'nullable|string|email|max:255|unique:clientes',
-            'numero' => 'required|string|max:20|unique:clientes',
+            'email' => 'nullable|string|email|max:255|unique:tenant_content.clientes',
+            'numero' => 'required|string|max:20|unique:tenant_content.clientes',
             'cep' => 'nullable|string|max:10',
             'endereco' => 'nullable|string|max:255',
             'numero_endereco' => 'nullable|string|max:10',
@@ -43,13 +43,13 @@ class ClienteController extends Controller
 
         Cliente::create($validated);
 
-        return Inertia::location(route('clientes.index'));
+        return Inertia::location(route('admin.ecommerce.clientes.index'));
     }
 
     public function edit($id){
         $cliente = Cliente::findOrFail($id);
 
-        return Inertia::render('admin/clientes/EditarClientes', [
+        return Inertia::render('admin/ecommerce/clientes/EditarClientes', [
             'cliente' => $cliente
         ]);
     }
@@ -60,8 +60,8 @@ class ClienteController extends Controller
 
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => 'nullable|string|email|max:255|unique:clientes,email,' . $id,
-            'numero' => 'required|string|max:20|unique:clientes,numero,' . $id,
+            'email' => 'nullable|string|email|max:255|unique:tenant_content.clientes,email,' . $id,
+            'numero' => 'required|string|max:20|unique:tenant_content.clientes,numero,' . $id,
             'cep' => 'nullable|string|max:10',
             'endereco' => 'nullable|string|max:255',
             'numero_endereco' => 'nullable|string|max:10',
@@ -71,14 +71,14 @@ class ClienteController extends Controller
 
         $cliente->update($validated);
 
-        return Inertia::location(route('clientes.index'));
+        return Inertia::location(route('admin.ecommerce.clientes.index'));
     }
 
     public function destroy($id){
         $cliente = Cliente::findOrFail($id);
         $cliente->delete();
 
-        return Inertia::location(route('clientes.index'));
+        return Inertia::location(route('admin.ecommerce.clientes.index'));
     }
 
     public function buscar(Request $request)

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
+use Illuminate\Support\Facades\Auth;
+
 
 class HandleInertiaRequests extends Middleware
 {
@@ -42,12 +44,25 @@ class HandleInertiaRequests extends Middleware
         $cart = $request->session()->get('cart', []);
         $cartQuantity = array_sum(array_column($cart, 'quantidade'));
 
+        $user = $request->user();
+
+        $canAll = $user && $user->cargo_id === 1 && !$user->empresa_id;
+        $painelId = $request->session()->get('painel_ativo_id')
+            ?? ($user?->empresa?->tipo_painel_id);
+        $permissoes = ($user && !$canAll && $painelId)
+            ? $user->getPermissoesDoPainel($painelId)
+            : [];
+
+        
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
-                        'user' => $request->user() ? $request->user()->only('id', 'name', 'email', 'numero', 'cargo_id') : null,
+                'user' => $user,
+                'canAll' => $canAll,
+                'permissoes' => $permissoes,
             ],
             'ziggy' => [
                 ...(new Ziggy)->toArray(),

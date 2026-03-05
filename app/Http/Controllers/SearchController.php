@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Cliente;
 use App\Models\Produto;
+use App\Models\Paciente;
 
 class SearchController extends Controller
 {
@@ -63,4 +65,29 @@ class SearchController extends Controller
           });
       }
 
+      public function buscarPaciente(Request $request)
+      {
+          $search = trim($request->query('search', ''));
+          $empresaId = Auth::user()->empresa_id;
+
+          if ($search === '' || !$empresaId) {
+              return response()->json([]);
+          }
+
+          $key = 'pacientes_busca_' . $empresaId . '_' . md5($search);
+
+          return Cache::remember($key, now()->addSeconds(15), function () use ($search, $empresaId) {
+              return Paciente::select('id', 'nome', 'telefone', 'cpf', 'email')
+                  ->where('empresa_id', $empresaId)
+                  ->where(function ($query) use ($search) {
+                      $query->where('nome', 'like', "%{$search}%")
+                            ->orWhere('cpf', 'like', "%{$search}%")
+                            ->orWhere('telefone', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                  })
+                  ->orderBy('nome')
+                  ->limit(10)
+                  ->get();
+          });
+      }
 }

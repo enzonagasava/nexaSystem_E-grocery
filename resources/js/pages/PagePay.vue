@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import PaymentDetails from '@/components/app/payment/PaymentDetails.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import PaymentDetails from '@/components/app/payment/PaymentDetails.vue';
 
 interface CartProps {
-  cart: Record<string, any>;
+    cart: Record<string, any>;
 }
 
 const page = usePage<CartProps>();
@@ -17,6 +17,6 @@ const cart = page.props.cart;
         <meta name="description" content="Produtos da Família Mogi" />
     </Head>
     <AppLayout>
-        <PaymentDetails :cart="cart"/>
+        <PaymentDetails :cart="cart" />
     </AppLayout>
 </template>

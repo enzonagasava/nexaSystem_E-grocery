@@ -23,7 +23,7 @@ const handleSelectPortion = (portionNome: string) => {
 </script>
 
 <template>
-  <button
+  <Button
     v-for="(portion, index) in tamanhosArray"
     :key="index"
     @click="handleSelectPortion(portion.nome)"

@@ -10,10 +10,12 @@ use MercadoPago\Exceptions\MPApiException;
 use App\Models\GerenciarPedido;
 use App\Models\IntegracaoPagamento;
 use App\Models\Cliente;
+use App\Models\Produto;
+use App\Models\Pedido;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use MercadoPago\Client\Payment\PaymentClient;
-
+use App\Services\MercadoPagoService;
 
 
 
@@ -23,69 +25,100 @@ class CheckoutController extends Controller
     {
         try {
 
-            $keys = IntegracaoPagamento::first();
+            $integracao = IntegracaoPagamento::first();
 
-            if (!$keys) {
-                return response()->json(['error' => 'Configuração Mercado Pago não encontrada'], 500);
+            if (
+                !$integracao ||
+                !$integracao->public_key ||
+                !$integracao->access_token
+            ) {
+                return response()->json([
+                    'error' => 'Credenciais Mercado Pago inválidas'
+                ], 500);
             }
 
-            MercadoPagoConfig::setAccessToken($keys->access_key);
+            MercadoPagoConfig::setAccessToken($integracao->access_token);
 
             $client = new PreferenceClient();
 
             $preference = $client->create([
-                "items" => [
-                    [
-                        "id" => uniqid(),
-                        "title" => $request->items[0]['title'],
-                        "quantity" => 1,
-                        "unit_price" => (float) $request->price,
-                        "currency_id" => "BRL",
-                    ]
-                ],
+                "items" => collect($request->items)->map(fn ($item) => [
+                    "id" => $item['id'] ?? uniqid(),
+                    "title" => $item['title'],
+                    "quantity" => $item['quantity'],
+                    "unit_price" => (float) $item['unit_price'],
+                    "currency_id" => "BRL",
+                ])->toArray(),
+
                 "payer" => [
-                    "name" => $request->name,
+                    "name"  => $request->name,
                     "email" => $request->email,
                     "phone" => [
-                        "number"=> $request->phone
-                      ],
-                    "address"=> [
-                        "street_name"=> $request->street_name,
-                      ],
+                        "area_code" => "11",
+                        "number" => $request->phone
+                    ],
+                    "address" => [
+                        "street_name" => $request->street_name,
+                    ],
                 ],
                 "metadata" => [
-                    "customer_name" => $request->name,
+                    "customer_name"  => $request->name,
                     "customer_email" => $request->email,
-                    "price" => $request->price,
-                    "device_id" => $request->device_id,
+                    "price"          => $request->price,
                 ],
-                "payment_methods" => [ "installments" => 12, ],
+
+                "payment_methods" => [
+                    "installments" => 12,
+                ],
+                "notification_url" => route('checkout.webhook'),
+
                 "back_urls" => [
-                    "success" => "https://developfamiliamogi.eyiservicos.com.br/checkout/sucesso",
-                    "failure" => "https://developfamiliamogi.eyiservicos.com.br/checkout/falha",
-                    "pending" => "https://developfamiliamogi.eyiservicos.com.br/checkout/pendentes",
-                ],
-                "auto_return" => "approved",
+                    "success" => route('checkout.sucesso'),
+                    "failure" => route('checkout.falha'),
+                    "pending" => route('checkout.pendentes'),
+                ]
             ]);
+
+
+             $initPoint = $preference->sandbox_init_point ?? $preference->init_point;
+        
+        // Garantir que é sandbox (se estiver testando)
+        if (str_contains($integracao->access_token, 'TEST-') && 
+            !str_contains($initPoint, 'sandbox.')) {
+            $initPoint = str_replace(
+                'mercadopago.com.br',
+                'sandbox.mercadopago.com.br',
+                $initPoint
+            );
+        }
+
 
             return response()->json([
                 "preference_id" => $preference->id,
-                "init_point" => $preference->init_point,
-                "sandbox_init_point" => $preference->sandbox_init_point,
+                "init_point" => $initPoint,
             ]);
 
-        } catch (MPApiException $e) {
+
+        } catch (\Throwable $e) {
+
+            Log::error('Erro checkout', [
+                'error' => $e->getMessage(),
+            ]);
+
             return response()->json([
-                "message" => "Erro Mercado Pago",
-                "error_raw" => $e->getMessage(),
+                'error' => 'Erro ao processar pagamento',
             ], 500);
         }
     }
 
-
    public function webhook(Request $request)
     {
         try {
+            Log::info("Webhook recebido", $request->all());
+
+            $integracao = IntegracaoPagamento::firstOrFail();
+            new MercadoPagoService($integracao);
+
             Log::info("Webhook recebido", $request->all());
 
             $topic = $request->get('type') ?? $request->get('topic');
@@ -94,28 +127,17 @@ class CheckoutController extends Controller
                 return response()->json(['status' => 'ignored'], 200);
             }
 
-            $data = $request->get('data');
-            if (is_string($data)) {
-                $data = json_decode($data, true);
+            $paymentId = data_get($request->get('data'), 'id');
+
+            if (!$paymentId) {
+                return response()->json(['error' => 'invalid payment id'], 400);
             }
 
-            if (!isset($data['id'])) {
-                Log::error("Webhook sem payment ID", $request->all());
-                return response()->json(['error' => 'invalid data'], 400);
-            }
-
-            $paymentId = $data['id'];
-
-            // Buscar pagamento
-            $client = new PaymentClient();
+            $client  = new PaymentClient();
             $payment = $client->get($paymentId);
 
-            if (!$payment) {
-                return response()->json(['error' => 'payment not found'], 404);
-            }
-
-            if ($payment->status !== "approved") {
-                return response()->json(['status' => 'Pagamento não aprovado'], 200);
+            if ($payment->status !== 'approved') {
+                return response()->json(['status' => 'not approved'], 200);
             }
 
             $meta = (array) $payment->metadata;
@@ -202,21 +224,14 @@ class CheckoutController extends Controller
 
             return response()->json(['status' => 'Pedido criado'], 200);
 
-        } catch (\Exception $e) {
+         } catch (\Throwable $e) {
 
-            Log::error("Erro no webhook", [
-                "msg" => $e->getMessage(),
-                "trace" => $e->getTraceAsString()
-            ]);
+        Log::error("Erro webhook", [
+            "msg" => $e->getMessage(),
+        ]);
 
-            return response()->json([
-                "error" => $e->getMessage()
-            ], 500);
-        }
+        return response()->json(['error' => 'Webhook error'], 500);
+        } 
     }
 
-    public function getKeys()
-    {
-    return IntegracaoPagamento::first();
-    }
 }
