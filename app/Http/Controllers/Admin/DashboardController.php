@@ -112,8 +112,13 @@ class DashboardController extends Controller
             $driver = DB::getDriverName();
 
             $groupConcat = $driver === 'sqlite'
+<<<<<<< HEAD
                 ? 'STRING_AGG(produtos.nome, ", ")'
                 : "STRING_AGG(produtos.nome::text, ', ')";
+=======
+                ? 'GROUP_CONCAT(produtos.nome, ", ")'
+                : 'GROUP_CONCAT(produtos.nome SEPARATOR ", ")';
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
             $historicoCompras = Pedido::join('produtos', 'pedidos.produto_id', '=', 'produtos.id')
                 ->join('gerenciar_pedidos', 'pedidos.cod_pedido', '=', 'gerenciar_pedidos.cod_pedido')
@@ -164,6 +169,7 @@ class DashboardController extends Controller
             'periodoClientes' => (string) $periodoClientes
         ]);
     }
+<<<<<<< HEAD
 
     public function dashboardRota()
     {
@@ -172,4 +178,6 @@ class DashboardController extends Controller
 
         return Inertia::location(route($dashboardRoute));
     }
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 }

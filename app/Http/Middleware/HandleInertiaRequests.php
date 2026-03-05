@@ -45,6 +45,7 @@ class HandleInertiaRequests extends Middleware
         $cartQuantity = array_sum(array_column($cart, 'quantidade'));
 
         $user = $request->user();
+<<<<<<< HEAD
 
         $canAll = $user && $user->cargo_id === 1 && !$user->empresa_id;
         $painelId = $request->session()->get('painel_ativo_id')
@@ -54,15 +55,50 @@ class HandleInertiaRequests extends Middleware
             : [];
 
         
+=======
+        $userData = null;
+        $empresaData = null;
+
+        if ($user) {
+            // Carregar empresa se não carregada
+            if (!$user->relationLoaded('empresa')) {
+                $user->load('empresa');
+            }
+
+            $userData = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'numero' => $user->numero,
+                'cargo_id' => $user->cargo_id,
+                'empresa_id' => $user->empresa_id,
+                'tipo_empresa' => $user->empresa?->tipo?->value,
+            ];
+
+            if ($user->empresa) {
+                $empresaData = [
+                    'id' => $user->empresa->id,
+                    'nome' => $user->empresa->nome,
+                    'tipo' => $user->empresa->tipo?->value,
+                    'tipo_label' => $user->empresa->tipo?->label(),
+                ];
+            }
+        }
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
+<<<<<<< HEAD
                 'user' => $user,
                 'canAll' => $canAll,
                 'permissoes' => $permissoes,
+=======
+                'user' => $userData,
+                'empresa' => $empresaData,
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             ],
             'ziggy' => [
                 ...(new Ziggy)->toArray(),

@@ -8,7 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+<<<<<<< HEAD
         Schema::create('pacientes', function (Blueprint $table) {
+=======
+        Schema::connection('content')->create('pacientes', function (Blueprint $table) {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             $table->id();
             $table->foreignId('empresa_id')->constrained('empresas')->cascadeOnDelete();
             $table->string('nome');
@@ -35,6 +39,10 @@ return new class extends Migration
 
     public function down(): void
     {
+<<<<<<< HEAD
         Schema::dropIfExists('pacientes');
+=======
+        Schema::connection('content')->dropIfExists('pacientes');
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 };

@@ -16,7 +16,11 @@ class PedidosStoreRequest extends FormRequest
     {
         return [
             // --- Cliente ---
+<<<<<<< HEAD
             'clienteSelecionado.id' => ['required', 'integer', 'exists:tenant_content.clientes,id'],
+=======
+            'clienteSelecionado.id' => ['required', 'integer', 'exists:content.clientes,id'],
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             'clienteSelecionado.nome' => ['required', 'string', 'max:255'],
             'clienteSelecionado.email' => ['nullable', 'email', 'max:255'],
             'clienteSelecionado.numero' => ['nullable', 'string', 'max:20'],
@@ -33,7 +37,11 @@ class PedidosStoreRequest extends FormRequest
 
             // --- Produtos ---
             'produtos' => ['required', 'array', 'min:1'],
+<<<<<<< HEAD
             'produtos.*.id' => ['required', 'integer', 'exists:tenant_content.produtos,id'],
+=======
+            'produtos.*.id' => ['required', 'integer', 'exists:content.produtos,id'],
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             'produtos.*.quantidade' => ['required', 'numeric', 'min:1'],
             'produtos.*.valor' => ['required', 'numeric', 'min:0'],
 

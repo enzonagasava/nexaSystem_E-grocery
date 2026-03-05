@@ -1,4 +1,5 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import { Button } from '@/components/ui/button';
 
 defineProps({
@@ -6,6 +7,13 @@ defineProps({
     imagemModal: String,
 });
 
+=======
+defineProps({
+    imagensParaRenderizar: Array,
+    imagemModal: String,
+});
+
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 defineEmits(['onFilesChange', 'removerImagem', 'abrirModal', 'fecharModal']);
 </script>
 
@@ -43,13 +51,21 @@ defineEmits(['onFilesChange', 'removerImagem', 'abrirModal', 'fecharModal']);
 
         <div v-if="imagemModal" @click.self="$emit('fecharModal')" class="bg-opacity-70 fixed inset-0 z-50 flex items-center justify-center bg-black">
             <div class="relative max-h-[80vh] max-w-3xl">
+<<<<<<< HEAD
                 <Button
+=======
+                <button
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                     @click="$emit('fecharModal')"
                     class="bg-opacity-50 hover:bg-opacity-80 absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black text-xl font-bold text-white"
                     title="Fechar"
                 >
                     ×
+<<<<<<< HEAD
                 </Button>
+=======
+                </button>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 <img :src="imagemModal" alt="Imagem ampliada" class="max-h-[80vh] max-w-full rounded" />
             </div>
         </div>

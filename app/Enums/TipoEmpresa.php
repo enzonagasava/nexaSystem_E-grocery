@@ -4,9 +4,14 @@ namespace App\Enums;
 
 enum TipoEmpresa: string
 {
+<<<<<<< HEAD
     case ecommerce = 'CRM Ecommerce';
     case clinica = 'CRM Clínica';
     case corretor = 'CRM Imobiliário';
+=======
+    case Ecommerce = 'ecommerce';
+    case Clinica = 'clinica';
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
     /**
      * Retorna o label amigável para exibição.
@@ -14,6 +19,7 @@ enum TipoEmpresa: string
     public function label(): string
     {
         return match ($this) {
+<<<<<<< HEAD
             self::ecommerce => 'E-commerce',
             self::clinica => 'Clínica Médica',
             self::corretor => 'Corretor Imobiliário',
@@ -29,6 +35,10 @@ enum TipoEmpresa: string
             self::ecommerce => 'ecommerce',
             self::clinica => 'clinica',
             self::corretor => 'corretor',
+=======
+            self::Ecommerce => 'E-commerce',
+            self::Clinica => 'Clínica Médica',
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         };
     }
 
@@ -38,9 +48,14 @@ enum TipoEmpresa: string
     public function dashboardRoute(): string
     {
         return match ($this) {
+<<<<<<< HEAD
             self::ecommerce => 'admin.ecommerce.dashboard',
             self::clinica => 'admin.clinica.dashboard',
             self::corretor => 'admin.corretor.dashboard',
+=======
+            self::Ecommerce => 'admin.ecommerce.dashboard',
+            self::Clinica => 'admin.clinica.dashboard',
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         };
     }
 
@@ -50,17 +65,26 @@ enum TipoEmpresa: string
     public function routePrefix(): string
     {
         return match ($this) {
+<<<<<<< HEAD
             self::ecommerce => 'ecommerce',
             self::clinica => 'clinica',
             self::corretor => 'corretor',
         };
     }
+=======
+            self::Ecommerce => 'ecommerce',
+            self::Clinica => 'clinica',
+        };
+    }
+
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     /**
      * Retorna todos os tipos disponíveis como array para selects.
      */
     public static function toSelectArray(): array
     {
         return array_map(
+<<<<<<< HEAD
             fn(self $tipo) => [
                 'value' => $tipo->value, 
                 'label' => $tipo->label(),
@@ -96,3 +120,10 @@ enum TipoEmpresa: string
         return array_map(fn(self $tipo) => $tipo->value, self::cases());
     }
 }
+=======
+            fn(self $tipo) => ['value' => $tipo->value, 'label' => $tipo->label()],
+            self::cases()
+        );
+    }
+}
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f

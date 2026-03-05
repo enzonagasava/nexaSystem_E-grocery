@@ -28,8 +28,13 @@ services:
     environment:
       POSTGRES_PASSWORD: rootpassword123
     volumes:
+<<<<<<< HEAD
       - dbdata:/var/lib/postgresql
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
+=======
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 volumes:
   dbdata:

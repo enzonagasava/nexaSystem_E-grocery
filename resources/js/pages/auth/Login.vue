@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import LoginDetails from '@/components/LoginDetails.vue';
 import { Head } from '@inertiajs/vue3';
+<<<<<<< HEAD
 import ThemeToggle from '@/components/ui/theme/ThemeToggle.vue'
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 defineProps<{
     status?: string;
@@ -18,8 +21,11 @@ defineProps<{
         </div>
 
         <LoginDetails :canResetPassword="true" />
+<<<<<<< HEAD
         <div class="pt-2">
       <ThemeToggle />
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     </div>
     </div>
     

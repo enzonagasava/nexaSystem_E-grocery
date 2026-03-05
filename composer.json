@@ -10,7 +10,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+<<<<<<< HEAD
         "dedoc/scramble": "^0.13.14",
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         "google/apiclient": "^2.18",
         "guzzlehttp/guzzle": "^7.8",
         "illuminate/support": "*",
@@ -20,9 +23,12 @@
         "laravel/tinker": "^2.10.1",
         "mercadopago/dx-php": "3.7.1",
         "pusher/pusher-php-server": "^7.2",
+<<<<<<< HEAD
         "spatie/laravel-multitenancy": "^4.0",
         "spatie/laravel-package-tools": "^1.92",
         "stancl/tenancy": "^3.9",
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         "tightenco/ziggy": "^2.4",
         "tymon/jwt-auth": "^2.2"
     },

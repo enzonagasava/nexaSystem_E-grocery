@@ -14,6 +14,10 @@ class DashboardController extends Controller
     public function index(): Response
     {
         return Inertia::render('admin/clinica/Dashboard', [
+<<<<<<< HEAD
+=======
+            'modulo' => 'clinica',
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         ]);
     }
 }

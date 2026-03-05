@@ -48,7 +48,11 @@ const selectPortion = (slideId: number, portion: string) => {
                 }"
             >
                 <SwiperSlide v-for="produto in produtos" :key="produto.id">
+<<<<<<< HEAD
                     <div class="flex flex-col items-center rounded-lg  p-4 shadow-md">
+=======
+                    <div class="flex flex-col items-center rounded-lg bg-white p-4 shadow-md">
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                         <img
                             :src="produto.imageUrl"
                             :title="produto.nome"
@@ -74,8 +78,13 @@ const selectPortion = (slideId: number, portion: string) => {
 
                 <!-- Navegação personalizada -->
                 <template #container-end>
+<<<<<<< HEAD
                     <Button class="custom-swiper-prev nav-btn" aria-label="Anterior"><i class="fa-solid fa-angle-left"></i></button>
                     <Button class="custom-swiper-next nav-btn" aria-label="Próximo"><i class="fa-solid fa-angle-right"></i></button>
+=======
+                    <button class="custom-swiper-prev nav-btn" aria-label="Anterior"><i class="fa-solid fa-angle-left"></i></button>
+                    <button class="custom-swiper-next nav-btn" aria-label="Próximo"><i class="fa-solid fa-angle-right"></i></button>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 </template>
             </Swiper>
         </div>

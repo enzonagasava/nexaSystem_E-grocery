@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         if (!Schema::hasTable('produto_tamanho')) {
-            Schema::create('produto_tamanho', function (Blueprint $table) {
+            Schema::connection('content')->create('produto_tamanho', function (Blueprint $table) {
                 $table->foreignId('produto_id')->constrained()->onDelete('cascade');
                 $table->foreignId('tamanho_id')->constrained()->onDelete('cascade');
                 $table->decimal('preco', 8, 2);
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produto_tamanho');
+        Schema::connection('content')->dropIfExists('produto_tamanho');
     }
 };

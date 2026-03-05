@@ -9,7 +9,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+<<<<<<< HEAD
         Schema::create('integracoes_pagamento', function (Blueprint $table) {
+=======
+        Schema::connection('credentials')->create('integracoes_pagamento', function (Blueprint $table) {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             $table->id();
             $table->unsignedBigInteger('empresa_id')->nullable()->index();
 
@@ -36,6 +40,10 @@ return new class extends Migration
 
     public function down(): void
     {
+<<<<<<< HEAD
         Schema::dropIfExists('integracoes_pagamento');
+=======
+        Schema::connection('credentials')->dropIfExists('integracoes_pagamento');
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 };
