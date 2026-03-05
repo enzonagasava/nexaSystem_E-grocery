@@ -18,7 +18,11 @@ class PlataformaSeeder extends Seeder
         ];
 
         foreach ($plataformas as $plataforma) {
+<<<<<<< HEAD
             DB::table('plataforma_pedido')->insertOrIgnore($plataforma);
+=======
+            DB::connection('content')->table('plataforma_pedido')->insertOrIgnore($plataforma);
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         }
     }
 }

@@ -2,7 +2,10 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
 import { computed, ref } from 'vue';
+<<<<<<< HEAD
 import { Button } from '@/components/ui/button';
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 interface CartProps {
     cart: Record<string, any>;
@@ -145,7 +148,11 @@ function decrementQuantity(item: any) {
                     </Button>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="mt-8 flex h-64 items-center justify-center rounded-lg  p-6 text-center text-black">[Localização ou Mapa aqui]</div>
+=======
+            <div class="mt-8 flex h-64 items-center justify-center rounded-lg bg-white p-6 text-center text-black">[Localização ou Mapa aqui]</div>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             <Link
                 :href="route('payment.index')"
                 class="w-full rounded-md bg-green-600 px-6 py-2 font-semibold text-black transition duration-300 hover:bg-green-700 sm:w-auto"

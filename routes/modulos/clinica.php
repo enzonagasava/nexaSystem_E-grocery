@@ -1,7 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChatSettingsController;
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 use App\Http\Controllers\Admin\Clinica\DashboardController;
 use App\Http\Controllers\Admin\Clinica\PacienteController;
 use App\Http\Controllers\Admin\Clinica\ConsultaController;
@@ -9,7 +12,10 @@ use App\Http\Controllers\Admin\Clinica\ProntuarioController;
 use App\Http\Controllers\Admin\Clinica\AgendamentoController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use Inertia\Inertia;
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +31,7 @@ use Inertia\Inertia;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+<<<<<<< HEAD
 // Menu (lista de itens do sidebar)
 Route::get('menu', function () {
     return Inertia::render('admin/MenuIndex');
@@ -73,3 +80,25 @@ Route::middleware(['permissao:agenda.visualizar'])->group(function () {
     Route::put('/agendamentos/{agendamento}/status', [AgendamentoController::class, 'atualizarStatus'])->name('agendamentos.status');
     Route::resource('agendamentos', AgendamentoController::class);
 });
+=======
+// Buscar pacientes (autocomplete)
+Route::get('/pacientes/buscar', [SearchController::class, 'buscarPaciente'])->name('pacientes.buscar');
+
+// Pacientes
+Route::resource('pacientes', PacienteController::class);
+
+// Consultas - rotas adicionais
+Route::put('/consultas/{consulta}/status', [ConsultaController::class, 'atualizarStatus'])->name('consultas.status');
+
+// Consultas
+Route::resource('consultas', ConsultaController::class);
+
+// Prontuários
+Route::resource('prontuarios', ProntuarioController::class);
+
+// Agendamentos - rotas adicionais
+Route::put('/agendamentos/{agendamento}/status', [AgendamentoController::class, 'atualizarStatus'])->name('agendamentos.status');
+
+// Agendamentos
+Route::resource('agendamentos', AgendamentoController::class);
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f

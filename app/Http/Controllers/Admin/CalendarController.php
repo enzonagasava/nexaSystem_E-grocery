@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use App\Services\GoogleCalendarService;
 use Illuminate\Support\Facades\Log;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Cache;
 use App\Models\CalendarEvent;
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 class CalendarController extends Controller
 {
@@ -46,12 +49,26 @@ class CalendarController extends Controller
             $events = [];
         }
 
+<<<<<<< HEAD
         // delegate merging/formatting to the model (it will include DB and legacy cache)
         try {
             $events = CalendarEvent::mergeWithGoogle($events);
         } catch (\Throwable $e) {
             Log::warning('CalendarController::events - failed to merge local events: '.$e->getMessage());
             $events = [];
+=======
+        // if there are no events, return a harmless placeholder so the calendar shows something
+        if (empty($events)) {
+            $today = date('Y-m-d');
+            $events = [[
+                'id' => 'placeholder-1',
+                'summary' => 'Sem agendamentos — exemplo',
+                'start' => $today,
+                'end' => null,
+                'description' => 'Nenhum agendamento encontrado. Este é um exemplo local.',
+                'allDay' => true,
+            ]];
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         }
 
         return response()->json($events);
@@ -64,6 +81,7 @@ class CalendarController extends Controller
             'start' => 'required|date',
             'end' => 'nullable|date',
             'description' => 'nullable|string',
+<<<<<<< HEAD
             'label' => 'nullable|string',
             'labelColor' => 'nullable|string',
         ]);
@@ -98,6 +116,16 @@ class CalendarController extends Controller
                 Log::error('CalendarController::store - fallback store failed: '.$e2->getMessage());
                 return response()->json(['error' => 'Não foi possível criar o evento.'], 500);
             }
+=======
+        ]);
+        Log::info('CalendarController::store input', $data);
+        try {
+            $event = $this->gc->createEvent($data);
+            return response()->json($event, 201);
+        } catch (\Throwable $e) {
+            \Log::error('CalendarController::store - '.$e->getMessage());
+            return response()->json(['error' => 'Não foi possível criar o evento.'], 500);
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         }
     }
 
@@ -108,6 +136,7 @@ class CalendarController extends Controller
             'start' => 'required|date',
             'end' => 'nullable|date',
             'description' => 'nullable|string',
+<<<<<<< HEAD
             'label' => 'nullable|string',
             'labelColor' => 'nullable|string',
         ]);
@@ -126,6 +155,14 @@ class CalendarController extends Controller
             return response()->json($res['localEvent']->toCalendarApiFormat());
         } catch (\Throwable $ex) {
             Log::error('CalendarController::update - fallback update failed: '.$ex->getMessage());
+=======
+        ]);
+        try {
+            $event = $this->gc->updateEvent($id, $data);
+            return response()->json($event);
+        } catch (\Throwable $e) {
+            \Log::error('CalendarController::update - '.$e->getMessage());
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             return response()->json(['error' => 'Não foi possível atualizar o evento.'], 500);
         }
     }
@@ -133,6 +170,7 @@ class CalendarController extends Controller
     public function destroy($id)
     {
         try {
+<<<<<<< HEAD
             $ok = CalendarEvent::deleteById($id, $this->gc);
             if ($ok) {
                 return response()->json(['deleted' => true]);
@@ -141,6 +179,12 @@ class CalendarController extends Controller
             return response()->json(['error' => 'Não foi possível excluir o evento.'], 500);
         } catch (\Throwable $ex) {
             Log::error('CalendarController::destroy - fallback delete failed: '.$ex->getMessage());
+=======
+            $this->gc->deleteEvent($id);
+            return response()->json(['deleted' => true]);
+        } catch (\Throwable $e) {
+            \Log::error('CalendarController::destroy - '.$e->getMessage());
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             return response()->json(['error' => 'Não foi possível excluir o evento.'], 500);
         }
     }

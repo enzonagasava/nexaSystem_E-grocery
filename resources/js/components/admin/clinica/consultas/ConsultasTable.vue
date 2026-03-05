@@ -37,7 +37,11 @@ function getStatusClass(status: string): string {
         case 'cancelada':
             return 'bg-red-100 text-red-800';
         default:
+<<<<<<< HEAD
             return ' text-gray-800';
+=======
+            return 'bg-gray-100 text-gray-800';
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 }
 
@@ -67,6 +71,7 @@ function getStatusLabel(status: string): string {
 
     <!-- Filtros de Status -->
     <div class="mb-6 flex gap-2">
+<<<<<<< HEAD
         <Button
             @click="filtrarPorStatus('todas')"
             :class="[
@@ -77,6 +82,18 @@ function getStatusLabel(status: string): string {
             Todas
         </Button>
         <Button
+=======
+        <button
+            @click="filtrarPorStatus('todas')"
+            :class="[
+                'px-4 py-2 rounded-lg text-sm font-medium transition',
+                statusFiltro === 'todas' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            ]"
+        >
+            Todas
+        </button>
+        <button
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             @click="filtrarPorStatus('agendada')"
             :class="[
                 'px-4 py-2 rounded-lg text-sm font-medium transition',
@@ -84,8 +101,13 @@ function getStatusLabel(status: string): string {
             ]"
         >
             Agendadas
+<<<<<<< HEAD
         </Button>
         <Button
+=======
+        </button>
+        <button
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             @click="filtrarPorStatus('em-andamento')"
             :class="[
                 'px-4 py-2 rounded-lg text-sm font-medium transition',
@@ -93,8 +115,13 @@ function getStatusLabel(status: string): string {
             ]"
         >
             Em Andamento
+<<<<<<< HEAD
         </Button>
         <Button
+=======
+        </button>
+        <button
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             @click="filtrarPorStatus('realizada')"
             :class="[
                 'px-4 py-2 rounded-lg text-sm font-medium transition',
@@ -102,8 +129,13 @@ function getStatusLabel(status: string): string {
             ]"
         >
             Realizadas
+<<<<<<< HEAD
         </Button>
         <Button
+=======
+        </button>
+        <button
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             @click="filtrarPorStatus('cancelada')"
             :class="[
                 'px-4 py-2 rounded-lg text-sm font-medium transition',
@@ -111,11 +143,19 @@ function getStatusLabel(status: string): string {
             ]"
         >
             Canceladas
+<<<<<<< HEAD
         </Button>
     </div>
 
     <div class="overflow-x-auto">
         <table class="min-w-full ">
+=======
+        </button>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-center text-xs font-medium tracking-wider text-gray-500 uppercase">Id</th>

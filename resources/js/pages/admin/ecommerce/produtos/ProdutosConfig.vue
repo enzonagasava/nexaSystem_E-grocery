@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import AuthLayout from '@/layouts/AuthLayout.vue';
+<<<<<<< HEAD:resources/js/pages/admin/ecommerce/produtos/ProdutosConfig.vue
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
+=======
+import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f:resources/js/pages/admin/produtosConfig/ProdutosConfig.vue
 import { ref } from 'vue';
 
 const page = usePage();
@@ -8,11 +13,17 @@ const products = ref(Array.isArray(page.props.products) ? page.props.products : 
 
 const deleteProduct = (productId: number) => {
     if (confirm(`Tem certeza de que deseja excluir o produto ID: ${productId}?`)) {
+<<<<<<< HEAD:resources/js/pages/admin/ecommerce/produtos/ProdutosConfig.vue
         router.delete(route('admin.ecommerce.produtos.destroy', productId), {
             onSuccess: () => {
                 products.value = products.value.filter((p: { id: number }) => p.id !== productId);
             },
         });
+=======
+        alert(`Excluindo o produto ID: ${productId}`);
+        Inertia.delete(`/produtos/delete-produto/${productId}`, {});
+        products.value = products.value.filter((p) => p.id !== productId);
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f:resources/js/pages/admin/produtosConfig/ProdutosConfig.vue
     }
 };
 </script>
@@ -30,7 +41,11 @@ const deleteProduct = (productId: number) => {
                         <div class="mb-6 flex items-center justify-between">
                             <h1 class="text-2xl font-bold text-gray-800">Gerenciar Produtos</h1>
                             <Link
+<<<<<<< HEAD:resources/js/pages/admin/ecommerce/produtos/ProdutosConfig.vue
                                 :href="route('admin.ecommerce.produtos.create')"
+=======
+                                :href="route('produtos.create')"
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f:resources/js/pages/admin/produtosConfig/ProdutosConfig.vue
                                 class="focus:ring-opacity-50 rounded-md bg-green-600 px-4 py-2 text-white transition duration-150 ease-in-out hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none"
                             >
                                 + Adicionar Novo Produto

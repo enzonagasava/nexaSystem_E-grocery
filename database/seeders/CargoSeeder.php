@@ -12,8 +12,22 @@ class CargoSeeder extends Seeder
      */
     public function run(): void
     {
+<<<<<<< HEAD
         // Insere cargos com IDs EXPLÍCITOS (importante!)
         DB::table('cargos')->insert([
+=======
+        // Desabilita FK temporariamente (para evitar erros de ordem)
+        DB::connection('credentials')->statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // Trunca a tabela
+        DB::connection('credentials')->table('cargos')->truncate();
+
+        // Reabilita FK
+        DB::connection('credentials')->statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        // Insere cargos com IDs EXPLÍCITOS (importante!)
+        DB::connection('credentials')->table('cargos')->insert([
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             [
                 'id' => 1, // ← ID 1 para admin
                 'nome' => 'admin',

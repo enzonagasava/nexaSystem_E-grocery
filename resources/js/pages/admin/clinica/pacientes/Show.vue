@@ -16,8 +16,13 @@ const paciente = page.props.paciente as Paciente;
     <AuthLayout>
         <div class="py-12">
             <div class="mx-auto max-w-4xl sm:px-6 lg:px-8">
+<<<<<<< HEAD
                 <div class="overflow-hidden  shadow-sm sm:rounded-lg">
                     <div class="border-b border-gray-200  p-6">
+=======
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div class="border-b border-gray-200 bg-white p-6">
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                         <div class="mb-6 flex items-center justify-between">
                             <h2 class="text-2xl font-bold text-gray-800">Detalhes do Paciente</h2>
                             <div class="flex gap-3">

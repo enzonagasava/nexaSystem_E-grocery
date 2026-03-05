@@ -25,8 +25,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'gestor' => \App\Http\Middleware\GestorMiddleware::class,
             'cliente' => \App\Http\Middleware\ClienteMiddleware::class,
             'tipo' => \App\Http\Middleware\CheckTipoEmpresa::class,
+<<<<<<< HEAD
             'permissao' => \App\Http\Middleware\VerificarPermissao::class,
             'api.token' => \App\Http\Middleware\NexaVerifyApiToken::class,
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         ]);       
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 

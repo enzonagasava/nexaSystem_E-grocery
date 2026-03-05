@@ -32,8 +32,13 @@ class ClienteController extends Controller
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
+<<<<<<< HEAD
             'email' => 'nullable|string|email|max:255|unique:tenant_content.clientes',
             'numero' => 'required|string|max:20|unique:tenant_content.clientes',
+=======
+            'email' => 'nullable|string|email|max:255|unique:content.clientes',
+            'numero' => 'required|string|max:20|unique:content.clientes',
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             'cep' => 'nullable|string|max:10',
             'endereco' => 'nullable|string|max:255',
             'numero_endereco' => 'nullable|string|max:10',
@@ -60,8 +65,13 @@ class ClienteController extends Controller
 
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
+<<<<<<< HEAD
             'email' => 'nullable|string|email|max:255|unique:tenant_content.clientes,email,' . $id,
             'numero' => 'required|string|max:20|unique:tenant_content.clientes,numero,' . $id,
+=======
+            'email' => 'nullable|string|email|max:255|unique:content.clientes,email,' . $id,
+            'numero' => 'required|string|max:20|unique:content.clientes,numero,' . $id,
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             'cep' => 'nullable|string|max:10',
             'endereco' => 'nullable|string|max:255',
             'numero_endereco' => 'nullable|string|max:10',

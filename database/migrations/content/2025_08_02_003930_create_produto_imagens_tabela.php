@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+<<<<<<< HEAD
         Schema::create('produto_imagens', function (Blueprint $table) {
+=======
+        Schema::connection('content')->create('produto_imagens', function (Blueprint $table) {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             $table->id();
             $table->foreignId('produto_id')->constrained('produtos')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
@@ -26,6 +30,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+<<<<<<< HEAD
         Schema::dropIfExists('produto_imagens');
+=======
+        Schema::connection('content')->dropIfExists('produto_imagens');
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 };

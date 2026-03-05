@@ -186,8 +186,13 @@ const iniciarPagamento = async () => {
             <input id="Estado" v-model="localForm.Estado" type="text" required />
 
             <div class="flex h-auto gap-4">
+<<<<<<< HEAD
                 <Button type="submit">Finalizar Pagamento</button>
                 <Button type="button" @click="onWhatsapp">Pedir no WhatsApp</button>
+=======
+                <button type="submit">Finalizar Pagamento</button>
+                <button type="button" @click="onWhatsapp">Pedir no WhatsApp</button>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             </div>
         </form>
     </section>

@@ -42,7 +42,11 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // Carregar relacionamento empresa para determinar o tipo
+<<<<<<< HEAD
         $user->empresa;
+=======
+        $user->load('empresa');
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
         // Criar cookie HTTP-only com o token JWT
         $cookie = cookie(

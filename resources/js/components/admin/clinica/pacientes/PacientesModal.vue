@@ -37,8 +37,13 @@ const deletePaciente = (pacienteId: number) => {
 
 <template>
     <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center bg-black/10 backdrop-blur-xs" @click.self="close">
+<<<<<<< HEAD
         <div class="relative w-full max-w-lg rounded-lg border  p-6 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
             <Button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" @click="close">✕</Button>
+=======
+        <div class="relative w-full max-w-lg rounded-lg border bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+            <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" @click="close">✕</button>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
             <h2 class="mb-4 text-xl font-bold">Detalhes do Paciente</h2>
 

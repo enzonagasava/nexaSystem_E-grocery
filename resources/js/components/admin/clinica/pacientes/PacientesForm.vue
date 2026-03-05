@@ -5,7 +5,10 @@ import { router, Link } from '@inertiajs/vue3';
 import { vMaska } from 'maska/vue';
 import { reactive, watch } from 'vue';
 import type { Paciente } from '@/types';
+<<<<<<< HEAD
 import Select from '@/components/ui/select/Select.vue';
+=======
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 const props = defineProps<{
     paciente?: Paciente;
@@ -54,9 +57,15 @@ function handleSubmit() {
 </script>
 
 <template>
+<<<<<<< HEAD
     <div class="flex min-h-screen ">
         <main class="flex-1 p-10">
             <div class="mx-auto rounded  p-8 shadow">
+=======
+    <div class="flex min-h-screen bg-gray-100">
+        <main class="flex-1 p-10">
+            <div class="mx-auto rounded bg-white p-8 shadow">
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                 <HeadingSmall :title="isEditing ? 'Editar Paciente' : 'Adicionar Novo Paciente'" />
 
                 <form @submit.prevent="handleSubmit" class="grid gap-6">
@@ -102,7 +111,11 @@ function handleSubmit() {
                         <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
                             <div>
                                 <label for="sexo" class="mb-2 block font-semibold text-gray-700">Sexo</label>
+<<<<<<< HEAD
                                 <Select
+=======
+                                <select
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     id="sexo"
                                     v-model="form.sexo"
                                     class="w-full rounded border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
@@ -111,7 +124,11 @@ function handleSubmit() {
                                     <option value="masculino">Masculino</option>
                                     <option value="feminino">Feminino</option>
                                     <option value="outro">Outro</option>
+<<<<<<< HEAD
                                 </Select>
+=======
+                                </select>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                             </div>
 
                             <div>

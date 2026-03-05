@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         if (!Schema::hasTable('tamanhos')) {
-            Schema::create('tamanhos', function (Blueprint $table) {
+            Schema::connection('content')->create('tamanhos', function (Blueprint $table) {
                 $table->id();
                 $table->string('nome');
                 $table->timestamps();
@@ -25,6 +25,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+<<<<<<< HEAD
         Schema::dropIfExists('tamanhos');
+=======
+        Schema::connection('content')->dropIfExists('tamanhos');
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
     }
 };

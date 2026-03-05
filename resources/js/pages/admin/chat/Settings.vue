@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+<<<<<<< HEAD
 import { useForm, usePage } from '@inertiajs/vue3';
 import { Plus, Trash2 } from 'lucide-vue-next';
 import { ref, computed } from 'vue';
@@ -16,6 +17,11 @@ const chatRouteBase = computed(() => {
   if (m === 'corretor') return 'admin.corretor.chat'
   return 'admin.ecommerce.chat'
 })
+=======
+import { useForm } from '@inertiajs/vue3';
+import { Plus, Trash2 } from 'lucide-vue-next';
+import { ref } from 'vue';
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
 
 interface ConfiguracaoIa {
     id: number;
@@ -52,7 +58,11 @@ const configForm = useForm({
 });
 
 const submitConfig = () => {
+<<<<<<< HEAD
     configForm.put(route(`${chatRouteBase.value}.settings.config`), {
+=======
+    configForm.put(route('admin.chat.settings.config'), {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
         preserveScroll: true,
     });
 };
@@ -82,7 +92,11 @@ const openRespostaForm = (resposta?: RespostaRapida) => {
 
 const submitResposta = () => {
     if (editingResposta.value) {
+<<<<<<< HEAD
         respostaForm.put(route(`${chatRouteBase.value}.settings.respostas.update`, editingResposta.value.id), {
+=======
+        respostaForm.put(route('admin.chat.settings.respostas.update', editingResposta.value.id), {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             preserveScroll: true,
             onSuccess: () => {
                 showRespostaForm.value = false;
@@ -90,7 +104,11 @@ const submitResposta = () => {
             },
         });
     } else {
+<<<<<<< HEAD
         respostaForm.post(route(`${chatRouteBase.value}.settings.respostas.store`), {
+=======
+        respostaForm.post(route('admin.chat.settings.respostas.store'), {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             preserveScroll: true,
             onSuccess: () => {
                 showRespostaForm.value = false;
@@ -102,7 +120,11 @@ const submitResposta = () => {
 
 const deleteResposta = (id: number) => {
     if (confirm('Tem certeza que deseja excluir esta resposta rápida?')) {
+<<<<<<< HEAD
         useForm({}).delete(route(`${chatRouteBase.value}.settings.respostas.destroy`, id), {
+=======
+        useForm({}).delete(route('admin.chat.settings.respostas.destroy', id), {
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
             preserveScroll: true,
         });
     }
@@ -127,7 +149,11 @@ const deleteResposta = (id: number) => {
                                 <label class="relative inline-flex cursor-pointer items-center">
                                     <input type="checkbox" v-model="configForm.bot_ativo" class="peer sr-only" />
                                     <div
+<<<<<<< HEAD
                                         class="peer-focus:ring-4q peer h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-green-600 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after: after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"
+=======
+                                        class="peer-focus:ring-4q peer h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-green-600 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     ></div>
                                 </label>
                                 <span class="text-sm font-medium" :class="configForm.bot_ativo ? 'text-green-500' : 'text-gray-500'">
@@ -138,13 +164,21 @@ const deleteResposta = (id: number) => {
 
                         <div class="space-y-2">
                             <Label>Tom de Voz</Label>
+<<<<<<< HEAD
                             <Select
+=======
+                            <select
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                 v-model="configForm.tom_voz"
                                 class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                             >
                                 <option value="amigavel">Amigável</option>
                                 <option value="profissional">Profissional</option>
+<<<<<<< HEAD
                             </Select>
+=======
+                            </select>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                         </div>
 
                         <div class="space-y-2">
@@ -180,7 +214,11 @@ const deleteResposta = (id: number) => {
                             </div>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" v-model="configForm.bloquear_bot" class="sr-only peer">
+<<<<<<< HEAD
                                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after: after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+=======
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                             </label>
                         </div> -->
 
@@ -231,7 +269,11 @@ const deleteResposta = (id: number) => {
                                 <label class="relative inline-flex cursor-pointer items-center">
                                     <input type="checkbox" v-model="respostaForm.ativo" class="peer sr-only" />
                                     <div
+<<<<<<< HEAD
                                         class="peer h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-green-600 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after: after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"
+=======
+                                        class="peer h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-green-600 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                     ></div>
                                 </label>
                             </div>
@@ -249,7 +291,11 @@ const deleteResposta = (id: number) => {
                         <div v-for="resposta in respostasRapidas" :key="resposta.id" class="flex items-center justify-between rounded-lg border p-3">
                             <div class="flex-1">
                                 <div class="flex items-center gap-2">
+<<<<<<< HEAD
                                     <code class="rounded  px-2 py-1 font-mono text-sm">
+=======
+                                    <code class="rounded bg-gray-100 px-2 py-1 font-mono text-sm">
+>>>>>>> c7087f6c00cabafc1ea6f94cc62cb7d79852372f
                                         {{ resposta.atalho }}
                                     </code>
                                     <span v-if="!resposta.ativo" class="text-xs text-gray-500">(Inativo)</span>
